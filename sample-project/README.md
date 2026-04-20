@@ -37,19 +37,28 @@ sample-project/
 │   ├── rfp.md                          ← Client's RFP (from Meridian Corp)
 │   ├── estimation-sheet.md             ← Pre-sales scope estimate (Stratpoint)
 │   └── solutions-document-example.md   ← Example SA solutions doc (SA writes this on Day 3)
-└── starter-code/             ← Day 6: boilerplate Dev starts from
-    ├── app/
-    │   ├── api/
-    │   │   ├── leaves/       ← TODO: implement (LM-004, LM-005, LM-006)
-    │   │   └── balances/     ← TODO: implement (LM-003)
-    │   ├── (dashboard)/      ← TODO: UI pages
-    │   └── (auth)/login/     ← TODO: Supabase auth flow
-    ├── lib/
-    │   ├── supabase/         ← Client + server Supabase helpers (done)
-    │   └── types.ts          ← Shared TypeScript types (done)
-    ├── middleware.ts          ← Auth guard (done)
-    ├── supabase/migrations/  ← DB schema (done — run this first)
-    └── .env.local.example    ← Copy to .env.local and fill in values
+├── starter-code/             ← Day 6: boilerplate Dev starts from
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── leaves/       ← TODO: implement (LM-004, LM-005, LM-006)
+│   │   │   └── balances/     ← TODO: implement (LM-003)
+│   │   ├── (dashboard)/      ← TODO: UI pages
+│   │   └── (auth)/login/     ← TODO: Supabase auth flow
+│   ├── lib/
+│   │   ├── supabase/         ← Client + server Supabase helpers (done)
+│   │   └── types.ts          ← Shared TypeScript types (done)
+│   ├── middleware.ts          ← Auth guard (done)
+│   ├── supabase/migrations/  ← DB schema (done — run this first)
+│   └── .env.local.example    ← Copy to .env.local and fill in values
+└── taskflow/                 ← Complete reference implementation (Node.js + React)
+    ├── docs/
+    │   ├── artifacts/        ← BRD, PRD, Architecture Doc, Dev Tasks (completed examples)
+    │   ├── adrs/             ← Architecture Decision Records
+    │   └── training-props/   ← Trainer materials: buggy code, poisoned context, sample prompts
+    ├── backend/              ← Node.js + Express REST API (reference implementation)
+    ├── frontend/             ← React + Vite SPA (reference implementation)
+    ├── knowledge/            ← Prompts, agents, rules, and patterns used in training
+    └── .claude/CLAUDE.md     ← Project rules loaded into Claude Code
 ```
 
 ---
