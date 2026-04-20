@@ -1,0 +1,34 @@
+---
+description: General writing style rules for all business documents
+alwaysApply: true
+---
+
+# Writing Style Guidelines
+
+## Voice and Tone
+
+- Use **active voice** throughout. Say "We recommend X" not "X is recommended."
+- Lead with the conclusion or recommendation; provide supporting detail after.
+- Keep sentences under **25 words**. Break longer sentences into two.
+
+## Formatting and Structure
+
+- Use **bullet points** for lists of 3 or more items.
+- Include a **TL;DR** section at the top for any document longer than one page.
+- Follow this structure for all business documents:
+  1. **Context** - Why are we discussing this?
+  2. **Problem** - What needs to be solved?
+  3. **Recommendation** - What do we propose?
+  4. **Next Steps** - What happens now, by whom, and by when?
+
+## Clarity and Precision
+
+- Avoid jargon without defining it on first use.
+- Use **specific numbers** instead of vague qualifiers. Say "revenue increased 12%" not "revenue increased significantly."
+- Define acronyms on first use: "Key Performance Indicator (KPI)."
+
+## Quality Checks
+
+- Every document must answer: Who is the audience? What should they do after reading this?
+- Proofread for consistency in tense, terminology, and formatting.
+- Ensure all data has a cited source.

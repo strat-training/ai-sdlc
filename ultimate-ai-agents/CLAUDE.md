@@ -1,0 +1,43 @@
+# Project: Ultimate AI Agents
+
+## Commands
+npm run dev          # Start dev server
+npm run test         # Run tests
+npm run lint         # Lint check
+npm run build        # Production build
+
+## Architecture
+- Next.js 16+ with App Router, Server Components, Cache Components
+- React 19 with Server Actions
+- TypeScript strict mode
+- PostgreSQL via Prisma 6 ORM
+- tRPC for type-safe APIs
+- NextAuth.js v5 for authentication
+- Zod for runtime validation
+
+## Conventions
+- Use Zod for request validation in every handler
+- Return shape is always `{ data, error }`
+- Never expose stack traces or internal error details to clients
+- Use the logger module, not console.log
+- Prefer Server Components over Client Components
+- Use `"use client"` only when interactivity is needed
+
+## Code Style
+- TypeScript strict mode: no `any`, no unused imports
+- Use object parameters for functions with 3+ params
+- Single responsibility per function/component
+- ESLint with file-specific overrides (not directory-wide)
+- Accessibility: WCAG AA compliance
+
+## Testing
+- Vitest for unit/integration tests
+- Playwright for E2E tests
+- Tests use a real local DB, not mocks
+- Run `npm run db:test:reset` before test suites
+
+## Watch Out For
+- Strict TypeScript: no unused imports, ever
+- Never use `any` type — use `unknown` with type guards
+- Server Components cannot use hooks or browser APIs
+- Always validate environment variables at startup with Zod

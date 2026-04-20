@@ -1,0 +1,72 @@
+---
+description: Next.js 16+ App Router conventions and patterns
+globs: ["app/**/*.tsx", "app/**/*.ts"]
+alwaysApply: false
+---
+
+# Next.js 16+ Conventions
+
+## Server vs Client Components
+
+- **Default to Server Components** -- use `'use client'` only when needed (hooks, events, browser APIs)
+- Server Components for data fetching, backend resource access, sensitive information
+- Client Components only for event listeners, React hooks, browser APIs, interactive elements
+
+## App Router Patterns
+
+- Use `proxy.ts` instead of `middleware.ts` (deprecated in Next.js 16)
+- `params` and `searchParams` are async -- always `await` them
+- Async request APIs: `cookies()`, `headers()`, `draftMode()` must be awaited
+
+## Caching
+
+- Use `'use cache'` directive with `cacheLife()` for component-level caching
+- Use `updateTag()` for immediate cache invalidation
+- Use `revalidateTag()` for stale-while-revalidate
+- Use `refresh()` for non-cached data refresh
+
+## Data Fetching
+
+- Direct database/API access in Server Components without client-side fetching
+- Use `Promise.all()` for parallel independent queries -- avoid waterfalls
+- Use Prisma `include` to fetch relations in a single query instead of N+1
+- Add `error.tsx` for graceful error handling per route
+
+## Server Actions
+
+- Always validate inputs with Zod in Server Actions
+- Always check session/user authentication before mutations
+- Use `revalidatePath()` or `revalidateTag()` after mutations
+- Use `useFormState` and `useFormStatus` for progressive enhancement
+
+## Performance
+
+- Stream slow components with `<Suspense>` for better TTFB
+- Use `next/image` with `priority` for above-the-fold images
+- Enable React Compiler (`reactCompiler: true` in next.config.ts) for automatic memoization
+- Use dynamic imports for heavy client-only components
+
+## Project Structure
+
+```
+app/
+  (auth)/           # Route group for auth pages
+  (dashboard)/      # Route group for dashboard
+  api/              # API routes
+  actions/          # Server Actions
+components/
+  ui/               # shadcn/ui components
+  forms/            # Form components
+  providers/        # Context providers
+lib/
+  db.ts             # Database client
+  auth.ts           # Auth utilities
+  validations/      # Zod schemas
+```
+
+## Type Safety
+
+- Validate environment variables at startup with Zod
+- Type Server Action inputs and outputs
+- Use Prisma-generated types for database models
+- All files should be `.ts`/`.tsx`

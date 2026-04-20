@@ -1,0 +1,69 @@
+---
+description: React component conventions and UI patterns
+globs: ["components/**/*.tsx"]
+alwaysApply: false
+---
+
+# React Component Conventions
+
+## TypeScript
+
+- All component props must have explicit `interface` definitions
+- All event handlers must have proper types
+- Generic components must use proper TypeScript generics
+- Never use `any` for props -- define exact shapes
+
+```typescript
+interface ButtonProps {
+  onClick: () => void
+  children: React.ReactNode
+  variant?: 'default' | 'outline' | 'destructive'
+  disabled?: boolean
+}
+```
+
+## Component Design
+
+- Every component must handle all states: loading, error, empty, and data
+- All interactive elements must be keyboard accessible
+- All images must have alt text
+- All icon buttons must have `aria-label`
+- Color contrast must meet WCAG AA (4.5:1)
+- Focus indicators must be visible
+- Use semantic HTML (`<button>`, `<nav>`, `<main>`)
+
+## Styling
+
+- Use Tailwind CSS utilities, never inline styles
+- Use `cn()` utility for conditional class composition
+- Use `cva()` (class-variance-authority) for variant patterns
+- Use design tokens (CSS variables) for colors -- no hardcoded hex values in components
+- Mobile-first responsive design (start with mobile, enhance with `md:`, `lg:`)
+- Touch targets must be at least 44x44px
+- No horizontal scrolling on mobile
+
+## State Handling
+
+```typescript
+// Always handle all states
+if (isLoading) return <Skeleton />
+if (error) return <Alert variant="destructive">{error.message}</Alert>
+if (!data.length) return <EmptyState />
+return <DataList data={data} />
+```
+
+## Forms
+
+- Validate all inputs with Zod + `zodResolver` from `@hookform/resolvers`
+- Use `react-hook-form` for form state management
+- Display clear validation error messages
+- Show loading states during submission
+- Sanitize user input -- never use `dangerouslySetInnerHTML` without `DOMPurify`
+
+## Performance
+
+- Use `React.memo()` for expensive re-rendering components
+- Use `useMemo()` for expensive calculations
+- Use `useCallback()` for handlers passed to memoized children
+- Lazy load heavy components with `next/dynamic`
+- Avoid inline function definitions in JSX

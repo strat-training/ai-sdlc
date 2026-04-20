@@ -1,0 +1,26 @@
+# Windsurf
+
+## Installation
+
+Windsurf rules are installed by the default installer:
+
+```bash
+./install.sh
+```
+
+Rules are appended to:
+
+```
+.codeium/windsurf/memories/global_rules.md
+```
+
+## Marker-Based Installation
+
+The installer uses markers to manage the rules section. This means:
+
+- **Re-running the installer will not duplicate rules.** The installer detects existing markers and replaces the section in place.
+- **Uninstalling cleanly removes the section.** Only the marked block is removed; your own rules above or below are preserved.
+
+## How It Works
+
+The installer wraps all injected rules between start and end markers inside `global_rules.md`. Windsurf reads this file automatically and applies the rules to all AI-assisted interactions in your project.

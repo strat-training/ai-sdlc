@@ -1,0 +1,15 @@
+---
+description: Security rules that apply to all code
+alwaysApply: true
+---
+
+# Security Rules
+
+- Follow OWASP Top 10 protections
+- Never store secrets in code or settings.json -- use environment variables
+- Validate all user input with Zod at system boundaries
+- Use parameterized queries (Prisma handles this)
+- Implement proper CSRF protection
+- Set secure HTTP headers (Content-Security-Policy, etc.)
+- Use NextAuth.js v5 for authentication -- never roll custom auth
+- Apply principle of least privilege for API permissions

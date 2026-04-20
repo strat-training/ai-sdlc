@@ -1,0 +1,59 @@
+---
+description: Rules for project management documents: charters, status reports, retrospectives
+alwaysApply: false
+---
+
+# Project Management Documents
+
+## Status Reports
+
+- Use **Red/Amber/Green (RAG)** status indicators with clear, documented criteria:
+  - **Green:** On track, no blockers.
+  - **Amber:** At risk, mitigation in progress.
+  - **Red:** Off track, escalation needed.
+- Report on schedule, budget, scope, and quality dimensions separately.
+- Publish status reports on a consistent cadence.
+
+## Action Items and Decisions
+
+- Every action item must have an **owner** and a **due date**. No exceptions.
+- Record **decisions with rationale**, not just the outcome. Capture what was considered and why the chosen option won.
+- Track action items to completion; carry forward open items visibly.
+
+## Risk Management
+
+- Score risks using **likelihood x impact** matrix (e.g., 1-5 scale for each).
+- Include mitigation plans and risk owners for all medium and high risks.
+- Review and update the risk register at every status cycle.
+
+## Objectives and Goals
+
+- Use **SMART format** for all objectives: Specific, Measurable, Achievable, Relevant, Time-bound.
+- Link project objectives to broader organizational or strategic goals.
+
+## Meeting Minutes
+
+- Distribute meeting minutes **within 24 hours** of the meeting.
+- Include: attendees, key discussion points, decisions made, and action items.
+- Keep minutes concise; focus on outcomes, not transcript.
+
+## Project Charters
+
+- Define scope, objectives, stakeholders, timeline, budget, and success criteria.
+- Include what is explicitly **out of scope** to prevent scope creep.
+- Obtain sign-off from the sponsor before project kickoff.
+
+## Retrospectives
+
+- Structure around: What went well? What needs improvement? What will we change?
+- Convert improvement items into specific, assigned action items.
+- Track follow-through on retrospective actions in subsequent retrospectives.
+
+## Checklist
+
+- [ ] RAG status with defined criteria
+- [ ] All action items have owner + due date
+- [ ] Risks scored with likelihood x impact
+- [ ] Decisions include rationale
+- [ ] Meeting minutes distributed within 24 hours
+- [ ] Objectives in SMART format

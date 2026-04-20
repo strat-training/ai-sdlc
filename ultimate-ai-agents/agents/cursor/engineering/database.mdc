@@ -1,0 +1,68 @@
+---
+description: Database schema design and query conventions with Prisma/PostgreSQL
+globs: ["prisma/**", "src/server/**"]
+alwaysApply: false
+---
+
+# Database Conventions
+
+## Schema Design
+
+- Use meaningful model and field names
+- Use `cuid()` for primary key defaults
+- Always add `createdAt` (`@default(now())`) and `updatedAt` (`@updatedAt`) timestamps
+- Use `@@map("snake_case_table")` for table names
+- Use enums for fixed sets of values
+- Define proper relationships with cascading deletes where appropriate
+- Implement soft deletes (`deletedAt` field) when data should not be permanently removed
+
+## Indexing
+
+- Always index foreign key fields (`@@index([foreignKeyId])`)
+- Add composite indexes for commonly combined query filters
+- Index fields used in `where`, `orderBy`, or `unique` constraints
+- Use `@unique` for business-logic uniqueness (email, slug, username)
+
+## Query Patterns
+
+- Use `include` or `select` to fetch relations in a single query -- avoid N+1
+- Use `select` to fetch only required fields, not entire records
+- Use cursor-based pagination for large datasets (better than offset)
+- Use `Promise.all()` for parallel independent queries
+- Use transactions (`db.$transaction`) for related write operations
+
+```typescript
+// Good: Single query with relations
+const posts = await db.post.findMany({
+  select: {
+    id: true, title: true, slug: true,
+    author: { select: { name: true, image: true } },
+    _count: { select: { comments: true, likes: true } },
+  },
+  orderBy: { createdAt: 'desc' },
+  take: pageSize,
+  cursor: cursor ? { id: cursor } : undefined,
+  skip: cursor ? 1 : 0,
+})
+```
+
+## Prisma Client
+
+- Use singleton pattern with `globalThis` to prevent multiple instances in dev
+- Configure logging: `['query', 'error', 'warn']` in dev, `['error']` in prod
+- Use `directUrl` for migrations when using connection pooling
+
+## Migrations
+
+- Use `npx prisma migrate dev --name descriptive_name` in development
+- Use `npx prisma migrate deploy` in production
+- Add defaults when adding required fields to avoid migration failures
+- Never modify published migrations -- create new ones
+
+## Security
+
+- Prisma uses parameterized queries by default -- keep it that way
+- Never expose Prisma client to client-side code
+- Validate all user input with Zod before database operations
+- Use environment variables for connection strings
+- Implement row-level security when needed

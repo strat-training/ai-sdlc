@@ -1,0 +1,67 @@
+---
+description: Performance optimization rules for web applications
+globs: ["src/**/*.ts", "src/**/*.tsx", "app/**/*.ts", "app/**/*.tsx"]
+alwaysApply: false
+---
+
+# Performance Rules
+
+## Core Web Vitals Targets
+
+- **LCP** (Largest Contentful Paint): < 2.5s
+- **INP** (Interaction to Next Paint): < 200ms
+- **CLS** (Cumulative Layout Shift): < 0.1
+
+## Images
+
+- Always use `next/image`, never bare `<img>` tags
+- Set `priority` on above-the-fold images
+- Provide `width`/`height` or use `fill` with `sizes` to prevent layout shifts
+- Use `placeholder="blur"` for better perceived performance
+
+## Bundle Optimization
+
+- Import only what you need -- no full library imports (`lodash`, `date-fns`)
+- Use native JS methods when possible (`Set`, `Array.sort`, `structuredClone`)
+- Dynamic import heavy components with `next/dynamic` and `ssr: false` for client-only
+- Analyze bundles with `@next/bundle-analyzer` (`ANALYZE=true npm run build`)
+
+## Layout Shift Prevention
+
+- Always specify dimensions for images and media
+- Reserve space for dynamic content with `min-h-[]` or `<Skeleton>`
+- Use `aspect-ratio` for responsive media containers
+
+## Rendering
+
+- Default to Server Components -- minimize `'use client'` usage
+- Use `<Suspense>` to stream slow components in parallel
+- Use `useMemo` only for genuinely expensive computations
+- Use Web Workers for heavy computation to keep the main thread responsive
+- Defer non-critical scripts with `next/script` (`strategy="afterInteractive"` or `"lazyOnload"`)
+
+## Data Fetching
+
+- Fetch relations in a single query with Prisma `include`/`select` -- avoid N+1
+- Use `Promise.all()` for parallel independent queries
+- Use cursor-based pagination for large datasets
+- Select only required fields, not entire records
+- Deduplicate requests with React `cache()` within a render
+
+## Caching
+
+- Use `'use cache'` + `cacheLife()` for component-level caching
+- Use fetch `next: { revalidate }` for time-based revalidation
+- Use `revalidateTag()` / `revalidatePath()` for on-demand invalidation
+- Use `generateStaticParams()` for static page generation
+
+## Fonts
+
+- Use `next/font` with `display: 'swap'` to prevent FOIT
+- Define font as CSS variable and reference in Tailwind config
+
+## Monitoring
+
+- Track Core Web Vitals with `@vercel/analytics` or custom `reportWebVitals`
+- Monitor long tasks with `PerformanceObserver`
+- Set up error tracking (Sentry, Bugsnag)

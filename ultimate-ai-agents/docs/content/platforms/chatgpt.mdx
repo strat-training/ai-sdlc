@@ -1,0 +1,42 @@
+# ChatGPT
+
+## Option 1: Create a Custom GPT
+
+1. Go to [chat.openai.com](https://chat.openai.com) and navigate to **Explore GPTs** then **Create**.
+2. Open the **Configure** tab.
+3. Copy the contents of the desired agent file from `agents/chatgpt/<dept>/<agent>.md`.
+4. Paste into the **Instructions** field.
+5. Name your GPT and save.
+
+## Option 2: Custom Instructions
+
+For personal use without creating a GPT:
+
+1. Open ChatGPT **Settings** then **Personalization** then **Custom Instructions**.
+2. Copy the desired agent from `agents/chatgpt/<dept>/<agent>.md`.
+3. Paste into the instructions field.
+
+This applies the agent persona to all your conversations.
+
+## Option 3: Agent Browser
+
+1. Open `index.html` in your browser.
+2. Browse and select an agent.
+3. Choose **ChatGPT** as the target platform.
+4. Copy the generated instructions.
+5. Paste into your GPT or Custom Instructions.
+
+## Agent Files
+
+All ChatGPT agent sources are organized by department:
+
+```
+agents/chatgpt/
+  engineering/
+  sales/
+  marketing/
+  hr/
+  ...
+```
+
+Each `.md` file contains the full system prompt for one agent.

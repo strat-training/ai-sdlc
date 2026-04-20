@@ -1,0 +1,14 @@
+{
+  "index": "All Agents",
+  "engineering": "Engineering",
+  "product-design": "Product & Design",
+  "project-management": "Project Management",
+  "sales": "Sales",
+  "marketing": "Marketing",
+  "hr": "HR",
+  "l-and-d": "L&D",
+  "finance": "Finance",
+  "operations": "Operations",
+  "admin": "Admin",
+  "leadership": "Leadership"
+}

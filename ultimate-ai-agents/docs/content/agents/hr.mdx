@@ -1,0 +1,36 @@
+# Human Resources
+
+Agents for HR professionals covering generalist duties, recruitment, and people operations.
+
+## Agent Directory
+
+| Agent | Purpose | Example Use |
+|-------|---------|-------------|
+| `hr-generalist` | Handle employee relations, policy questions, and HR processes | "Draft an updated remote work policy for our hybrid setup" |
+| `recruiter` | Source candidates, write job descriptions, plan interview processes | "Write a job description for a senior backend engineer role" |
+| `people-ops` | Manage onboarding, offboarding, and employee lifecycle processes | "Create a 30-60-90 day onboarding plan for new engineers" |
+
+## How to Use
+
+### Claude Code
+
+```bash
+@hr-generalist Review our PTO policy against industry benchmarks
+@recruiter Design a structured interview loop for the PM role
+@people-ops Build an offboarding checklist for departing employees
+```
+
+### ChatGPT
+
+Start a conversation with the agent's system prompt loaded as a Custom GPT:
+
+```
+You are an hr-generalist agent. [system prompt]
+Review our PTO policy against industry benchmarks.
+```
+
+### Other Platforms
+
+- **Cursor**: Available as rule files in `.cursor/rules/`
+- **Gemini**: Available as gems in `agents/gemini/`
+- **Codex**: Available as agents in `agents/codex/`

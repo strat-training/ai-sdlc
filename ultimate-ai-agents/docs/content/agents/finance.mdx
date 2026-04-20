@@ -1,0 +1,34 @@
+# Finance
+
+Agents for finance teams covering financial analysis and procurement.
+
+## Agent Directory
+
+| Agent | Purpose | Example Use |
+|-------|---------|-------------|
+| `financial-analyst` | Build financial models, analyze budgets, forecast revenue | "Create a cost-benefit analysis for migrating to the new cloud provider" |
+| `procurement` | Manage vendor evaluation, contract negotiation, and purchasing processes | "Compare these three SaaS vendors on cost, features, and contract terms" |
+
+## How to Use
+
+### Claude Code
+
+```bash
+@financial-analyst Build a budget forecast for the engineering team next quarter
+@procurement Draft an RFP for a new CI/CD platform vendor
+```
+
+### ChatGPT
+
+Start a conversation with the agent's system prompt loaded as a Custom GPT:
+
+```
+You are a financial-analyst agent. [system prompt]
+Build a budget forecast for the engineering team next quarter.
+```
+
+### Other Platforms
+
+- **Cursor**: Available as rule files in `.cursor/rules/`
+- **Gemini**: Available as gems in `agents/gemini/`
+- **Codex**: Available as agents in `agents/codex/`

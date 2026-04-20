@@ -1,0 +1,11 @@
+# Default owners for everything
+* @stratpoint-engineering/platform-team
+
+# Agents — require review for any agent changes
+/agents/ @stratpoint-engineering/platform-team
+
+# Scripts — require review for installer/tooling changes
+/*.sh @stratpoint-engineering/platform-team
+
+# Docs
+/docs/ @stratpoint-engineering/platform-team

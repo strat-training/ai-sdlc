@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "youtrack": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "mcp-youtrack"],
+      "env": {
+        "YOUTRACK_URL": "${YOUTRACK_URL}",
+        "YOUTRACK_TOKEN": "${YOUTRACK_TOKEN}"
+      }
+    },
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    }
+  }
+}

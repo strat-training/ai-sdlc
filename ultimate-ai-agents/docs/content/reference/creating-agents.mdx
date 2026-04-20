@@ -1,0 +1,92 @@
+# Creating Agents
+
+Step-by-step guide to adding a new agent to the collection.
+
+## 1. Create the Source File
+
+Create a new Markdown file in the appropriate department folder:
+
+```bash
+agents/claude/<department>/agent-name.md
+```
+
+For example, to create a new engineering agent:
+
+```bash
+touch agents/claude/engineering/my-new-agent.md
+```
+
+## 2. Write the System Prompt
+
+Add YAML frontmatter and the system prompt body:
+
+```markdown
+---
+name: my-new-agent
+description: Helps with [specific task]. Trigger on [keywords].
+tools: Read, Write, Edit, Bash, Grep, Glob
+model: sonnet
+---
+
+You are a [role] specialist. You help engineers with [specific domain].
+
+## Guidelines
+- Be specific about what the agent should do
+- Include constraints and boundaries
+- Define the output format
+
+## Output Format
+- Use structured responses
+- Include code examples when relevant
+```
+
+Tips:
+- Keep the `description` concise but include keywords that help the system match user queries to this agent
+- Only list tools the agent actually needs
+- Write the system prompt in clear, direct language
+
+## 3. Generate Other Platform Formats
+
+Run the generation script to produce ChatGPT, Claude Projects, Codex, Cursor, and Gemini versions:
+
+```bash
+./generate-platforms.sh
+```
+
+This reads every file in `agents/claude/` and writes the corresponding files to `agents/chatgpt/`, `agents/claude-projects/`, `agents/codex/`, `agents/cursor/`, and `agents/gemini/`.
+
+## 4. Update the Agent Browser
+
+Regenerate the `index.html` agent browser so the new agent appears in the web UI:
+
+```bash
+./generate-browser.sh
+```
+
+## 5. Deploy Locally
+
+Sync the agents to your local project so Claude Code and Cursor can use them:
+
+```bash
+# Quick sync (Claude Code + Cursor only)
+./sync.sh
+
+# Or full install (all platforms, interactive)
+./install.sh
+```
+
+After syncing, the new agent is available immediately:
+
+```bash
+@my-new-agent Help me with this task
+```
+
+## Checklist
+
+- [ ] File created in `agents/claude/<department>/agent-name.md`
+- [ ] Frontmatter includes `name`, `description`, and `tools`
+- [ ] System prompt is clear, focused, and under 2000 words
+- [ ] `./generate-platforms.sh` ran successfully
+- [ ] `./generate-browser.sh` ran successfully
+- [ ] `./sync.sh` or `./install.sh` ran successfully
+- [ ] Tested the agent with a sample query

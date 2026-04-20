@@ -1,0 +1,39 @@
+# Platform Overview
+
+Ultimate AI Agents works across every major AI tool — both CLI-based and browser/desktop apps.
+
+## CLI Tools (Auto-Installed)
+
+These are set up automatically by `install.sh`:
+
+| Platform | Agent Format | Install Location |
+|----------|-------------|-----------------|
+| [Claude Code](/platforms/claude-code) | Multi-agent (`.md` files) | `.claude/agents/` |
+| [Cursor](/platforms/cursor) | Rules (`.mdc` files) | `.cursor/rules/` |
+| [Codex CLI](/platforms/codex) | Single `AGENTS.md` | Project root or `~/.codex/` |
+| [Amp Code](/platforms/amp) | Workflow commands | `.amp/commands/` |
+| [Windsurf](/platforms/windsurf) | Appended rules | `.codeium/windsurf/memories/` |
+| [Gemini CLI](/platforms/gemini) | TOML commands | `.gemini/commands/` |
+
+## Browser & Desktop Apps (Copy-Paste)
+
+Use the **Agent Browser** (`index.html`) or copy directly from files:
+
+| Platform | Source Directory | Method |
+|----------|-----------------|--------|
+| [ChatGPT](/platforms/chatgpt) | `agents/chatgpt/` | Custom GPT instructions |
+| [Claude.ai](/platforms/claude-code#claudeai-projects) | `agents/claude-projects/` | Project instructions |
+| [Gemini Web](/platforms/gemini#gemini-web) | `agents/gemini/` | Gem system instruction |
+| [AI Studio](/platforms/ai-studio) | `agents/claude-projects/` | System prompt |
+| [Other LLMs](/platforms/other-llms) | `agents/claude-projects/` | System prompt |
+
+## Agent Browser
+
+For non-CLI platforms, the easiest way is the HTML agent browser:
+
+```bash
+./generate-browser.sh
+open index.html
+```
+
+This opens a local web page where you can browse all agents, filter by department, pick your platform, and copy the prompt with one click.

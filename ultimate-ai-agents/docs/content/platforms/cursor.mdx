@@ -1,0 +1,45 @@
+# Cursor
+
+## Installation
+
+Cursor rules are auto-installed by the default installer:
+
+```bash
+./install.sh
+```
+
+Rules are deployed to `.cursor/rules/` and load automatically when Cursor opens your project.
+
+## Engineering Rules
+
+Engineering rules are path-scoped. Cursor applies them only to matching files:
+
+| Rule File | Applies To |
+|---|---|
+| `code-style.mdc` | `src/**/*` |
+| `testing.mdc` | `*.test.*` |
+| `documentation.mdc` | `docs/**/*` |
+| `api-design.mdc` | `src/api/**/*` |
+| `database.mdc` | `prisma/**/*` |
+
+Source: `agents/cursor/engineering/`
+
+## Business Rules
+
+Business rules are loaded on-demand (not path-scoped). Cursor includes them when relevant to the conversation:
+
+- `proposals.mdc` -- proposal and SOW drafting guidelines
+- `hr-documents.mdc` -- HR policy and document standards
+
+Source: `agents/cursor/business/`
+
+## Source Directories
+
+All Cursor rule sources live under:
+
+```
+agents/cursor/engineering/   # Path-scoped coding rules
+agents/cursor/business/      # On-demand business rules
+```
+
+To customize, edit the `.mdc` files in `.cursor/rules/` after installation, or modify the source files and re-run the installer.

@@ -1,0 +1,88 @@
+# Interactive Install
+
+Run `./install.sh` with no env vars to get the interactive wizard:
+
+```
+  ╔══════════════════════════════════════════╗
+  ║       Ultimate AI Agents Installer       ║
+  ║     agents · workflows · every platform    ║
+  ╚══════════════════════════════════════════╝
+
+  Claude Code · Cursor · Codex · Gemini · Amp · Windsurf
+  Press Ctrl-C at any time to quit
+```
+
+## Step 1: Scope
+
+```
+  Where to install?
+    1) Current project (./.claude/, ./.cursor/, etc.)
+    2) Global (~/.claude/, ~/.cursor/, etc.)
+
+  Choice [1]:
+```
+
+- **Project** (default) — agents are scoped to the current directory
+- **Global** — agents are available in all projects
+
+## Step 2: Tools
+
+```
+  Which tools?
+    1) Auto-detect installed tools
+    2) All tools
+    3) Let me pick...
+
+  Choice [1]:
+```
+
+If you choose **3**, you get a per-tool selector:
+
+```
+    claude       [y/N]: y
+    cursor       [y/N]: y
+    codex        [y/N]: n
+    amp          [y/N]: n
+    gemini       [y/N]: n
+    windsurf     [y/N]: n
+```
+
+## Step 3: Department
+
+```
+  Which departments?
+    1) Engineering (default)
+    2) All departments
+    3) Let me pick...
+
+  Choice [1]:
+```
+
+If you choose **3**, you see the full department list:
+
+```
+     1) Engineering
+     2) Product & Design
+     3) Project Management
+     4) Sales
+     5) Marketing
+     6) HR
+     7) L&D
+     8) Finance
+     9) Operations
+    10) Admin
+    11) Leadership
+```
+
+## Step 4: Confirm
+
+```
+  ─── Summary ───
+  Scope: project
+  Tools: claude,cursor
+  Dept:  engineering
+
+  Proceed? [Y/n]:
+```
+
+Press Enter to install, `n` to cancel, or Ctrl-C to quit.

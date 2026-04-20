@@ -1,0 +1,12 @@
+{
+  "index": "Overview",
+  "claude-code": "Claude Code",
+  "cursor": "Cursor",
+  "codex": "Codex CLI",
+  "chatgpt": "ChatGPT",
+  "gemini": "Gemini",
+  "amp": "Amp Code",
+  "windsurf": "Windsurf",
+  "ai-studio": "AI Studio",
+  "other-llms": "Other LLMs"
+}

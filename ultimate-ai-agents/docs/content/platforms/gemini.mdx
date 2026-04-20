@@ -1,0 +1,30 @@
+# Gemini
+
+## Gemini Web (Gems)
+
+Use agents as custom Gems in the Gemini web interface:
+
+1. Open [gemini.google.com](https://gemini.google.com).
+2. Go to **Gems** then **Create**.
+3. Copy the contents of the desired agent from `agents/gemini/`.
+4. Paste into the **System Instruction** field.
+5. Save your Gem.
+
+## Gemini CLI
+
+The installer auto-deploys Gemini CLI commands:
+
+```bash
+./install.sh
+```
+
+This writes TOML command files to `.gemini/commands/`. Once installed, commands are available directly in your Gemini CLI sessions.
+
+## Agent Browser
+
+Alternatively, use the built-in agent browser:
+
+1. Open `index.html` in your browser.
+2. Browse and select an agent.
+3. Choose **Gemini** as the target platform.
+4. Copy the output and paste it into your Gem's system instruction.

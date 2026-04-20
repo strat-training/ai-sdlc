@@ -1,0 +1,47 @@
+# Codex
+
+## How It Works
+
+Codex only supports **one persona at a time** via its `AGENTS.md` file. The installer deploys a default set of rules to `AGENTS.md` in your project root.
+
+## Installation
+
+```bash
+./install.sh
+```
+
+This writes the default agent configuration to `./AGENTS.md`.
+
+## Switching Agents
+
+To use a specific agent, copy its file into your project root:
+
+```bash
+cp agents/codex/sales/sales-strategist.md ./AGENTS.md
+```
+
+Each pre-built file in `agents/codex/` includes both the persona definition and relevant rules.
+
+## Available Agents
+
+Browse the `agents/codex/` directory for all available agents. Each subdirectory groups agents by department:
+
+```
+agents/codex/
+  engineering/
+  sales/
+  marketing/
+  hr/
+  ...
+```
+
+## AGENTS.md Hierarchy
+
+Codex reads `AGENTS.md` from two levels, with project-level taking precedence:
+
+| Location | Scope |
+|---|---|
+| `~/.codex/AGENTS.md` | Global -- applies to all projects |
+| `./AGENTS.md` | Project -- overrides global for this repo |
+
+To set a global default persona, place your preferred agent file at `~/.codex/AGENTS.md`. Override it per-project by placing a different one at `./AGENTS.md`.

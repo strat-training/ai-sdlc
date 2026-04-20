@@ -1,0 +1,49 @@
+---
+description: Rules for HR documents: job descriptions, policies, offer letters, performance reviews
+alwaysApply: false
+---
+
+# HR Documents
+
+## General Standards
+
+- Use **inclusive, gender-neutral language** throughout. Use "they/them" or rewrite to avoid gendered pronouns.
+- All policies must include an **effective date**, **review cycle**, **policy owner**, and **approval date**.
+- Write at a reading level accessible to all employees, avoiding legal jargon where possible.
+
+## Job Descriptions
+
+- Clearly **separate requirements from nice-to-haves**. Label sections as "Required" and "Preferred."
+- Include **salary range** where legally required or as company practice.
+- Focus on outcomes and responsibilities, not exhaustive task lists.
+- List only qualifications that are genuinely necessary for the role.
+- Include information about team, reporting structure, and growth path.
+
+## Offer Letters
+
+- State compensation, benefits, start date, and reporting manager clearly.
+- Include any contingencies (background check, references) explicitly.
+- Provide a clear deadline for acceptance.
+
+## Performance Reviews
+
+- Use **specific examples**, not generalizations. Say "Led the Q3 migration project, delivering 2 weeks ahead of schedule" not "Is a good leader."
+- Separate past performance assessment from forward-looking development goals.
+- Include measurable objectives for the next review period.
+- Document both strengths and areas for growth with equal specificity.
+
+## Policies
+
+- State the **purpose** of the policy in the first paragraph.
+- Define scope: who does this policy apply to?
+- Include an escalation or exception process.
+- Reference related policies where applicable.
+- Schedule regular reviews (at least annually).
+
+## Checklist
+
+- [ ] Language is inclusive and gender-neutral
+- [ ] Effective date and review cycle stated
+- [ ] Policy owner and approver identified
+- [ ] Specific examples used (no vague generalizations)
+- [ ] Salary range included where required

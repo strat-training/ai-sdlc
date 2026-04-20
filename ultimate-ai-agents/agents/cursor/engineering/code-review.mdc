@@ -1,0 +1,63 @@
+---
+description: Code review checklist and quality standards
+alwaysApply: true
+---
+
+# Code Review Checklist
+
+## Type Safety
+
+- No `any` types -- use explicit interfaces and types
+- No non-null assertions (`!`) without proper null checks
+- No type assertions (`as`) -- use type guards instead
+- All functions must have explicit return types
+- All parameters must have explicit types
+
+## Function Design
+
+- Use object parameters for functions with 3+ parameters
+- Single responsibility per function -- compose small functions
+- Functions should not exceed 50 lines
+
+## Error Handling
+
+- No silent failures -- never catch and return null without logging
+- Use specific error classes, not generic `Error`
+- Handle errors specifically by type, not catch-all
+- User-facing errors must be clear and actionable
+- Server errors must be logged but not exposed to clients
+
+## React Best Practices
+
+- Prefer Server Components for data fetching over client-side `useEffect`
+- Compose components with `<Suspense>` for streaming
+- Use TanStack Query for client-side data fetching (not raw `useEffect` + `fetch`)
+- Only use `useMemo`/`useCallback` when needed for performance, not by default
+- Avoid prop drilling > 2 levels -- use Context or composition
+
+## Code Smells to Reject
+
+- Magic numbers/strings without constants
+- Deeply nested conditionals (> 3 levels)
+- Duplicate code
+- Large components (> 200 lines)
+- Commented-out code
+- `console.log` in production
+- TODO comments without tickets
+- `@ts-ignore` directives
+- Missing keys in list rendering
+- Inline function definitions in JSX render
+
+## Review Process
+
+1. **Architecture**: Overall structure, component composition, data flow
+2. **Code Quality**: Type safety, error handling, edge cases
+3. **Details**: Naming conventions, formatting, test coverage
+4. **Security & Accessibility**: Vulnerabilities, WCAG compliance, breaking changes
+
+## Performance
+
+- Import only what you need -- no full library imports (e.g., `lodash`)
+- Use `next/image` for all images, never bare `<img>`
+- Dynamic import heavy components with `next/dynamic`
+- Use responsive image `sizes` attribute

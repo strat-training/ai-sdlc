@@ -1,0 +1,53 @@
+---
+description: Rules for marketing content: blog posts, social media, campaigns, brand copy
+alwaysApply: false
+---
+
+# Marketing Content
+
+## Brand and Voice
+
+- Follow **brand voice guidelines** consistently across all channels.
+- Maintain a consistent tone that aligns with brand positioning.
+- Use approved terminology and messaging frameworks.
+
+## Calls to Action
+
+- Include a **clear CTA** in every piece of content. The reader should always know what to do next.
+- Make CTAs specific and action-oriented: "Download the 2026 Report" not "Learn more."
+
+## SEO Best Practices
+
+- Place the **target keyword** in the title, H1, and first paragraph.
+- Use semantic variations of the keyword throughout the body.
+- Write meta descriptions under 160 characters with the target keyword.
+- Use descriptive, keyword-rich URLs.
+
+## Social Media
+
+- Follow **platform-specific** length and format guidelines:
+  - LinkedIn: 1,300 characters max for organic posts; professional tone.
+  - X/Twitter: 280 characters; concise and punchy.
+  - Instagram: visual-first; captions under 2,200 characters.
+- Adapt content for each platform rather than cross-posting identical copy.
+
+## Content Integrity
+
+- **All claims must be substantiated** with data, sources, or references.
+- Include **alt text** for all images describing the content and context.
+- Attribute quotes, statistics, and research to their original source.
+
+## Testing and Optimization
+
+- **A/B test headlines** when possible to optimize engagement.
+- Track performance metrics relevant to the content goal (clicks, conversions, shares).
+- Review and update evergreen content on a regular schedule.
+
+## Checklist
+
+- [ ] Brand voice and tone consistent
+- [ ] Clear CTA present
+- [ ] Target keyword in title, H1, and first paragraph
+- [ ] All claims substantiated
+- [ ] Alt text on all images
+- [ ] Platform-appropriate format and length

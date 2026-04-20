@@ -1,0 +1,74 @@
+# Engineering
+
+Agents for software engineers, architects, and technical leads. These cover the full development lifecycle from architecture and planning through implementation, testing, deployment, and monitoring.
+
+## Agent Directory
+
+### Architecture
+
+| Agent | Purpose | Example Use |
+|-------|---------|-------------|
+| `software-architect` | Design system architecture, define components, evaluate trade-offs | "Design a microservices architecture for our payment system" |
+| `solution-architect` | Map business requirements to technical solutions across systems | "Propose an integration architecture for our CRM and ERP" |
+| `solution-designer` | Create detailed technical designs from high-level architecture | "Design the API contracts and data flow for the checkout module" |
+
+### Cross-Cutting
+
+| Agent | Purpose | Example Use |
+|-------|---------|-------------|
+| `code-reviewer` | Review code for quality, security, and maintainability | "Review this PR for potential issues" |
+| `database` | Design schemas, write queries, optimize database performance | "Normalize this schema and add proper indexes" |
+| `deployment` | Configure CI/CD pipelines, containers, and infrastructure | "Set up a GitHub Actions pipeline with staging and prod" |
+| `monitoring` | Set up observability, alerting, and incident response | "Add structured logging and Datadog dashboards for this service" |
+| `performance` | Profile and optimize application and system performance | "Find the bottleneck causing slow page loads" |
+| `product-manager` | Translate business goals into technical requirements | "Break this feature request into user stories with acceptance criteria" |
+| `qa-tester` | Write and execute test plans, find edge cases | "Create a test plan for the new authentication flow" |
+| `security` | Audit code and infrastructure for vulnerabilities | "Run a security review on our API endpoints" |
+| `task-planner` | Break down features into actionable development tasks | "Decompose this epic into sprint-sized tasks" |
+| `tech-writer` | Write technical documentation, API docs, and guides | "Document the REST API for our billing service" |
+| `test-planner` | Design comprehensive test strategies and coverage plans | "Create a testing strategy for the migration project" |
+
+### JavaScript
+
+| Agent | Purpose | Example Use |
+|-------|---------|-------------|
+| `backend-api` | Build Node.js/Express/Fastify backend APIs | "Create a REST API with authentication and rate limiting" |
+| `frontend-ui` | Build React/Vue/Angular frontend interfaces | "Build a responsive dashboard with data tables and charts" |
+| `fullstack-nextjs` | Full-stack Next.js development with App Router | "Scaffold a Next.js app with auth, database, and API routes" |
+| `react-native` | Build cross-platform mobile apps with React Native | "Create a React Native screen with pull-to-refresh and infinite scroll" |
+
+### Savants
+
+| Agent | Purpose | Example Use |
+|-------|---------|-------------|
+| `savant-flutter` | Deep expertise in Flutter/Dart development | "Build a Flutter widget with custom animations and state management" |
+| `savant-fullstack-js` | Comprehensive full-stack JavaScript mastery | "Architect a full JS stack with monorepo, shared types, and CI" |
+| `savant-java-spring` | Deep expertise in Java and Spring Boot | "Design a Spring Boot microservice with JPA and Spring Security" |
+| `savant-react-native` | Deep expertise in React Native internals and optimization | "Optimize React Native app startup time and bridge performance" |
+
+## How to Use
+
+### Claude Code
+
+Use the `@agent` syntax to invoke any engineering agent:
+
+```bash
+@software-architect Design a system for real-time notifications
+@code-reviewer Review the changes in this PR
+@fullstack-nextjs Add a user settings page with form validation
+```
+
+### ChatGPT
+
+Start a conversation with the agent's system prompt loaded as a Custom GPT, or paste the prompt at the beginning of your conversation:
+
+```
+You are a software-architect agent. [system prompt]
+Design a system for real-time notifications.
+```
+
+### Other Platforms
+
+- **Cursor**: Available as rule files in `.cursor/rules/`
+- **Gemini**: Available as gems in `agents/gemini/`
+- **Codex**: Available as agents in `agents/codex/`

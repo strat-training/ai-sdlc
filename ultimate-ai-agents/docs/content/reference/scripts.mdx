@@ -1,0 +1,84 @@
+# Scripts Reference
+
+All scripts are in the repository root and can be run directly with `./script-name.sh`.
+
+## install.sh
+
+Interactive (or non-interactive) installer that sets up agents for all supported platforms.
+
+```bash
+# Interactive mode — prompts for platform selection
+./install.sh
+
+# Non-interactive mode — install all platforms
+./install.sh --all
+```
+
+- Copies agent files to the correct locations for each platform
+- Sets up `.claude/` and `.cursor/` directories
+- Can be re-run safely to update an existing installation
+
+## update.sh
+
+Pulls the latest changes from the repository and re-installs.
+
+```bash
+./update.sh
+```
+
+- Runs `git pull` to fetch the latest agents
+- Re-runs the install process automatically
+- Use this to stay up to date with new agents and improvements
+
+## uninstall.sh
+
+Removes installed agent files. Supports interactive and non-interactive modes.
+
+```bash
+# Interactive mode — prompts for confirmation
+./uninstall.sh
+
+# Non-interactive mode — remove everything
+./uninstall.sh --all
+```
+
+- Cleans up `.claude/` and `.cursor/` output directories
+- Removes platform-specific configurations
+- Does not modify files in `agents/claude/` (source of truth is preserved)
+
+## sync.sh
+
+Quick sync for Claude Code and Cursor only. Faster than a full install when you only need these two platforms.
+
+```bash
+./sync.sh
+```
+
+- Copies agents and commands to `.claude/`
+- Copies cursor rules to `.cursor/`
+- Skips ChatGPT, Gemini, Codex, and Claude Projects
+- Ideal for day-to-day development after initial install
+
+## generate-platforms.sh
+
+Generates all platform-specific agent formats from the Claude source files.
+
+```bash
+./generate-platforms.sh
+```
+
+- Reads `agents/claude/` (source of truth)
+- Writes to `agents/chatgpt/`, `agents/claude-projects/`, `agents/codex/`, `agents/cursor/`, and `agents/gemini/`
+- Run this after creating or modifying any agent in `agents/claude/`
+
+## generate-browser.sh
+
+Generates the `index.html` agent browser — a static web page listing all agents.
+
+```bash
+./generate-browser.sh
+```
+
+- Reads all agents across platforms
+- Produces an HTML file with search, filtering, and agent details
+- Run this after adding new agents or changing agent metadata

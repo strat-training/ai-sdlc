@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Assisted SDLC Foundational Training — Stratpoint Technologies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #f1f5f9;
+    color: #111827;
+    font-size: 18px;
+    line-height: 1.6;
+    overflow: hidden;
+  }
+
+  #deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slide {
+    position: absolute;
+    width: 1280px;
+    height: 800px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(var(--slide-scale, 1));
+    transform-origin: center center;
+    opacity: 0;
+    pointer-events: none;
+    padding: 44px 60px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background: #fff;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ── Typography ── */
+  h1 { font-size: 2.4rem; font-weight: 800; line-height: 1.15; color: #0f172a; letter-spacing: -0.02em; }
+  h2 { font-size: 1.75rem; font-weight: 700; line-height: 1.2; color: #0f172a; letter-spacing: -0.015em; margin-bottom: 8px; }
+  h3 { font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+  p { color: #374151; font-size: 0.95rem; line-height: 1.7; }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.9rem; color: #374151; line-height: 1.65; margin-bottom: 3px; }
+  ol { padding-left: 18px; }
+  ol li { font-size: 0.9rem; color: #374151; line-height: 1.65; margin-bottom: 3px; }
+
+  .subtitle { font-size: 0.95rem; color: #6b7280; margin-bottom: 28px; line-height: 1.6; }
+
+  hr.rule { border: none; border-top: 1px solid #e5e7eb; margin: 24px 0; }
+
+  /* ── Role badges ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-right: 5px;
+    margin-bottom: 4px;
+  }
+  .badge-pm    { background: #ede9fe; color: #6d28d9; }
+  .badge-sa    { background: #e0f2fe; color: #0369a1; }
+  .badge-tl    { background: #fef3c7; color: #b45309; }
+  .badge-dev   { background: #dcfce7; color: #15803d; }
+  .badge-qa    { background: #ffe4e6; color: #be123c; }
+  .badge-devops{ background: #f1f5f9; color: #334155; }
+  .badge-all   { background: #dbeafe; color: #1d4ed8; }
+
+  /* ── Module / Day pill ── */
+  .module-pill {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .day-pill {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+
+  /* ── Layout helpers ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 24px;
+  }
+  .two-col-60-40 {
+    display: grid;
+    grid-template-columns: 60fr 40fr;
+    gap: 40px;
+    margin-top: 24px;
+  }
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 28px;
+    margin-top: 24px;
+  }
+
+  /* ── Exercise box ── */
+  .exercise {
+    border-left: 3px solid #16a34a;
+    background: #f0fdf4;
+    padding: 16px 20px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 20px;
+  }
+  .exercise + .exercise { margin-top: 16px; }
+  .exercise .ex-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .exercise .ex-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #16a34a;
+  }
+  .exercise .ex-time {
+    font-size: 11px;
+    color: #6b7280;
+    margin-left: auto;
+  }
+  .exercise ol { margin: 0; padding-left: 18px; }
+  .exercise ol li {
+    font-size: 13px;
+    color: #166534;
+    line-height: 1.6;
+    margin-bottom: 4px;
+  }
+  .exercise .ex-output {
+    font-size: 12px;
+    color: #166534;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  .exercise .ex-desc {
+    font-size: 13px;
+    font-weight: 600;
+    color: #166534;
+    margin-bottom: 8px;
+  }
+
+  /* ── Role task box ── */
+  .role-box {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-top: 16px;
+  }
+  .role-box-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .role-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .role-box ul { padding-left: 16px; }
+  .role-box ul li { font-size: 13px; color: #374151; line-height: 1.6; margin-bottom: 3px; }
+
+  /* ── Artifact pipeline ── */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 20px 0;
+  }
+  .pipeline-node {
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 999px;
+    letter-spacing: 0.03em;
+  }
+  .pipeline-arrow {
+    color: #9ca3af;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ── Table styles ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 16px;
+  }
+  .data-table th {
+    text-align: left;
+    padding: 8px 10px;
+    background: #f8fafc;
+    border-bottom: 2px solid #e5e7eb;
+    font-weight: 600;
+    color: #374151;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .data-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #374151;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #f8fafc; }
+  .cell-center { text-align: center; }
+  .cell-dash { text-align: center; color: #d1d5db; }
+
+  /* ── Code / prompt block ── */
+  .code-block {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 12.5px;
+    font-family: 'SF Mono', 'Fira Mono', 'Menlo', monospace;
+    color: #1e293b;
+    line-height: 1.65;
+    margin-top: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .code-block .ck { color: #2563eb; font-weight: 600; }
+  .code-block .cv { color: #374151; }
+
+  /* ── Text observation blocks (Slide 2) ── */
+  .obs-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #2563eb;
+    margin-bottom: 5px;
+  }
+  .obs-text { font-size: 14px; color: #374151; line-height: 1.65; }
+
+  /* ── Principle items ── */
+  .principle-item {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .principle-item:last-child { border-bottom: none; }
+  .principle-num {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #e5e7eb;
+    letter-spacing: -0.03em;
+    min-width: 48px;
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .principle-body {}
+  .principle-title { font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+  .principle-desc { font-size: 0.875rem; color: #4b5563; line-height: 1.65; }
+
+  /* ── Phase list ── */
+  .phase-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .phase-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .phase-body { font-size: 13.5px; color: #374151; line-height: 1.6; }
+  .phase-body strong { color: #0f172a; }
+
+  /* ── Gate items ── */
+  .gate-item {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 140px;
+    gap: 12px;
+    align-items: start;
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13px;
+  }
+  .gate-item:last-child { border-bottom: none; }
+  .gate-name { font-weight: 700; color: #0f172a; }
+  .gate-trigger { color: #4b5563; }
+  .gate-evidence { color: #4b5563; }
+  .gate-signoff { color: #2563eb; font-weight: 600; }
+  .gate-header {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 140px;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 2px solid #e5e7eb;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #9ca3af;
+  }
+
+  /* ── Info box ── */
+  .info-box {
+    border: 1px solid #dbeafe;
+    background: #f0f7ff;
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-top: 16px;
+  }
+  .info-box p { font-size: 13.5px; color: #1e40af; line-height: 1.65; }
+
+  /* ── Closing / center slides ── */
+  .center-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+  }
+  .center-slide h1 { font-size: 2.2rem; max-width: 700px; margin-bottom: 24px; }
+  .center-slide p { font-size: 1rem; color: #4b5563; max-width: 600px; margin-bottom: 32px; }
+  .closing-meta { font-size: 0.85rem; color: #9ca3af; margin-top: 32px; line-height: 2; }
+
+  /* ── Navigation ── */
+  #nav {
+    position: fixed;
+    bottom: 24px;
+    right: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+  }
+  .counter {
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+    min-width: 48px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+  .nav-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #374151;
+    font-size: 14px;
+    transition: border-color 0.15s, color 0.15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .nav-btn:hover { border-color: #2563eb; color: #2563eb; }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+  /* ── Slide-specific helpers ── */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2563eb;
+    margin-bottom: 14px;
+  }
+  .meta-line {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 12px;
+    font-weight: 500;
+  }
+  .author-line {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 6px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 10px;
+  }
+
+  .note {
+    font-size: 12.5px;
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+  .note strong { color: #374151; font-style: normal; }
+
+  .highlight-rule {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2563eb;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #eff6ff;
+    border-radius: 4px;
+    line-height: 1.5;
+  }
+
+  .golden-rule {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d4ed8;
+    background: #eff6ff;
+    border-left: 3px solid #2563eb;
+    padding: 10px 14px;
+    border-radius: 0 4px 4px 0;
+    margin-top: 14px;
+    line-height: 1.6;
+  }
+
+  .warning-list { list-style: none; padding: 0; margin-top: 10px; }
+  .warning-list li {
+    font-size: 13px;
+    color: #374151;
+    padding: 4px 0 4px 18px;
+    position: relative;
+    line-height: 1.55;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .warning-list li:last-child { border-bottom: none; }
+  .warning-list li::before {
+    content: counter(wl);
+    counter-increment: wl;
+    position: absolute;
+    left: 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: #9ca3af;
+    top: 6px;
+  }
+  .warning-list { counter-reset: wl; }
+
+  .technique-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .technique-pill {
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+
+  .repo-struct {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .repo-folder {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    padding: 4px 12px;
+    font-family: 'SF Mono', 'Fira Mono', monospace;
+  }
+</style>
+</head>
+<body>
+
+<div id="deck">
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 1 — Title                             ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide active" id="s1">
+    <div style="max-width: 680px; padding-top: 40px;">
+      <div class="eyebrow">Stratpoint Technologies</div>
+      <h1 style="white-space: pre-line;">AI-Assisted SDLC&#10;Foundational Training</h1>
+      <hr class="rule" style="margin: 28px 0;">
+      <div class="meta-line">Sprint 0 &nbsp;&middot;&nbsp; 10 Working Days &nbsp;&middot;&nbsp; 80 Hours</div>
+      <div style="margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px;">
+        <span class="badge badge-pm">Product Manager</span>
+        <span class="badge badge-sa">Solutions Architect</span>
+        <span class="badge badge-tl">Tech Lead</span>
+        <span class="badge badge-dev">Developer</span>
+        <span class="badge badge-qa">QA</span>
+        <span class="badge badge-devops">DevOps</span>
+      </div>
+      <div class="author-line" style="margin-top: 20px;">Prepared by Ronald Dela Cruz &nbsp;&middot;&nbsp; AI-Augmented SDLC Framework</div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 2 — Why This Training Exists          ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s2">
+    <h2>Why This Training Exists</h2>
+    <p style="margin-top: 12px; max-width: 680px;">Most teams have AI tools. Very few have a shared way to use them. The gap shows up in inconsistent quality, untraceable output, and accountability gaps when things go wrong.</p>
+    <div class="three-col" style="margin-top: 36px;">
+      <div>
+        <div class="obs-label">Skills stay personal</div>
+        <p class="obs-text">Prompts, rules, and patterns are discovered individually and never shared. Teams rediscover the same things every project.</p>
+      </div>
+      <div>
+        <div class="obs-label">No traceability</div>
+        <p class="obs-text">AI output isn't connected to requirements. Nobody can trace a line of code back to a business requirement.</p>
+      </div>
+      <div>
+        <div class="obs-label">Accountability gaps</div>
+        <p class="obs-text">When AI generates something wrong, nobody owns it. No named validator, no quality gate, no audit trail.</p>
+      </div>
+    </div>
+    <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #f1f5f9;">
+      <p style="font-size: 1rem; font-weight: 600; color: #0f172a;">This training changes that.</p>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 3 — The Framework                     ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s3">
+    <h2>The AI-Augmented SDLC Framework</h2>
+    <p style="margin-top: 10px; max-width: 680px; color: #4b5563;">A structured, artifact-driven process where AI generates and humans decide — with a traceable chain from business requirement to deployed code.</p>
+
+    <div class="pipeline">
+      <span class="pipeline-node">BRD</span>
+      <span class="pipeline-arrow">&#8594;</span>
+      <span class="pipeline-node">PRD</span>
+      <span class="pipeline-arrow">&#8594;</span>
+      <span class="pipeline-node">Architecture</span>
+      <span class="pipeline-arrow">&#8594;</span>
+      <span class="pipeline-node">Dev Tasks</span>
+      <span class="pipeline-arrow">&#8594;</span>
+      <span class="pipeline-node">Code</span>
+      <span class="pipeline-arrow">&#8594;</span>
+      <span class="pipeline-node">Tests</span>
+      <span class="pipeline-arrow">&#8594;</span>
+      <span class="pipeline-node">Deploy</span>
+    </div>
+
+    <div class="two-col" style="margin-top: 28px;">
+      <div>
+        <div class="section-label">Five Pillars</div>
+        <ol style="padding-left: 18px; margin-top: 4px;">
+          <li style="font-size: 14px; color: #374151; margin-bottom: 7px; line-height: 1.55;"><strong style="color: #0f172a;">Roles &amp; Accountability</strong></li>
+          <li style="font-size: 14px; color: #374151; margin-bottom: 7px; line-height: 1.55;"><strong style="color: #0f172a;">Artifact Governance</strong></li>
+          <li style="font-size: 14px; color: #374151; margin-bottom: 7px; line-height: 1.55;"><strong style="color: #0f172a;">AI Integration Layer</strong></li>
+          <li style="font-size: 14px; color: #374151; margin-bottom: 7px; line-height: 1.55;"><strong style="color: #0f172a;">Phase Model</strong> (6 phases)</li>
+          <li style="font-size: 14px; color: #374151; margin-bottom: 7px; line-height: 1.55;"><strong style="color: #0f172a;">Quality &amp; Validation</strong></li>
+        </ol>
+      </div>
+      <div>
+        <div class="section-label">What makes it different</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size: 14px; color: #374151; margin-bottom: 9px; line-height: 1.6;">Every artifact has a named human owner.</li>
+          <li style="font-size: 14px; color: #374151; margin-bottom: 9px; line-height: 1.6;">Every AI output passes a quality gate.</li>
+          <li style="font-size: 14px; color: #374151; line-height: 1.6;">Every feature is traceable end-to-end.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 4 — Four Principles                   ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s4">
+    <h2>Four Non-Negotiable Principles</h2>
+    <p class="subtitle">These govern every decision in this framework. No exceptions.</p>
+
+    <div style="margin-top: 8px;">
+      <div class="principle-item">
+        <div class="principle-num">01</div>
+        <div class="principle-body">
+          <div class="principle-title">AI Augments, Humans Decide</div>
+          <div class="principle-desc">Every AI output passes through human review. AI never owns decisions that carry formal accountability.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">02</div>
+        <div class="principle-body">
+          <div class="principle-title">Structure Before Speed</div>
+          <div class="principle-desc">Invest in artifacts before engineering begins. Teams that skip upfront structure pay for it with rework.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">03</div>
+        <div class="principle-body">
+          <div class="principle-title">Continuous Validation</div>
+          <div class="principle-desc">Quality gates are distributed across phases, not deferred to the end. Every phase has an entry condition and an exit gate.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">04</div>
+        <div class="principle-body">
+          <div class="principle-title">Traceability as First-Class</div>
+          <div class="principle-desc">Every feature must trace: BRD &rarr; PRD &rarr; Architecture &rarr; Dev Tasks &rarr; code &rarr; tests. A broken chain is a gap to fix, not ignore.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 4b — The Working Cycle                ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s4b">
+    <h2>The Working Cycle</h2>
+    <p class="subtitle">Applied at every task, every day, by every role — from BRD to deployment.</p>
+
+    <div style="display:grid; grid-template-columns:1fr auto 1fr auto 1fr auto 1fr; align-items:stretch; gap:0; margin-top:28px;">
+
+      <div style="border:1px solid #e5e7eb; border-radius:8px; padding:24px 20px;">
+        <div style="font-size:2rem;font-weight:800;color:#e5e7eb;line-height:1;margin-bottom:10px;">01</div>
+        <div style="font-size:1rem;font-weight:700;color:#0f172a;margin-bottom:8px;">Evaluate</div>
+        <div style="font-size:13px;color:#4b5563;line-height:1.65;">Understand the task and its constraints. Read the Dev Task, PRD AC, and Architecture ADR before touching the AI.</div>
+      </div>
+
+      <div style="display:flex;align-items:center;padding:0 8px;color:#d1d5db;font-size:20px;">&rarr;</div>
+
+      <div style="border:1px solid #e5e7eb; border-radius:8px; padding:24px 20px;">
+        <div style="font-size:2rem;font-weight:800;color:#e5e7eb;line-height:1;margin-bottom:10px;">02</div>
+        <div style="font-size:1rem;font-weight:700;color:#0f172a;margin-bottom:8px;">Plan</div>
+        <div style="font-size:13px;color:#4b5563;line-height:1.65;">Ask the AI to generate a plan first — not code. Review it against the task spec before implementation starts.</div>
+      </div>
+
+      <div style="display:flex;align-items:center;padding:0 8px;color:#d1d5db;font-size:20px;">&rarr;</div>
+
+      <div style="border:1px solid #e5e7eb; border-radius:8px; padding:24px 20px;">
+        <div style="font-size:2rem;font-weight:800;color:#e5e7eb;line-height:1;margin-bottom:10px;">03</div>
+        <div style="font-size:1rem;font-weight:700;color:#0f172a;margin-bottom:8px;">Apply</div>
+        <div style="font-size:13px;color:#4b5563;line-height:1.65;">Implement step by step. Read every diff. You own every line — if you can't explain what the AI wrote, don't commit it.</div>
+      </div>
+
+      <div style="display:flex;align-items:center;padding:0 8px;color:#d1d5db;font-size:20px;">&rarr;</div>
+
+      <div style="border:1px solid #e5e7eb; border-radius:8px; padding:24px 20px;">
+        <div style="font-size:2rem;font-weight:800;color:#e5e7eb;line-height:1;margin-bottom:10px;">04</div>
+        <div style="font-size:1rem;font-weight:700;color:#0f172a;margin-bottom:8px;">Validate</div>
+        <div style="font-size:13px;color:#4b5563;line-height:1.65;">Test against acceptance criteria. Human reviewer checks the output. Gate passed → move on. Gate failed → back to Evaluate.</div>
+      </div>
+
+    </div>
+
+    <div class="highlight-rule" style="margin-top:28px;">Gate failed at Validate = return to Evaluate, not skip ahead. The cycle enforces quality, not speed.</div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 5 — How This Workshop Works           ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s5">
+    <h2>How This Workshop Works</h2>
+    <p style="margin-top: 10px; max-width: 700px; color: #4b5563;">You don't sit through training then go back to work. You learn a module, then immediately apply it on the sample project the same day.</p>
+
+    <div class="two-col" style="margin-top: 24px;">
+      <div>
+        <div class="section-label">10-Day Schedule</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 46px;">Day</th>
+              <th>Focus</th>
+              <th style="width: 130px;">Roles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>1</strong></td><td>Module 1 (Tools) + Module 2 (Prompt Eng + Figma Make Prototype) + Module 3 (SDLC Overview)</td><td><span class="badge badge-all" style="font-size:10px;">All Roles</span></td></tr>
+            <tr><td><strong>2</strong></td><td>BRD + PRD Generation (AM: BRD → PM: PRD)</td><td><span class="badge badge-pm" style="font-size:10px;">PM</span><span class="badge badge-sa" style="font-size:10px;">SA</span></td></tr>
+            <tr><td><strong>3</strong></td><td>BRD + PRD Human Review + Sign-off</td><td><span class="badge badge-pm" style="font-size:10px;">PM</span><span class="badge badge-sa" style="font-size:10px;">SA</span><span class="badge badge-tl" style="font-size:10px;">TL</span></td></tr>
+            <tr><td><strong>4</strong></td><td>Architecture + Dev Tasks Generation (AM: Architecture → PM: Dev Tasks)</td><td><span class="badge badge-sa" style="font-size:10px;">SA</span><span class="badge badge-tl" style="font-size:10px;">TL</span></td></tr>
+            <tr><td><strong>5</strong></td><td>Architecture + Dev Tasks Review, Refine, Sign-off</td><td><span class="badge badge-sa" style="font-size:10px;">SA</span><span class="badge badge-tl" style="font-size:10px;">TL</span><span class="badge badge-dev" style="font-size:10px;">Dev</span></td></tr>
+            <tr><td><strong>6</strong></td><td>Module 4 (AI Dev) + Module 5 (Context Eng) + Module 6 (Agents &amp; Governance) — Coding Prep</td><td><span class="badge badge-all" style="font-size:10px;">All Roles</span></td></tr>
+            <tr><td><strong>7</strong></td><td>Coding Sprint begins</td><td><span class="badge badge-dev" style="font-size:10px;">Dev</span><span class="badge badge-tl" style="font-size:10px;">TL</span><span class="badge badge-qa" style="font-size:10px;">QA</span></td></tr>
+            <tr><td><strong>8</strong></td><td>Coding Sprint continues</td><td><span class="badge badge-dev" style="font-size:10px;">Dev</span><span class="badge badge-tl" style="font-size:10px;">TL</span><span class="badge badge-qa" style="font-size:10px;">QA</span></td></tr>
+            <tr><td><strong>9</strong></td><td>Coding Sprint + Deploy Prep</td><td><span class="badge badge-dev" style="font-size:10px;">Dev</span><span class="badge badge-qa" style="font-size:10px;">QA</span><span class="badge badge-devops" style="font-size:10px;">DevOps</span></td></tr>
+            <tr><td><strong>10</strong></td><td>Module 7 (Knowledge Sharing) + Sprint 0 Retro + Sprint 1 Handoff</td><td><span class="badge badge-all" style="font-size:10px;">All Roles</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="section-label">The sample project</div>
+        <div class="info-box">
+          <p style="font-weight: 700; color: #1e40af; font-size: 14px; margin-bottom: 8px;">Leave Management System (LMS)<br>Meridian Corp</p>
+          <p>Trainees work on this project throughout all 10 days. Every module exercise uses this project. Every artifact you generate is a real deliverable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 6 — Role Map                          ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s6">
+    <h2>Who Owns What</h2>
+
+    <table class="data-table" style="margin-top: 20px;">
+      <thead>
+        <tr>
+          <th>Artifact</th>
+          <th class="cell-center"><span class="badge badge-pm">PM</span></th>
+          <th class="cell-center"><span class="badge badge-sa">SA</span></th>
+          <th class="cell-center"><span class="badge badge-tl">TL</span></th>
+          <th class="cell-center"><span class="badge badge-dev">Dev</span></th>
+          <th class="cell-center"><span class="badge badge-qa">QA</span></th>
+          <th class="cell-center"><span class="badge badge-devops">DevOps</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>BRD</strong></td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Co-owner</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Co-owner</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+        </tr>
+        <tr>
+          <td><strong>PRD</strong></td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Owner</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Reviewer</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+        </tr>
+        <tr>
+          <td><strong>Architecture</strong></td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Owner</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Reviewer</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+        </tr>
+        <tr>
+          <td><strong>Dev Tasks</strong></td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Generator or Reviewer</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Generator or Reviewer</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Reviewer</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+        </tr>
+        <tr>
+          <td><strong>Code</strong></td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Oversight</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Owner</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+        </tr>
+        <tr>
+          <td><strong>Tests</strong></td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Support</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Owner</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Owner</td>
+          <td class="cell-dash">&mdash;</td>
+        </tr>
+        <tr>
+          <td><strong>Deployment</strong></td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Support</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Owner</td>
+          <td class="cell-dash">&mdash;</td>
+          <td class="cell-center" style="font-size:12px;color:#374151;">Owner</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="note" style="margin-top: 18px;"><strong>Generator and reviewer must always be different people. This is not optional.</strong></p>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 7 — Module 1: Tools Setup             ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s7">
+    <div class="module-pill">Module 1 &nbsp;&middot;&nbsp; Day 1 AM &nbsp;&middot;&nbsp; 1.5 hours &nbsp;&middot;&nbsp; All Roles</div>
+    <h2>Tools Setup &amp; Environment Configuration</h2>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">What you will configure</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size: 13px; margin-bottom: 8px; line-height: 1.6;"><strong>Claude Code CLI</strong> — terminal-based AI for coding, testing, DevOps (Anthropic account)</li>
+          <li style="font-size: 13px; margin-bottom: 8px; line-height: 1.6;"><strong>Cursor</strong> — IDE-integrated AI (VS Code fork)</li>
+          <li style="font-size: 13px; margin-bottom: 8px; line-height: 1.6;"><strong>Gemini CLI</strong> — terminal AI with long-context document processing (Google Workspace account)</li>
+          <li style="font-size: 13px; margin-bottom: 8px; line-height: 1.6;"><strong>Kiro</strong> — AI-native IDE with spec-driven development (AWS account)</li>
+          <li style="font-size: 13px; margin-bottom: 8px; line-height: 1.6;"><strong>Antigravity</strong> — Stratpoint's internal AI platform</li>
+          <li style="font-size: 13px; margin-bottom: 8px; line-height: 1.6;"><strong>Figma Make</strong> — AI-assisted design prototyping</li>
+          <li style="font-size: 13px; line-height: 1.6;"><strong>MCP connections</strong> — links AI tools to JIRA/YouTrack, Google Drive</li>
+        </ul>
+
+        <div class="section-label" style="margin-top: 20px;">MCP Scopes</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size: 13px; margin-bottom: 7px; line-height: 1.6;"><strong>local</strong> — this project, just you</li>
+          <li style="font-size: 13px; margin-bottom: 7px; line-height: 1.6;"><strong>user</strong> — all projects, just you</li>
+          <li style="font-size: 13px; line-height: 1.6;"><strong>project</strong> — team-shared via <code style="font-size:12px;background:#f1f5f9;padding:1px 5px;border-radius:3px;">.mcp.json</code></li>
+        </ul>
+      </div>
+      <div>
+        <div class="exercise">
+          <div class="ex-header">
+            <span class="ex-title">Exercise — Set up your environment</span>
+            <span class="ex-time">All Roles &nbsp;&middot;&nbsp; 30 min</span>
+          </div>
+          <ol>
+            <li>Install Claude Code CLI:<br><code style="font-size:11px;background:#dcfce7;padding:1px 5px;border-radius:3px;color:#166534;">npm install -g @anthropic-ai/claude-code</code></li>
+            <li>Install Gemini CLI (sign in with Google Workspace account):<br><code style="font-size:11px;background:#dcfce7;padding:1px 5px;border-radius:3px;color:#166534;">npm install -g @google/gemini-cli &amp;&amp; gemini auth login</code></li>
+            <li>Install Kiro — download from AWS and sign in with your AWS account</li>
+            <li>Log in to Antigravity using your Stratpoint account</li>
+            <li>Open Claude Code in the sample project (<code style="font-size:11px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#166534;">/sample-project/starter-code</code>), run <code style="font-size:11px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#166534;">claude</code></li>
+            <li>Load context: read the RFP, ask: "What questions should a Solutions Architect ask before starting architecture on this project?"</li>
+          </ol>
+          <div class="ex-output">Output: All tools authenticated and working, project context loaded in Claude Code</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 8 — Module 2: Prompt Engineering      ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s8">
+    <div class="module-pill">Module 2 &nbsp;&middot;&nbsp; Day 1 AM–PM &nbsp;&middot;&nbsp; 3 hours &nbsp;&middot;&nbsp; All Roles</div>
+    <h2>Prompt Engineering Fundamentals</h2>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">The prompt structure</div>
+        <div class="code-block"><span class="ck">Role:</span>       <span class="cv">"You are a senior business analyst..."</span>
+<span class="ck">Context:</span>    <span class="cv">"This is an RFP for a leave management system..."</span>
+<span class="ck">Task:</span>       <span class="cv">"Generate Section 1: Business Context of the BRD..."</span>
+<span class="ck">Format:</span>     <span class="cv">"Use headers, bullet points, 300 words max..."</span>
+<span class="ck">Constraints:</span> <span class="cv">"Do not include implementation details..."</span></div>
+
+        <div class="section-label" style="margin-top: 18px;">Techniques</div>
+        <div class="technique-row">
+          <span class="technique-pill">Zero-shot</span>
+          <span class="technique-pill">Few-shot</span>
+          <span class="technique-pill">Chain of Thought</span>
+          <span class="technique-pill">Least-to-Most</span>
+          <span class="technique-pill">Negative prompting</span>
+        </div>
+
+        <div class="highlight-rule" style="margin-top: 16px;">Three failed refinements in a row = something structurally wrong. Restart with a cleaner prompt.</div>
+      </div>
+      <div>
+        <div class="exercise">
+          <div class="ex-header">
+            <span class="ex-title">Exercise 1 — Write a role-specific prompt</span>
+            <span class="ex-time">Day 1 AM &nbsp;&middot;&nbsp; 30 min</span>
+          </div>
+          <ol>
+            <li>Choose a task from your role in the LMS project (PM: a BRD section; SA: a technology recommendation; TL/Dev: a code review prompt)</li>
+            <li>Write it using Role + Context + Task + Format + Constraints</li>
+            <li>Run it — evaluate the output</li>
+            <li>Refine once based on what was wrong</li>
+          </ol>
+          <div class="ex-output">Output: 1 structured prompt + 1 refined version</div>
+        </div>
+        <div class="exercise">
+          <div class="ex-header">
+            <span class="ex-title">Exercise 2 — Build your role's prompt library</span>
+            <span class="ex-time">Day 1 PM &nbsp;&middot;&nbsp; 45 min</span>
+          </div>
+          <ol>
+            <li>Write 3 prompts specific to your role in this project</li>
+            <li>Test each one on the LMS sample project context</li>
+            <li>Save to team's shared <code style="font-size:11px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#166534;">prompts/</code> folder</li>
+          </ol>
+          <div class="ex-output">Output: 3 reusable, tested prompts committed to shared repo</div>
+        </div>
+        <div class="exercise">
+          <div class="ex-header">
+            <span class="ex-title">Exercise 3 — Generate the LMS UI prototype in Figma Make</span>
+            <span class="ex-time">Day 1 PM &nbsp;&middot;&nbsp; <span class="badge badge-sa" style="font-size:10px;">SA</span> <span style="font-size:10px;color:#6b7280;font-weight:500;">UI/UX</span> &nbsp;&middot;&nbsp; 60 min</span>
+          </div>
+          <ol>
+            <li>Open Figma Make — start a new project</li>
+            <li>Write a prompt using the RFP Section 4 (UX Requirements) as context: describe the Employee Dashboard, Submit Leave form, and Manager Approvals screen</li>
+            <li>Apply Role + Context + Task + Format structure to get precise UI output</li>
+            <li>Iterate: refine the prompt until the screens match the RFP design direction (clean, professional, status badges)</li>
+            <li>Export and share with the team for review before Day 3</li>
+          </ol>
+          <div class="ex-output">Output: Draft UI prototype with at least 3 screens — approved by SA before BRD sprint begins</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 9 — Module 3: End-to-End SDLC         ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s9">
+    <div class="module-pill">Module 3 &nbsp;&middot;&nbsp; Day 1 PM &nbsp;&middot;&nbsp; 1.5 hours &nbsp;&middot;&nbsp; All Roles</div>
+    <h2>The End-to-End AI SDLC Workflow</h2>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">The 6 Delivery Phases</div>
+        <div style="margin-top: 8px;">
+          <div class="phase-item">
+            <div class="phase-num">1</div>
+            <div class="phase-body"><strong>Requirements</strong> — Refine PRD, confirm ACs <span style="font-size:11.5px;color:#6b7280;">(gate: Requirements Sign-Off)</span></div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">2</div>
+            <div class="phase-body"><strong>Architecture</strong> — Design system, write ADRs <span style="font-size:11.5px;color:#6b7280;">(gate: Architecture Review)</span></div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">3</div>
+            <div class="phase-body"><strong>Design</strong> — Prototypes, design-tech alignment <span style="font-size:11.5px;color:#6b7280;">(gate: Design Review)</span></div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">4</div>
+            <div class="phase-body"><strong>Development</strong> — Build from Dev Tasks <span style="font-size:11.5px;color:#6b7280;">(gate: CI Quality Gate)</span></div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">5</div>
+            <div class="phase-body"><strong>Testing &amp; QA</strong> — Test from ACs <span style="font-size:11.5px;color:#6b7280;">(gate: Test Quality Gate)</span></div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">6</div>
+            <div class="phase-body"><strong>DevOps &amp; Deploy</strong> — IaC, pipelines, monitoring <span style="font-size:11.5px;color:#6b7280;">(gate: Production Readiness)</span></div>
+          </div>
+        </div>
+
+        <div class="section-label" style="margin-top: 18px;">The traceability chain</div>
+        <div class="pipeline" style="margin-top: 6px;">
+          <span class="pipeline-node" style="font-size:11px;padding:4px 10px;">BRD</span>
+          <span class="pipeline-arrow">&#8594;</span>
+          <span class="pipeline-node" style="font-size:11px;padding:4px 10px;">PRD</span>
+          <span class="pipeline-arrow">&#8594;</span>
+          <span class="pipeline-node" style="font-size:11px;padding:4px 10px;">Architecture</span>
+          <span class="pipeline-arrow">&#8594;</span>
+          <span class="pipeline-node" style="font-size:11px;padding:4px 10px;">Dev Tasks</span>
+          <span class="pipeline-arrow">&#8594;</span>
+          <span class="pipeline-node" style="font-size:11px;padding:4px 10px;">Code</span>
+          <span class="pipeline-arrow">&#8594;</span>
+          <span class="pipeline-node" style="font-size:11px;padding:4px 10px;">Test</span>
+          <span class="pipeline-arrow">&#8594;</span>
+          <span class="pipeline-node" style="font-size:11px;padding:4px 10px;">Deploy</span>
+        </div>
+      </div>
+      <div>
+        <div class="exercise">
+          <div class="ex-header">
+            <span class="ex-title">Exercise — Trace a requirement end-to-end</span>
+            <span class="ex-time">All Roles &nbsp;&middot;&nbsp; 45 min</span>
+          </div>
+          <ol>
+            <li>Open the LMS RFP (<code style="font-size:11px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#166534;">source-docs/rfp.md</code>)</li>
+            <li>Pick any one requirement from Section 3</li>
+            <li>Write: what PRD user story does it become? <em style="font-size:12px;">(As a [role], I want...)</em></li>
+            <li>Write: what architecture decision does it require?</li>
+            <li>Write: what is the quality gate before Dev can start on this?</li>
+            <li>Identify: who is the named human validator at each step?</li>
+          </ol>
+          <div class="ex-output">Output: One requirement traced through all 6 phases, with named owners and gates</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 10 — Day 2: BRD + PRD Generation      ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s10">
+    <div class="day-pill">Day 2 &nbsp;&middot;&nbsp; Full Day &nbsp;&middot;&nbsp; Sprint Work</div>
+    <h2>BRD + PRD Generation</h2>
+    <p class="subtitle">AM: SA writes Solutions Document + runs BRD Agent. PM validates. PM: PM converts signed BRD into user stories with testable acceptance criteria.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">AM — BRD Generation</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">SA writes the Solutions Document first (see <code style="font-size:11px;background:#f1f5f9;padding:1px 5px;border-radius:3px;">solutions-document-example.md</code>)</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">BRD Agent reads Solutions Document + Estimation Sheet — do not interrupt mid-run</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Read the self-validation summary first — classify every [ASSUMPTION] and [TBD]</li>
+          <li style="font-size:13px;line-height:1.6;">PM + SA quick review — BRD must be accepted before PM starts PRD</li>
+        </ul>
+
+        <div class="section-label" style="margin-top: 14px;">PM — PRD Generation</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Load signed BRD — generate one user story per business requirement</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Format: <em>As a [role], I want [action] so that [benefit]</em></li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Write testable acceptance criteria for each story</li>
+          <li style="font-size:13px;line-height:1.6;">Each story references its BRD requirement (traceability)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="role-box">
+          <div class="role-box-header">
+            <span class="badge badge-sa">SA</span>
+            <h4>AM — BRD</h4>
+          </div>
+          <ul>
+            <li>Write Solutions Document from the RFP</li>
+            <li>Run BRD Agent (Claude Code or Gemini CLI)</li>
+            <li>Validate summary: classify [ASSUMPTION] and [TBD]</li>
+            <li>Present BRD to PM for quick sign-off mid-morning</li>
+            <li>PM: review user stories for technical feasibility</li>
+          </ul>
+        </div>
+        <div class="role-box">
+          <div class="role-box-header">
+            <span class="badge badge-pm">PM</span>
+            <h4>AM+PM — BRD review + PRD</h4>
+          </div>
+          <ul>
+            <li>AM: review BRD — are all RFP requirements captured? Scope boundary clear?</li>
+            <li>Sign off BRD with SA before noon</li>
+            <li>PM: generate PRD user stories from the signed BRD</li>
+            <li>Write testable ACs — every AC must be independently testable</li>
+            <li>End of day: BRD + PRD draft ready for Day 3 review</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 11 — Day 3: BRD + PRD Review          ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s11">
+    <div class="day-pill">Day 3 &nbsp;&middot;&nbsp; Human Review &nbsp;&middot;&nbsp; Sprint Work</div>
+    <h2>BRD + PRD Review + Sign-off</h2>
+    <p class="subtitle">No generation today — full day of structured human review. No artifact moves forward without a named human signing off.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">BRD review checklist</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Every RFP requirement is captured — nothing dropped</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Scope boundary is explicit (what's in, what's out)</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">All [ASSUMPTION] and [TBD] items resolved or flagged to client</li>
+          <li style="font-size:13px;line-height:1.6;">Business context is accurate and client-reviewable</li>
+        </ul>
+
+        <div class="section-label" style="margin-top: 14px;">PRD review checklist</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Every user story traces back to a BRD requirement</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Every acceptance criterion is independently testable</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">No technical implementation detail leaked into user stories</li>
+          <li style="font-size:13px;line-height:1.6;">TL flags any story that is technically infeasible as written</li>
+        </ul>
+
+        <div class="highlight-rule" style="margin-top: 14px;">Both BRD and PRD must be signed off today. Architecture cannot start on Day 4 without them.</div>
+      </div>
+      <div>
+        <div class="role-box">
+          <div class="role-box-header">
+            <span class="badge badge-pm">PM</span>
+            <h4>Full Day</h4>
+          </div>
+          <ul>
+            <li>Lead BRD review — validate business context and requirements</li>
+            <li>Walk SA through any changes needed</li>
+            <li>Review PRD user stories — do they reflect what the client asked for?</li>
+            <li>Sign BRD + PRD</li>
+          </ul>
+        </div>
+        <div class="role-box">
+          <div class="role-box-header">
+            <span class="badge badge-sa">SA</span>
+            <h4>Full Day</h4>
+          </div>
+          <ul>
+            <li>Address all BRD review comments — revise and re-present</li>
+            <li>Review PRD for technical feasibility</li>
+            <li>Flag impossible or underspecified requirements</li>
+            <li>Sign BRD + PRD</li>
+          </ul>
+        </div>
+        <div class="role-box">
+          <div class="role-box-header">
+            <span class="badge badge-tl">TL</span>
+            <h4>PM</h4>
+          </div>
+          <ul>
+            <li>Review PRD ACs — are they testable and complete?</li>
+            <li>Flag: missing security, performance, or compliance constraints</li>
+            <li>Sign PRD — gate before Architecture begins</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 12 — Day 4: Architecture + Dev Tasks  ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s12">
+    <div class="day-pill">Day 4 &nbsp;&middot;&nbsp; Full Day &nbsp;&middot;&nbsp; Sprint Work</div>
+    <h2>Architecture + Dev Tasks Generation</h2>
+    <p class="subtitle">AM: SA generates Architecture Document with ADRs. PM: TL generates Dev Tasks from signed Architecture. Both generated today — both reviewed on Day 5.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">AM — Architecture Document must cover</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Tech stack with rationale (why each choice)</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Data model (tables, relationships, key fields)</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">API design (endpoints, auth, request/response shape)</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Key ADRs — context, decision, consequences per major decision</li>
+          <li style="font-size:13px;line-height:1.6;">Security design + NFRs (performance, availability, compliance)</li>
+        </ul>
+
+        <div class="section-label" style="margin-top: 14px;">PM — Dev Task format</div>
+        <div class="code-block" style="font-size:11px;line-height:1.6;"><span class="ck">Task ID:</span>    LM-004
+<span class="ck">Title:</span>      Submit leave request endpoint
+<span class="ck">Refs:</span>       PRD UC-003, Architecture §4.2
+
+<span class="ck">Endpoint:</span>   POST /api/leaves  (auth required)
+<span class="ck">Logic:</span>      1. Validate body  2. Check date order
+            3. Check conflicts  4. Create PENDING
+            5. Write AuditLog  6. Email manager (async)
+<span class="ck">Response:</span>   201 | 409 Conflict | 422 Validation
+<span class="ck">Tests:</span>      happy path, date conflict, auth failure</div>
+      </div>
+      <div>
+        <div class="role-box">
+          <div class="role-box-header">
+            <span class="badge badge-sa">SA</span>
+            <h4>AM — Architecture</h4>
+          </div>
+          <ul>
+            <li>Load signed PRD + Solutions Document as context</li>
+            <li>Use software-architect agent from <code style="font-size:11px;background:#f1f5f9;padding:1px 4px;border-radius:3px;">ultimate-ai-agents/</code></li>
+            <li>Generate Architecture Document + ADRs</li>
+            <li>Self-check: can Dev implement this without asking you questions?</li>
+            <li>Hand off to TL before noon</li>
+          </ul>
+        </div>
+        <div class="role-box">
+          <div class="role-box-header">
+            <span class="badge badge-tl">TL</span>
+            <h4>AM review + PM Dev Tasks</h4>
+          </div>
+          <ul>
+            <li>AM: quick review of Architecture — flag gaps before SA moves on</li>
+            <li>PM: load Architecture + PRD → generate Dev Tasks (one per endpoint/component)</li>
+            <li>Use solution-designer agent from <code style="font-size:11px;background:#f1f5f9;padding:1px 4px;border-radius:3px;">ultimate-ai-agents/</code></li>
+            <li>Each task: ID, endpoint, numbered logic, error codes, test scenarios</li>
+            <li>End of day: Architecture + Dev Tasks drafts ready for Day 5 review</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 13 — Day 5: Review + Refine + Sign-off ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s13">
+    <div class="day-pill">Day 5 &nbsp;&middot;&nbsp; Review + Refine &nbsp;&middot;&nbsp; Sprint Work</div>
+    <h2>Architecture + Dev Tasks Review, Refine &amp; Sign-off</h2>
+    <p class="subtitle">Full day of structured review and refinement. Dev joins to validate Dev Tasks are implementable. Nothing moves to Day 6 unsigned.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">Architecture review checklist</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Data model supports every PRD user story</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">ADRs are specific enough — each includes the constraint, not just the decision</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Security and compliance requirements addressed (soft delete, audit log, auth)</li>
+          <li style="font-size:13px;line-height:1.6;">No implementation gaps — Dev should not need to ask SA questions</li>
+        </ul>
+
+        <div class="section-label" style="margin-top: 14px;">Dev Tasks review checklist</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Every task references its PRD user story and Architecture section</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Business logic steps are numbered and unambiguous</li>
+          <li style="font-size:13px;margin-bottom:6px;line-height:1.6;">Error codes and test scenarios are complete</li>
+          <li style="font-size:13px;line-height:1.6;">Dev can implement each task without asking questions</li>
+        </ul>
+
+        <div class="highlight-rule" style="margin-top: 14px;">All four artifacts signed today: BRD ✓ PRD ✓ Architecture ✓ Dev Tasks ✓ — Day 6 is workshops only.</div>
+      </div>
+      <div>
+        <div class="role-box">
+          <div class="role-box-header">
+            <span class="badge badge-sa">SA</span>
+            <h4>Full Day</h4>
+          </div>
+          <ul>
+            <li>Address Architecture review comments — revise and resubmit</li>
+            <li>Review Dev Tasks: does each task align with the Architecture ADRs?</li>
+            <li>Sign Architecture + Dev Tasks</li>
+          </ul>
+        </div>
+        <div class="role-box">
+          <div class="role-box-header">
+            <span class="badge badge-tl">TL</span>
+            <h4>Full Day</h4>
+          </div>
+          <ul>
+            <li>Lead Architecture review — validate data model and ADRs</li>
+            <li>Refine Dev Tasks based on review feedback</li>
+            <li>Sign Architecture + Dev Tasks</li>
+          </ul>
+        </div>
+        <div class="role-box">
+          <div class="role-box-header">
+            <span class="badge badge-dev">Dev</span>
+            <h4>Joins Day 5 PM</h4>
+          </div>
+          <ul>
+            <li>Read Dev Tasks — flag anything unclear or unimplementable</li>
+            <li>Set up starter-code: <code style="font-size:11px;background:#f1f5f9;padding:1px 4px;border-radius:3px;">pnpm install &amp;&amp; cp .env.example .env</code></li>
+            <li>Ask questions now — not during coding</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 14 — Module 4: AI-Assisted Dev        ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s14">
+    <div class="module-pill">Module 4 &nbsp;&middot;&nbsp; Day 6 AM &nbsp;&middot;&nbsp; 2 hours &nbsp;&middot;&nbsp; Dev + Tech Lead</div>
+    <h2>AI-Assisted Development &amp; Delivery</h2>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">Context-aware coding</div>
+        <p style="font-size:13.5px;color:#374151;margin-top:4px;">Before writing a single line, load these three things into your AI tool:</p>
+        <ol style="margin-top: 10px; padding-left: 18px;">
+          <li style="font-size:13.5px;color:#374151;margin-bottom:6px;line-height:1.6;">The relevant PRD user stories (acceptance criteria)</li>
+          <li style="font-size:13.5px;color:#374151;margin-bottom:6px;line-height:1.6;">The Architecture Document (constraints and decisions)</li>
+          <li style="font-size:13.5px;color:#374151;line-height:1.6;">The Dev Task you are implementing</li>
+        </ol>
+        <p style="font-size:13px;color:#6b7280;margin-top:10px;line-height:1.65;font-style:italic;">"With this context loaded, your AI tool becomes a development partner that understands your project — not a generic code generator."</p>
+
+        <div class="section-label" style="margin-top: 18px;">Implementing from a Dev Task</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13.5px;margin-bottom:6px;line-height:1.6;">Read the task. Read it again. Understand the acceptance criteria.</li>
+          <li style="font-size:13.5px;margin-bottom:6px;line-height:1.6;">Ask AI to plan before writing code: "Given this Dev Task, what is your implementation plan?"</li>
+          <li style="font-size:13.5px;margin-bottom:6px;line-height:1.6;">Review the plan against the task spec. Does it match?</li>
+          <li style="font-size:13.5px;margin-bottom:6px;line-height:1.6;">Implement step by step. Commit after each logical unit.</li>
+          <li style="font-size:13.5px;line-height:1.6;">Every commit message references the task ID.</li>
+        </ul>
+
+        <div class="golden-rule">You own every commit. If you can't explain what the AI wrote, don't commit it.</div>
+      </div>
+      <div>
+        <div class="exercise">
+          <div class="ex-header">
+            <span class="ex-title">Exercise — Implement your first Dev Task</span>
+            <span class="ex-time">Dev + TL &nbsp;&middot;&nbsp; 75 min</span>
+          </div>
+          <ol>
+            <li>Set up the project:<br><code style="font-size:11px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#166534;">cd starter-code && pnpm install && cp .env.example .env</code></li>
+            <li>Load your first Dev Task into Claude Code</li>
+            <li>Ask Claude to plan the implementation — review the plan</li>
+            <li>Implement — one step at a time</li>
+            <li>Write at least one test for the happy path</li>
+            <li>Read the full diff before committing</li>
+            <li>Commit: <code style="font-size:11px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#166534;">git commit -m "feat(LM-00X): [description]"</code></li>
+          </ol>
+          <div class="ex-output">Output: One working, tested, committed implementation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 15 — Day 7: Coding Sprint             ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s15">
+    <div class="day-pill">Day 7 &nbsp;&middot;&nbsp; Coding Sprint begins</div>
+    <h2>Coding Sprint — Days 7 to 9</h2>
+    <p class="subtitle">All artifacts signed. All modules taught. Dev Team builds with full context loaded. QA runs parallel. TL reviews every PR.</p>
+
+    <div class="three-col" style="margin-top: 20px;">
+      <div class="role-box" style="margin-top: 0;">
+        <div class="role-box-header">
+          <span class="badge badge-dev">Dev</span>
+          <h4>Full Day</h4>
+        </div>
+        <ul>
+          <li>Load: PRD + Architecture + Dev Tasks as context every session</li>
+          <li>Work through Dev Tasks in priority order</li>
+          <li>Ask AI to plan before each task</li>
+          <li>Commit frequently with task ID references</li>
+          <li>Flag blockers to TL immediately — don't debug alone for more than 30 minutes</li>
+        </ul>
+      </div>
+      <div class="role-box" style="margin-top: 0;">
+        <div class="role-box-header">
+          <span class="badge badge-tl">TL</span>
+          <h4>Full Day</h4>
+        </div>
+        <ul>
+          <li>Code review: every PR reviewed before merge</li>
+          <li>Unblock Dev: answer architecture questions</li>
+          <li>Monitor: are implementations matching the Architecture ADRs?</li>
+          <li>Raise: any deviations from Architecture need a new ADR</li>
+        </ul>
+      </div>
+      <div class="role-box" style="margin-top: 0;">
+        <div class="role-box-header">
+          <span class="badge badge-qa">QA</span>
+          <h4>Joins Day 7</h4>
+        </div>
+        <ul>
+          <li>Read the signed PRD user stories</li>
+          <li>Write test cases from acceptance criteria before Dev finishes</li>
+          <li>Set up test environment</li>
+          <li>Prepare: what will you test first when Dev hands off?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 16 — Module 5: Context Engineering    ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s16">
+    <div class="module-pill">Module 5 &nbsp;&middot;&nbsp; Day 6 AM–PM &nbsp;&middot;&nbsp; 2 hours &nbsp;&middot;&nbsp; All Roles</div>
+    <h2>Context Engineering &amp; Management</h2>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">The context window</div>
+        <p style="font-size:13.5px;color:#374151;margin-top:4px;line-height:1.65;">The AI's working memory is finite. After long sessions — or when the wrong things get loaded — quality degrades. Not randomly: there are specific warning signs.</p>
+
+        <div class="section-label" style="margin-top: 16px;">Warning signs</div>
+        <ul class="warning-list">
+          <li>AI forgets decisions made earlier in the session</li>
+          <li>AI contradicts itself within the same conversation</li>
+          <li>Output gets shorter, vaguer, or less specific</li>
+          <li>AI mixes up unrelated files or concepts</li>
+          <li>AI repeats the same mistake after you corrected it</li>
+          <li>AI references things you never mentioned</li>
+        </ul>
+
+        <div class="highlight-rule" style="margin-top: 16px;">Correcting once is fine. Correcting the same thing three times = context poisoning. Stop. Compact or restart.</div>
+
+        <div style="display:flex;gap:12px;margin-top:14px;">
+          <div style="flex:1;padding:12px 14px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:6px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#475569;margin-bottom:5px;">Compacting</div>
+            <p style="font-size:12.5px;color:#374151;">Summarize session, restart with summary as context.</p>
+          </div>
+          <div style="flex:1;padding:12px 14px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:6px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#475569;margin-bottom:5px;">Clearing</div>
+            <p style="font-size:12.5px;color:#374151;">Fresh start, re-load only what matters for this task.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="exercise">
+          <div class="ex-header">
+            <span class="ex-title">Exercise — Diagnose and recover from a degraded context</span>
+            <span class="ex-time">All Roles &nbsp;&middot;&nbsp; 45 min</span>
+          </div>
+          <ol>
+            <li>Open a coding session from Module 4's exercise (or use a provided transcript)</li>
+            <li>Ask Claude: "What was the key architectural decision we made about data deletion?"</li>
+            <li>Evaluate the answer — is it correct? Specific? Does it match the Architecture Document?</li>
+            <li>If wrong or vague: compact the session. Run <code style="font-size:11px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#166534;">/compact</code> in Claude Code.</li>
+            <li>Restart with: load Dev Task + Architecture ADR + current file</li>
+            <li>Ask the same question again — compare the answer quality</li>
+          </ol>
+          <div class="ex-output">Output: Context checklist for your role — what to load at the start of each session</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 17 — Module 6: Agents & Governance    ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s17">
+    <div class="module-pill">Module 6 &nbsp;&middot;&nbsp; Day 6 PM &nbsp;&middot;&nbsp; 2 hours &nbsp;&middot;&nbsp; Dev + Tech Lead</div>
+    <h2>Tool Customization, Agents &amp; Governance</h2>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">Rules teach the AI your standards</div>
+        <p style="font-size:13.5px;color:#374151;margin-top:4px;line-height:1.65;"><code style="font-size:12px;background:#f1f5f9;padding:1px 5px;border-radius:3px;">CLAUDE.md</code> and <code style="font-size:12px;background:#f1f5f9;padding:1px 5px;border-radius:3px;">.cursorrules</code> enforce project-specific behavior.</p>
+
+        <div class="section-label" style="margin-top: 16px;">Good rules are</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13.5px;margin-bottom:6px;line-height:1.6;">Specific and actionable (not "write good code")</li>
+          <li style="font-size:13.5px;margin-bottom:6px;line-height:1.6;">Tied to a real project constraint</li>
+          <li style="font-size:13.5px;line-height:1.6;">Verifiable (you can check if the AI followed it)</li>
+        </ul>
+        <p style="font-size:13px;color:#6b7280;margin-top:10px;line-height:1.6;">Start with 5–10 rules. Add when you see AI make the same mistake twice. Delete rules that aren't helping.</p>
+
+        <div class="section-label" style="margin-top: 18px;">Governance — what AI must NOT do (ever)</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13.5px;margin-bottom:5px;line-height:1.6;">Make architectural decisions</li>
+          <li style="font-size:13.5px;margin-bottom:5px;line-height:1.6;">Approve requirements</li>
+          <li style="font-size:13.5px;margin-bottom:5px;line-height:1.6;">Sign off on UAT</li>
+          <li style="font-size:13.5px;line-height:1.6;">Authorize deployments</li>
+        </ul>
+        <div class="golden-rule">Every AI output has a named human validator. This is non-negotiable.</div>
+      </div>
+      <div>
+        <div class="exercise">
+          <div class="ex-header">
+            <span class="ex-title">Exercise — Write CLAUDE.md rules for the LMS project</span>
+            <span class="ex-time">Dev + TL &nbsp;&middot;&nbsp; 90 min</span>
+          </div>
+          <ol>
+            <li>Create <code style="font-size:11px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#166534;">CLAUDE.md</code> in <code style="font-size:11px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#166534;">starter-code/</code></li>
+            <li>Write a rule for the key constraint from your Architecture Document (soft delete, auth pattern, etc.)</li>
+            <li>Write a rule for commit message format referencing Dev Task IDs</li>
+            <li>Write a rule for the project's primary data access pattern</li>
+            <li>Test each rule: give Claude a task and see if it follows the rule</li>
+            <li>Write one agent definition: what would a "LMS Code Reviewer" agent look like?</li>
+          </ol>
+          <div class="ex-output">Output: CLAUDE.md committed to the project with at least 5 rules; one agent spec documented</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 18 — Module 7: Knowledge Sharing      ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s18">
+    <div class="module-pill">Module 7 &nbsp;&middot;&nbsp; Day 10 AM &nbsp;&middot;&nbsp; 1 hour &nbsp;&middot;&nbsp; All Roles</div>
+    <h2>Knowledge Sharing &amp; Continuous Improvement</h2>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">If it's not documented, it's not shared</div>
+        <p style="font-size:13.5px;color:#374151;margin-top:4px;line-height:1.65;font-style:italic;">"Even if your team sits next to each other — undocumented knowledge doesn't scale. Every prompt you refined this week is a reusable asset."</p>
+
+        <div class="section-label" style="margin-top: 16px;">What to document</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13.5px;margin-bottom:6px;line-height:1.6;"><strong>Prompt templates</strong> — proven prompts with examples and notes on when to use them</li>
+          <li style="font-size:13.5px;margin-bottom:6px;line-height:1.6;"><strong>Rule sets</strong> — with rationale (why this rule exists)</li>
+          <li style="font-size:13.5px;margin-bottom:6px;line-height:1.6;"><strong>Agent specs</strong> — ready for the next team member to use</li>
+          <li style="font-size:13.5px;line-height:1.6;"><strong>Lessons learned</strong> — what worked, what failed, what to avoid</li>
+        </ul>
+
+        <div class="section-label" style="margin-top: 18px;">Shared repo structure</div>
+        <div class="repo-struct">
+          <span class="repo-folder">prompts/</span>
+          <span class="repo-folder">rules/</span>
+          <span class="repo-folder">agents/</span>
+          <span class="repo-folder">patterns/</span>
+          <span class="repo-folder">retros/</span>
+        </div>
+
+        <div class="section-label" style="margin-top: 18px;">Retro questions — run every sprint</div>
+        <ul style="margin-top: 4px;">
+          <li style="font-size:13px;margin-bottom:5px;line-height:1.6;">What AI workflows saved the most time?</li>
+          <li style="font-size:13px;margin-bottom:5px;line-height:1.6;">Where did AI slow us down?</li>
+          <li style="font-size:13px;margin-bottom:5px;line-height:1.6;">What rules should we add?</li>
+          <li style="font-size:13px;line-height:1.6;">What prompts should be in the shared library?</li>
+        </ul>
+      </div>
+      <div>
+        <div class="exercise">
+          <div class="ex-header">
+            <span class="ex-title">Exercise — Document your best prompt from this week</span>
+            <span class="ex-time">All Roles &nbsp;&middot;&nbsp; 30 min</span>
+          </div>
+          <ol>
+            <li>Pick the most useful prompt you wrote during Sprint 0</li>
+            <li>Write it up:
+              <ul style="margin-top:4px;padding-left:14px;">
+                <li style="font-size:12px;color:#166534;line-height:1.55;margin-bottom:2px;">Title and use case</li>
+                <li style="font-size:12px;color:#166534;line-height:1.55;margin-bottom:2px;">The full prompt (copy-paste ready)</li>
+                <li style="font-size:12px;color:#166534;line-height:1.55;margin-bottom:2px;">Example output (summarize or attach)</li>
+                <li style="font-size:12px;color:#166534;line-height:1.55;">Notes: what makes it work; edge cases; variations</li>
+              </ul>
+            </li>
+            <li>Save it to the appropriate folder in <code style="font-size:11px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#166534;">ultimate-ai-agents/</code> or create a new file</li>
+            <li>Present to the team: one person per role shares their pick</li>
+          </ol>
+          <div class="ex-output">Output: At least one documented, reusable prompt contributed to the shared repo per person</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 19 — By Day 10: Deliverables          ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s19">
+    <h2>By Day 10, Every Role Has Real Deliverables</h2>
+    <p class="subtitle">Sprint 0 is both training and the real first sprint. These are not practice exercises.</p>
+
+    <table class="data-table" style="margin-top: 10px;">
+      <thead>
+        <tr>
+          <th style="width: 110px;">Role</th>
+          <th>Deliverables</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-pm">PM</span></td>
+          <td style="font-size:13px;line-height:1.7;">Signed BRD (co-authored with SA) &nbsp;&middot;&nbsp; Signed PRD with user stories and acceptance criteria &nbsp;&middot;&nbsp; Team prompt library seeded</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-sa">SA</span></td>
+          <td style="font-size:13px;line-height:1.7;">Solutions Document &nbsp;&middot;&nbsp; BRD (generated, validated, signed) &nbsp;&middot;&nbsp; Architecture Document + ADRs &nbsp;&middot;&nbsp; Dev Tasks Document (generated or reviewed)</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-tl">Tech Lead</span></td>
+          <td style="font-size:13px;line-height:1.7;">Architecture review completed and signed &nbsp;&middot;&nbsp; Dev Tasks reviewed and signed &nbsp;&middot;&nbsp; CLAUDE.md rules committed &nbsp;&middot;&nbsp; First PRs reviewed</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-dev">Developer</span></td>
+          <td style="font-size:13px;line-height:1.7;">Dev Tasks reviewed &nbsp;&middot;&nbsp; Core features implemented with tests &nbsp;&middot;&nbsp; CLAUDE.md rules followed &nbsp;&middot;&nbsp; Commits traced to task IDs</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-qa">QA</span></td>
+          <td style="font-size:13px;line-height:1.7;">Test cases written from PRD acceptance criteria &nbsp;&middot;&nbsp; Test environment set up &nbsp;&middot;&nbsp; First test run completed</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-devops">DevOps</span></td>
+          <td style="font-size:13px;line-height:1.7;">CI/CD pipeline configured &nbsp;&middot;&nbsp; Infrastructure as code drafted &nbsp;&middot;&nbsp; Deployment runbook started</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 20 — Quality Gates                    ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s20">
+    <h2>Quality Gates</h2>
+    <p class="subtitle">Each gate must pass before the next phase opens. These are not optional checkboxes.</p>
+
+    <div class="gate-header">
+      <div>Gate</div>
+      <div>What triggers it</div>
+      <div>Evidence required</div>
+      <div>Signs off</div>
+    </div>
+
+    <div class="gate-item">
+      <div class="gate-name">Requirements Sign-Off</div>
+      <div class="gate-trigger">PRD is complete</div>
+      <div class="gate-evidence">Reviewed PRD with all ACs confirmed, traceability to BRD</div>
+      <div class="gate-signoff">PM + SA</div>
+    </div>
+    <div class="gate-item">
+      <div class="gate-name">Architecture Review</div>
+      <div class="gate-trigger">Architecture Document complete</div>
+      <div class="gate-evidence">Arch Doc + at least 3 ADRs, TL technical review</div>
+      <div class="gate-signoff">SA + TL</div>
+    </div>
+    <div class="gate-item">
+      <div class="gate-name">Dev Tasks Review</div>
+      <div class="gate-trigger">Dev Tasks Document complete</div>
+      <div class="gate-evidence">All tasks have endpoint specs + business logic + test scenarios</div>
+      <div class="gate-signoff">TL or Dev (not the generator)</div>
+    </div>
+    <div class="gate-item">
+      <div class="gate-name">CI Quality Gate</div>
+      <div class="gate-trigger">Code submitted for merge</div>
+      <div class="gate-evidence">All tests pass, no critical issues, full diff reviewed</div>
+      <div class="gate-signoff">TL (code review)</div>
+    </div>
+    <div class="gate-item">
+      <div class="gate-name">Test Quality Gate</div>
+      <div class="gate-trigger">Feature complete in staging</div>
+      <div class="gate-evidence">All critical defects resolved, coverage met, QA sign-off</div>
+      <div class="gate-signoff">QA</div>
+    </div>
+    <div class="gate-item">
+      <div class="gate-name">Sprint 0 Exit</div>
+      <div class="gate-trigger">Day 10</div>
+      <div class="gate-evidence">All roles have deliverables, retro complete, action items assigned</div>
+      <div class="gate-signoff">All Roles</div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 21 — Closing                          ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s21">
+    <div class="center-slide">
+      <h1 style="font-size: 2rem; max-width: 600px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 20px;">"The framework will outlast the tools."</h1>
+      <p style="max-width: 580px; font-size: 15px; color: #4b5563; line-height: 1.8; margin-bottom: 36px;">Claude Code, Gemini CLI, Kiro, Antigravity — these are what we use today. The tools will change. The structure — artifact governance, traceability, human accountability, quality gates — will not. Learn the structure. The rest will transfer.</p>
+
+      <div class="pipeline" style="justify-content: center;">
+        <span class="pipeline-node">BRD</span>
+        <span class="pipeline-arrow">&#8594;</span>
+        <span class="pipeline-node">PRD</span>
+        <span class="pipeline-arrow">&#8594;</span>
+        <span class="pipeline-node">Architecture</span>
+        <span class="pipeline-arrow">&#8594;</span>
+        <span class="pipeline-node">Dev Tasks</span>
+        <span class="pipeline-arrow">&#8594;</span>
+        <span class="pipeline-node">Code</span>
+        <span class="pipeline-arrow">&#8594;</span>
+        <span class="pipeline-node">Tests</span>
+        <span class="pipeline-arrow">&#8594;</span>
+        <span class="pipeline-node">Deploy</span>
+      </div>
+
+      <div class="closing-meta">
+        <div style="font-size: 15px; font-weight: 600; color: #374151;">Sprint 0 complete. Ready for Sprint 1.</div>
+        <div style="font-size: 13px; color: #9ca3af; margin-top: 6px;">Stratpoint Technologies &nbsp;&middot;&nbsp; AI-Augmented SDLC Framework</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /#deck -->
+
+<!-- Navigation -->
+<div id="nav">
+  <button class="nav-btn" id="btn-prev" onclick="go(cur-1)" title="Previous (&#8592;)">&#8592;</button>
+  <span class="counter">1 / 21</span>
+  <button class="nav-btn" id="btn-next" onclick="go(cur+1)" title="Next (&#8594;)">&#8594;</button>
+</div>
+
+<script>
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function go(n) {
+    slides[cur].classList.remove('active');
+    cur = Math.max(0, Math.min(n, total - 1));
+    slides[cur].classList.add('active');
+    document.querySelector('.counter').textContent = (cur + 1) + ' / ' + total;
+    document.getElementById('btn-prev').disabled = cur === 0;
+    document.getElementById('btn-next').disabled = cur === total - 1;
+    // Scroll to top of new slide
+    slides[cur].scrollTop = 0;
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(cur - 1);
+  });
+
+  function scaleSlides() {
+    const scale = Math.min(window.innerWidth / 1280, window.innerHeight / 800);
+    document.documentElement.style.setProperty('--slide-scale', scale);
+  }
+  window.addEventListener('resize', scaleSlides);
+  scaleSlides();
+
+  // Initialize
+  go(0);
+</script>
+</body>
+</html>

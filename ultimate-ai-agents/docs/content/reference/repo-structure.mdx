@@ -1,0 +1,45 @@
+# Repo Structure
+
+The repository is organized around a single source of truth with generated outputs for each platform.
+
+```
+agents/
+  claude/              # SOURCE OF TRUTH — agent definitions
+  chatgpt/             # generated from claude/
+  claude-projects/     # generated from claude/
+  codex/               # generated from claude/
+  cursor/              # Cursor rules
+  gemini/              # Gemini gems
+commands/              # Workflow slash commands
+rules/                 # Shared rules
+.claude/               # output — synced to local project
+.cursor/               # output — synced to local project
+```
+
+## Source of Truth
+
+**`agents/claude/`** is the only directory you edit directly. Each agent is a Markdown file with YAML frontmatter and a system prompt body. All other platform directories are generated from these files.
+
+## Generated Directories
+
+These are produced by running `./generate-platforms.sh`:
+
+| Directory | Format | Purpose |
+|-----------|--------|---------|
+| `agents/chatgpt/` | ChatGPT custom instructions | For use in ChatGPT Custom GPTs |
+| `agents/claude-projects/` | Claude Projects format | For use in Claude.ai Projects |
+| `agents/codex/` | Codex agent format | For use with OpenAI Codex |
+| `agents/cursor/` | Cursor rule files | For use as Cursor AI rules |
+| `agents/gemini/` | Gemini gem format | For use as Google Gemini gems |
+
+## Output Directories
+
+These are populated by `./sync.sh` or `./install.sh` and are what your local IDE reads:
+
+- **`.claude/`** — Claude Code reads agents and commands from here
+- **`.cursor/`** — Cursor reads rule files from here
+
+## Other Directories
+
+- **`commands/`** — Reusable multi-step workflows that orchestrate multiple agents
+- **`rules/`** — Shared rules applied across all agents

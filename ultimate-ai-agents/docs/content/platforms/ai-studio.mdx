@@ -1,0 +1,23 @@
+# Google AI Studio
+
+## Setup
+
+1. Open [aistudio.google.com](https://aistudio.google.com).
+2. Create a new prompt or open an existing one.
+3. Copy the contents of the desired agent from `agents/claude-projects/`.
+4. Paste into the **System instructions** field.
+
+This works with any model available in AI Studio (Gemini, PaLM, etc.).
+
+## Agent Browser
+
+Alternatively, use the built-in agent browser:
+
+1. Open `index.html` in your browser.
+2. Browse and select an agent.
+3. Choose **AI Studio** as the target platform.
+4. Copy the output and paste it into your System instructions.
+
+## Why `agents/claude-projects/`?
+
+The files in `agents/claude-projects/` use a clean system-prompt format with no platform-specific markup, making them the best source for AI Studio and other generic LLM interfaces.

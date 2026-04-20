@@ -1,0 +1,32 @@
+# Other LLMs
+
+## Overview
+
+Ultimate AI Agents works with **any LLM that supports system prompts**. The agent definitions are plain text and contain no platform-specific markup.
+
+## Setup
+
+1. Copy the contents of the desired agent from `agents/claude-projects/`.
+2. Paste into your LLM's system prompt or instructions field.
+
+The `agents/claude-projects/` directory is the recommended source because it uses the cleanest format with no platform-specific syntax.
+
+## Compatible Platforms
+
+These agents have been used successfully with:
+
+- **Perplexity** -- paste into System Prompt in API or Pro settings
+- **Mistral** -- use as system message in La Plateforme or API calls
+- **Llama** (via Meta or third-party hosts) -- pass as system prompt
+- **Cohere** -- use as preamble in Command or the API
+- **Ollama** -- pass as the `system` parameter in your API calls or Modelfile
+- **Local models** (llama.cpp, text-generation-webui, LM Studio) -- set as system prompt in the UI or config
+
+## Agent Browser
+
+For a visual way to browse and copy agents:
+
+1. Open `index.html` in your browser.
+2. Browse and select an agent.
+3. Choose **Any LLM** as the target platform.
+4. Copy the output and paste it into your system prompt.

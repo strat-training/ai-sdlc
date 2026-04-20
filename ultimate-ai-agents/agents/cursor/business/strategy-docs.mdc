@@ -1,0 +1,54 @@
+---
+description: Rules for strategy documents: plans, analyses, OKRs, business cases
+alwaysApply: false
+---
+
+# Strategy Documents
+
+## Framing
+
+- **Start with the strategic question** being answered. State it explicitly in the opening paragraph.
+- Define the scope and time horizon of the strategy (e.g., 1-year plan, 3-year vision).
+- Articulate what success looks like before proposing how to get there.
+
+## Evidence and Analysis
+
+- Be **data-driven**: cite sources for all market claims, competitive data, and industry benchmarks.
+- Include **multiple scenarios**: base case, optimistic, and pessimistic with stated assumptions for each.
+- Use frameworks (SWOT, Porter's Five Forces, PESTEL) where they add clarity, not as filler.
+
+## OKRs
+
+- Define **3-5 Objectives** per planning period. Each should be ambitious and qualitative.
+- Each Objective should have **2-4 Key Results** that are specific, measurable, and time-bound.
+- Key Results must be outcomes, not activities. "Increase NPS from 42 to 55" not "Run customer surveys."
+- Include a confidence level (e.g., 70% target) to encourage stretch goals.
+
+## Business Cases
+
+- Include quantitative analysis: **payback period**, **Net Present Value (NPV)**, and **Internal Rate of Return (IRR)**.
+- State all financial assumptions and their sources.
+- Compare against alternatives, including the "do nothing" option.
+- Quantify both tangible and intangible benefits where possible.
+
+## Implementation
+
+- Include an **implementation timeline** with key milestones and dependencies.
+- Define **resource needs**: people, budget, technology, and external support.
+- Identify the governance structure: who decides, who executes, who reviews.
+
+## Risk and Contingency
+
+- Identify strategic risks and their potential impact on the plan.
+- Define trigger points for when to pivot or revisit the strategy.
+- Include contingency plans for high-impact scenarios.
+
+## Checklist
+
+- [ ] Strategic question clearly stated
+- [ ] All market claims cite sources
+- [ ] Base, optimistic, and pessimistic scenarios included
+- [ ] OKRs: 3-5 objectives with 2-4 measurable KRs each
+- [ ] Business case includes payback period, NPV, IRR
+- [ ] Implementation timeline and resource needs defined
+- [ ] Risks identified with contingency plans

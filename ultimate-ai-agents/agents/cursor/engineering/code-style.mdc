@@ -1,0 +1,15 @@
+---
+description: TypeScript and code style conventions for source files
+globs: ["src/**/*.ts", "src/**/*.tsx", "app/**/*.ts", "app/**/*.tsx"]
+alwaysApply: false
+---
+
+# Code Style Rules
+
+- TypeScript strict mode is mandatory -- no `any`, no unused variables
+- Use `unknown` with type guards instead of `any`
+- Use object parameters for functions with 3+ parameters
+- Single responsibility per function and component
+- Prefer `interface` over `type` for object shapes
+- Use discriminated unions for complex state
+- Always handle null/undefined with proper checks, not non-null assertions

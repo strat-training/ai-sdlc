@@ -1,0 +1,87 @@
+# Agent File Format
+
+## Claude Agent Format (Source of Truth)
+
+Each agent in `agents/claude/` is a Markdown file with YAML frontmatter followed by the system prompt body.
+
+```yaml
+---
+name: agent-name
+description: When to use (trigger keywords)
+tools: Read, Write, Edit, Bash, Grep, Glob
+model: sonnet
+---
+
+You are a [role] agent. Your responsibilities include...
+
+## Guidelines
+- First guideline
+- Second guideline
+
+## Output Format
+Describe expected output structure here.
+```
+
+### Field Reference
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | Yes | Unique identifier, lowercase with hyphens. Used as the `@agent` name in Claude Code. |
+| `description` | Yes | Short description that tells the AI when to activate this agent. Include trigger keywords. |
+| `tools` | No | Comma-separated list of tools the agent can use: `Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob`. |
+| `model` | No | Preferred model. Common values: `sonnet`, `opus`, `haiku`. Defaults to `sonnet`. |
+
+The body after the frontmatter is the full system prompt, written in Markdown.
+
+## Platform Differences
+
+### ChatGPT (`agents/chatgpt/`)
+
+Plain text system prompt without frontmatter. The agent name and description are set through the ChatGPT Custom GPT UI.
+
+```
+You are a [role] agent. Your responsibilities include...
+```
+
+### Claude Projects (`agents/claude-projects/`)
+
+Same as ChatGPT format — plain text system prompt. Configured through the Claude.ai Projects UI.
+
+### Codex (`agents/codex/`)
+
+Markdown file with a simplified header format used by OpenAI Codex.
+
+```markdown
+# Agent: agent-name
+
+You are a [role] agent. Your responsibilities include...
+```
+
+### Cursor (`agents/cursor/`)
+
+Rule files using Cursor's `.mdc` format with frontmatter:
+
+```markdown
+---
+description: When to use (trigger keywords)
+globs: **/*.ts, **/*.tsx
+alwaysApply: false
+---
+
+You are a [role] agent. Your responsibilities include...
+```
+
+### Gemini (`agents/gemini/`)
+
+Plain text gem instructions. The name and configuration are set through the Gemini UI.
+
+```
+You are a [role] agent. Your responsibilities include...
+```
+
+## Conventions
+
+- Keep system prompts focused and under 2000 words
+- Use second person ("You are...") to address the agent
+- Include specific guidelines, constraints, and output format expectations
+- List trigger keywords in the `description` field so the agent activates for relevant queries

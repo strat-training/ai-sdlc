@@ -1,0 +1,19 @@
+---
+paths:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"
+  - "tests/**/*"
+  - "e2e/**/*"
+---
+
+# Testing Rules
+
+- Use Vitest for unit and integration tests
+- Use Playwright for E2E tests
+- Tests use a real local database, not mocks
+- Follow Arrange-Act-Assert pattern
+- Test edge cases and error paths, not just happy paths
+- Aim for 80%+ coverage on business logic
+- Name test files as `*.test.ts` next to the source file

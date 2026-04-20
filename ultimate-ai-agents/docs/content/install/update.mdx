@@ -1,0 +1,52 @@
+# Update
+
+## From Cloned Repo
+
+```bash
+./update.sh
+```
+
+This does two things:
+1. **Pulls latest changes** via `git pull --ff-only`
+2. **Re-runs the installer** with interactive prompts (or env vars)
+
+```
+  Updating Ultimate AI Agents
+
+  Pulling latest changes...
+  ✓ Updated a1b2c3d → e4f5g6h
+
+  Changes:
+    • e4f5g6h Add new security agent
+    • d3c2b1a Update sales-strategist prompt
+
+  Re-running installer...
+```
+
+## Non-Interactive Update
+
+```bash
+TOOLS=claude ./update.sh
+```
+
+Same env vars as `install.sh` are supported.
+
+## Without Cloning (Remote)
+
+If you originally installed via the curl one-liner, just re-run it:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/stratpoint-engineering/ultimate-ai-agents/main/install.sh | bash
+```
+
+This fetches the latest from the repo each time.
+
+## If You Have Local Changes
+
+If `git pull` fails due to local modifications:
+
+```bash
+git stash
+./update.sh
+git stash pop
+```

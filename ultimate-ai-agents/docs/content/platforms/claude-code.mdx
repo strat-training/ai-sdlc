@@ -1,0 +1,56 @@
+# Claude Code
+
+## Installation
+
+Run the installer with the `claude` tool target:
+
+```bash
+TOOLS=claude ./install.sh
+```
+
+This deploys agents, commands, rules, and skills into your project's `.claude/` directory.
+
+## Using Agents
+
+Invoke any installed agent by name:
+
+```bash
+claude --agent sales-strategist
+```
+
+Inside a Claude Code session, mention an agent directly:
+
+```
+@code-reviewer review this PR
+```
+
+## Running Workflows
+
+Trigger installed workflows with the `/project:` prefix:
+
+```
+/project:workflow-review-code
+```
+
+Workflows combine multiple steps (lint, test, review) into a single command.
+
+## File Locations
+
+After installation, files are organized under `.claude/`:
+
+| Directory | Purpose |
+|---|---|
+| `.claude/agents/` | Agent persona definitions |
+| `.claude/commands/` | Slash commands and workflows |
+| `.claude/rules/` | Project rules loaded automatically |
+| `.claude/skills/` | Reusable skill definitions |
+
+## Claude.ai Projects
+
+You can also use these agents in Claude.ai Projects (the web interface):
+
+1. Open [claude.ai](https://claude.ai) and create or open a Project.
+2. Go to **Project instructions**.
+3. Copy the contents of the desired agent from `agents/claude-projects/` and paste them into the instructions field.
+
+The files in `agents/claude-projects/` are formatted specifically for use as project-level system prompts. Each file contains the full persona and rules for one agent.

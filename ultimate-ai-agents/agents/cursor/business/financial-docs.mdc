@@ -1,0 +1,52 @@
+---
+description: Rules for financial documents: budgets, reports, forecasts, analyses
+alwaysApply: false
+---
+
+# Financial Documents
+
+## Executive Summary
+
+- Lead with an **executive summary** containing key metrics: revenue, margin, cash position, and any critical variances.
+- Highlight the 3-5 most important takeaways before presenting detail.
+
+## Data Integrity
+
+- **All numbers must tie to source data.** Cite the source system or report for every figure.
+- Use **consistent currency and date formats** throughout the document (e.g., USD, YYYY-MM-DD).
+- Clearly label whether figures are actual, budgeted, or forecasted.
+
+## Forecasts and Projections
+
+- Include an **assumptions section** in every forecast. List each assumption explicitly with its basis.
+- Present **comparison periods**: Month-over-Month (MoM), Quarter-over-Quarter (QoQ), and Year-over-Year (YoY) as relevant.
+- State the confidence level or range for projections where possible.
+
+## Variance Analysis
+
+- Explain any **deviation greater than 5%** from budget, forecast, or prior period.
+- For each variance, provide: the amount, the percentage, the root cause, and the expected trajectory.
+- Distinguish between one-time and recurring variances.
+
+## Risk and Sensitivity
+
+- **Flag risks and sensitivities** that could materially impact the numbers.
+- Include scenario analysis for key assumptions (best case, base case, worst case).
+- Quantify the financial impact of each identified risk.
+
+## Formatting Standards
+
+- Use tables for numerical data, not paragraphs.
+- Right-align numbers; left-align labels.
+- Use consistent decimal precision (e.g., 2 decimal places for currency).
+- Clearly separate subtotals and totals with formatting.
+
+## Checklist
+
+- [ ] Executive summary with key metrics present
+- [ ] All figures tied to source data
+- [ ] Currency and date formats consistent
+- [ ] Assumptions section included in forecasts
+- [ ] Variances over 5% explained
+- [ ] Comparison periods included
+- [ ] Risks and sensitivities flagged

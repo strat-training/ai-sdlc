@@ -1,0 +1,36 @@
+# Project Management
+
+Agents for project managers, scrum masters, and business analysts. They help with planning, ceremonies, stakeholder communication, and requirements gathering.
+
+## Agent Directory
+
+| Agent | Purpose | Example Use |
+|-------|---------|-------------|
+| `project-manager` | Plan projects, track milestones, manage risks and dependencies | "Create a project plan with milestones for the Q3 platform migration" |
+| `scrum-master` | Facilitate agile ceremonies, remove blockers, track velocity | "Prepare a sprint retrospective agenda based on these sprint metrics" |
+| `business-analyst` | Gather requirements, map processes, write specifications | "Document the as-is and to-be process for order fulfillment" |
+
+## How to Use
+
+### Claude Code
+
+```bash
+@project-manager Draft a risk register for the infrastructure upgrade
+@scrum-master Write sprint planning notes from these backlog items
+@business-analyst Create a requirements document for the reporting feature
+```
+
+### ChatGPT
+
+Start a conversation with the agent's system prompt loaded as a Custom GPT:
+
+```
+You are a project-manager agent. [system prompt]
+Draft a risk register for the infrastructure upgrade.
+```
+
+### Other Platforms
+
+- **Cursor**: Available as rule files in `.cursor/rules/`
+- **Gemini**: Available as gems in `agents/gemini/`
+- **Codex**: Available as agents in `agents/codex/`
