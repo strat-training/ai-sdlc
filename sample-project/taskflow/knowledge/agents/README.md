@@ -1,14 +1,57 @@
 # Agents Reference
 
-The TaskFlow training project includes a simple sample agent (`code-reviewer.md`) for training purposes.
+This folder contains agent definitions for TaskFlow. Agents are markdown files
+with YAML frontmatter (name, description, optional tools/model) followed by a
+system prompt body. The format is portable: Claude Code, Antigravity, and
+Cursor all support the same structure with minor wiring differences.
 
-For **real client projects**, use the professional agents from the shared agent library:
+## In-Project Agents (training-built)
+
+During the AI Foundational Training, participants build their own agents and
+contribute them here under role-based subfolders:
+
+```
+knowledge/agents/
+├── README.md                       (this file)
+├── solutions-designer/             (BRD-related agents)
+├── product/                        (PRD + UI/UX agents)
+├── project-manager/                (project coordination agents)
+├── solutions-architect/            (architecture + ADR agents)
+├── tech-lead/                      (Dev Tasks + code review agents)
+└── dev/                            (developer agents)
+    └── code-reviewer.md            (seed agent — quality + security review)
+```
+
+Each role subfolder includes a README explaining what should go there and
+linking back to the relevant prompts subfolder.
+
+## Cross-tool wiring
+
+The markdown file is the portable artifact. Each tool loads it differently:
+
+- **Claude Code** — copy or symlink to `.claude/agents/{name}.md` for
+  auto-delegation by description.
+- **Antigravity** — load via the agent panel, or save the system-prompt body
+  as a workflow.
+- **Cursor** — copy to `.cursor/commands/` or use as a system prompt in custom
+  modes.
+- **Gemini (Workspace)** — paste the system prompt body into a new Gem.
+
+Keep the source of truth in `knowledge/agents/{role}/` so it's tool-neutral
+and version-controlled.
+
+## External agent library (for real client projects)
+
+For real client projects, Stratpoint also maintains a broader professional
+agent library at:
 
 ```
 /Users/ronalddelacruz/Training/ai-sdlc/ultimate-ai-agents/
 ```
 
-Or install them into any project via the library's install script.
+The sections below map SDLC phases to those professional agents. Use these for
+depth on real engagements; use the role-subfolder seed agents above for
+training and TaskFlow exercises.
 
 ---
 

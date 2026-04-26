@@ -1,44 +1,58 @@
-# TaskFlow Project Rules
+# TaskFlow — CLAUDE.md (Claude Code)
 
-## Stack
-- Backend: Node.js 20 LTS, Express 4, better-sqlite3, JWT (jsonwebtoken), bcrypt
-- Frontend: React 18, Vite, React Router v6, Tailwind CSS, Axios
-- Testing: Jest + Supertest (backend), Vitest + RTL (frontend)
-- NO Redis, NO PostgreSQL, NO session-based auth in v1
+> **Source of truth: `AGENTS.md` at the repo root.**
+> AGENTS.md contains the cross-tool project rules read by Claude Code, Cursor,
+> and Antigravity. This file (CLAUDE.md) layers Claude-Code-specific behavior
+> on top — it is loaded automatically by Claude Code in every session.
 
-## Coding Standards
+## Read first
 
-### Backend
-- All routes must use express-validator for input validation
-- All errors must use standard format: { success: false, error: { code, message } }
-- Never expose password_hash, reset_token, or reset_expires in API responses
-- All database queries must use parameterized statements (no string concatenation)
-- Use soft delete (is_deleted = 1) — never hard delete tasks
-- Always check is_active = 1 when querying users for auth purposes
+Always read `AGENTS.md` at the start of any non-trivial task. It contains:
+- Stack and forbidden technologies
+- Backend, frontend, security, and git coding standards
+- Role permissions
+- Quality gate requirements
+- Working-with-AI conventions for this project
 
-### Frontend
-- Never mutate state directly — always use functional updates with setX(prev => ...)
-- All API calls go through src/api/client.js — never use fetch() directly
-- Token stored in localStorage as 'token', user as 'user' (JSON)
-- All forms must show loading state while submitting
-- All forms must show error messages returned from API
+If a rule below conflicts with `AGENTS.md`, `AGENTS.md` wins on shared concerns.
+Use this file only for genuine Claude-Code-specific overrides.
 
-### Security
-- Never log passwords, tokens, or PII to console in production paths
-- Never commit .env files — use .env.example as template
-- Rate limiting is applied on /api/auth/* routes
+## Claude-Code-specific behaviors
 
-### Git
-- Commit messages must reference task ID: "T-021: Implement POST /api/tasks"
-- One task per commit where possible
-- Do not commit node_modules, .env, or data/*.db files
+### Subagent invocation
 
-## Role Permissions Reference
-- admin: all actions on all resources
-- team_lead: view all team tasks, all regular user actions
-- user: create/edit own tasks, update status on assigned tasks, view own tasks only
+The seed code-reviewer subagent for this project lives at:
+`knowledge/agents/dev/code-reviewer.md`.
 
-## Quality Gates
-- All endpoints must have at least one test before merge
-- No PR merges with failing tests
-- No hardcoded credentials or API keys in source code
+To make it available to Claude Code's auto-delegation, copy or symlink it to
+`.claude/agents/code-reviewer.md` in your local checkout. Once installed,
+Claude Code will auto-invoke it on review-shaped tasks based on the
+`description` field.
+
+When working on TaskFlow:
+- Trust auto-delegation for code review on PRs and commits.
+- Explicitly invoke `@code-reviewer` for self-review before pushing.
+- Build your own subagents during Module 6 — keep the source of truth in
+  `knowledge/agents/{role}/` and copy to `.claude/agents/` for activation.
+
+### Skills
+
+Skills for this project live in `knowledge/skills/{name}/SKILL.md`. To use them
+in Claude Code, copy or symlink to `.claude/skills/{name}/SKILL.md`. The seed
+skill is `taskflow-quality-gate-check` — useful before commits and during
+review.
+
+### Session hygiene
+
+- For tasks involving multiple unrelated artifacts (e.g., refactor + new
+  feature + test fix), prefer separate sessions or use subagents to isolate
+  context.
+- Compact context (`/compact`) when the conversation has accumulated noise
+  from completed sub-tasks. See Module 5 for full context-engineering practice.
+
+### MCP servers in scope
+
+This project's `.mcp.json` configures: GitHub (repo operations), Filesystem
+(repo file access). If you need additional MCP servers (e.g., Atlassian for
+Jira), install them at the user level rather than committing project-level
+changes — keep the project's MCP scope tight.

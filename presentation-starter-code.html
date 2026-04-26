@@ -580,6 +580,214 @@
   </div>
 
   <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 2b — Current State SDLC               ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s2b">
+    <div class="eyebrow">Current State</div>
+    <h2>Traditional SDLC — How We Work Today</h2>
+    <p style="margin-top:8px;max-width:700px;color:#4b5563;">Before AI augmentation. Each role works in isolation, knowledge doesn't transfer between projects, and quality checks happen too late.</p>
+
+    <div class="three-col" style="margin-top:28px;">
+      <div>
+        <div class="section-label">Artifact Creation</div>
+        <ul style="margin-top:6px;">
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">BRD and PRD written manually from scratch on every project</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Architecture documents are informal or skipped under time pressure</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Dev tasks created ad-hoc in JIRA — no consistent format or structure</li>
+          <li style="font-size:13px;line-height:1.6;">No traceability: a line of code cannot be traced back to a business requirement</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">Knowledge &amp; Skills</div>
+        <ul style="margin-top:6px;">
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Prompts and patterns discovered individually — never shared</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Each project starts from zero — no reuse of proven approaches</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">AI tools used ad-hoc, inconsistently, and without governance</li>
+          <li style="font-size:13px;line-height:1.6;">When someone leaves, their knowledge leaves with them</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">Quality &amp; Accountability</div>
+        <ul style="margin-top:6px;">
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Testing deferred to the end — bugs found late are expensive to fix</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">AI output is not reviewed — nobody owns what it generates</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">No quality gates between phases — defects compound across handoffs</li>
+          <li style="font-size:13px;line-height:1.6;">Accountability gaps when AI output is wrong</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;padding:16px 20px;background:#fef2f2;border-left:3px solid #ef4444;border-radius:0 6px 6px 0;">
+      <p style="font-size:13.5px;color:#991b1b;line-height:1.65;"><strong>Result:</strong> Teams are busy, delivery is slow, rework is high, and AI makes it faster — but not necessarily better.</p>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 2c — Future State AI SDLC             ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s2c">
+    <div class="eyebrow">Future State</div>
+    <h2>AI-Augmented SDLC — Where We're Going</h2>
+    <p style="margin-top:8px;max-width:700px;color:#4b5563;">AI embedded at every phase. Human accountability maintained at every gate. Every artifact traceable. Every pattern reusable.</p>
+
+    <div class="three-col" style="margin-top:28px;">
+      <div>
+        <div class="section-label">Artifact Creation</div>
+        <ul style="margin-top:6px;">
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;"><strong>AI generates</strong> BRD, PRD, Architecture, Dev Tasks — humans review and sign off</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Every artifact references its source — full traceability from BRD to deployed code</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Dev Tasks are structured, sized 1–4 hours, with endpoint specs and test scenarios</li>
+          <li style="font-size:13px;line-height:1.6;">Commit messages reference task IDs — code is traceable to requirements</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">Knowledge &amp; Skills</div>
+        <ul style="margin-top:6px;">
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Shared prompt library — proven prompts saved and reused by the whole team</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">CLAUDE.md and agent specs encode project standards into the AI tools</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Tools: Claude Code, Gemini CLI, Kiro, Figma Make — used consistently</li>
+          <li style="font-size:13px;line-height:1.6;">MCP integrations connect AI directly to JIRA/YouTrack and Google Drive</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">Quality &amp; Accountability</div>
+        <ul style="margin-top:6px;">
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Quality gates at every phase transition — nothing moves forward unsigned</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">Every AI output has a named human validator</li>
+          <li style="font-size:13px;margin-bottom:7px;line-height:1.6;">CI enforces: no merge without passing tests and task ID reference</li>
+          <li style="font-size:13px;line-height:1.6;">Retros feed improvements back into the shared knowledge base</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;padding:16px 20px;background:#f0fdf4;border-left:3px solid #16a34a;border-radius:0 6px 6px 0;">
+      <p style="font-size:13.5px;color:#166534;line-height:1.65;"><strong>Result:</strong> Faster delivery, consistent quality, full traceability — and AI that improves the team instead of just the individual.</p>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 2d — Gaps                             ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s2d">
+    <div class="eyebrow">Gap Analysis</div>
+    <h2>Gaps Between Current State and Future State</h2>
+    <p style="margin-top:8px;max-width:700px;color:#4b5563;">The gaps are not about adding AI tools. They are organizational — process, people, governance, and delivery structure.</p>
+
+    <table class="data-table" style="margin-top:20px;">
+      <thead>
+        <tr>
+          <th style="width:130px;">Category</th>
+          <th style="width:180px;">Gap</th>
+          <th>Current State</th>
+          <th>What Future State Requires</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-pm">Process</span></td>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No structured delivery chain</td>
+          <td style="font-size:12.5px;color:#374151;">Artifacts created ad-hoc, no traceability from requirement to code</td>
+          <td style="font-size:12.5px;color:#374151;">BRD → PRD → Architecture → Dev Tasks → Code → Tests — every step linked</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-pm">Process</span></td>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No quality gates between phases</td>
+          <td style="font-size:12.5px;color:#374151;">Quality checks happen at the end — defects are found late and are expensive</td>
+          <td style="font-size:12.5px;color:#374151;">Named human sign-off at every phase transition before the next phase opens</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-sa">People</span></td>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No role clarity on AI output ownership</td>
+          <td style="font-size:12.5px;color:#374151;">AI generates output — nobody owns it, nobody validates it, nobody is accountable</td>
+          <td style="font-size:12.5px;color:#374151;">Every AI output has a named human validator. AI augments, humans decide.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-sa">People</span></td>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No shared skills or practices</td>
+          <td style="font-size:12.5px;color:#374151;">Prompts, patterns, and approaches discovered individually — lost when people leave</td>
+          <td style="font-size:12.5px;color:#374151;">Shared knowledge repo: proven prompts, rules, agent specs, retros — reused every sprint</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-tl">Governance</span></td>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No standards for how AI is used</td>
+          <td style="font-size:12.5px;color:#374151;">Each team member uses AI differently — inconsistent quality, no enforcement</td>
+          <td style="font-size:12.5px;color:#374151;">CLAUDE.md rules encode project standards into the AI — consistent across the whole team</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-dev">Technology</span></td>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No standard AI toolchain</td>
+          <td style="font-size:12.5px;color:#374151;">Ad-hoc use of ChatGPT, Copilot, etc. — no shared setup, no project context loaded</td>
+          <td style="font-size:12.5px;color:#374151;">Team-standard tools (Claude Code, Gemini CLI, Kiro) configured with project context and MCP integrations</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 2e — Training Plan Mapped to Gaps     ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s2e">
+    <div class="eyebrow">Training Plan</div>
+    <h2>How This Training Fills the Gaps</h2>
+    <p style="margin-top:8px;max-width:700px;color:#4b5563;">Each module directly closes one or more capability gaps. By Day 10, every gap has been addressed in practice — not just in theory.</p>
+
+    <table class="data-table" style="margin-top:20px;">
+      <thead>
+        <tr>
+          <th style="width:180px;">Gap</th>
+          <th style="width:200px;">Module</th>
+          <th style="width:100px;">When</th>
+          <th>What Trainees Do</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No shared tooling</td>
+          <td><span class="badge badge-all" style="font-size:10px;">All Roles</span> <strong style="font-size:12px;">Module 1</strong> — Tools Setup</td>
+          <td style="font-size:12px;color:#6b7280;">Day 1 AM</td>
+          <td style="font-size:12.5px;color:#374151;">Install and authenticate Claude Code, Gemini CLI, Kiro, Antigravity, Figma Make. Configure MCP connections.</td>
+        </tr>
+        <tr>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No prompt discipline</td>
+          <td><span class="badge badge-all" style="font-size:10px;">All Roles</span> <strong style="font-size:12px;">Module 2</strong> — Prompt Engineering</td>
+          <td style="font-size:12px;color:#6b7280;">Day 1 AM–PM</td>
+          <td style="font-size:12.5px;color:#374151;">Write Role + Context + Task + Format + Constraints prompts. Build and commit 3 reusable role-specific prompts.</td>
+        </tr>
+        <tr>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No traceability</td>
+          <td><span class="badge badge-all" style="font-size:10px;">All Roles</span> <strong style="font-size:12px;">Module 3</strong> — End-to-End SDLC</td>
+          <td style="font-size:12px;color:#6b7280;">Day 1 PM</td>
+          <td style="font-size:12.5px;color:#374151;">Trace one requirement from BRD → PRD → Architecture → Dev Tasks → Code → Tests. Name the owner at each gate.</td>
+        </tr>
+        <tr>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No AI coding practices</td>
+          <td><span class="badge badge-dev" style="font-size:10px;">Dev</span><span class="badge badge-tl" style="font-size:10px;">TL</span> <strong style="font-size:12px;">Module 4</strong> — AI-Assisted Dev</td>
+          <td style="font-size:12px;color:#6b7280;">Day 6 AM</td>
+          <td style="font-size:12.5px;color:#374151;">Load Dev Task + PRD AC + Architecture as context. Plan before coding. Implement, test, and commit with task ID.</td>
+        </tr>
+        <tr>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No context management</td>
+          <td><span class="badge badge-all" style="font-size:10px;">All Roles</span> <strong style="font-size:12px;">Module 5</strong> — Context Engineering</td>
+          <td style="font-size:12px;color:#6b7280;">Day 6 AM–PM</td>
+          <td style="font-size:12.5px;color:#374151;">Diagnose a degraded context. Compact and restart. Build a session-start checklist for your role.</td>
+        </tr>
+        <tr>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No AI governance</td>
+          <td><span class="badge badge-dev" style="font-size:10px;">Dev</span><span class="badge badge-tl" style="font-size:10px;">TL</span> <strong style="font-size:12px;">Module 6</strong> — Agents &amp; Governance</td>
+          <td style="font-size:12px;color:#6b7280;">Day 6 PM</td>
+          <td style="font-size:12.5px;color:#374151;">Write CLAUDE.md rules for the project. Define a Code Reviewer agent. Test that rules are followed.</td>
+        </tr>
+        <tr>
+          <td style="font-size:12.5px;font-weight:600;color:#b45309;">No institutional memory</td>
+          <td><span class="badge badge-all" style="font-size:10px;">All Roles</span> <strong style="font-size:12px;">Module 7</strong> — Knowledge Sharing</td>
+          <td style="font-size:12px;color:#6b7280;">Day 10 AM</td>
+          <td style="font-size:12.5px;color:#374151;">Document best prompt from Sprint 0. Commit to shared repo. Run retro. Seed the knowledge base for Sprint 1.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
   <!-- ║  Slide 3 — The Framework                     ║ -->
   <!-- ╚══════════════════════════════════════════════╝ -->
   <div class="slide" id="s3">
@@ -621,6 +829,16 @@
           <li style="font-size: 14px; color: #374151; line-height: 1.6;">Every feature is traceable end-to-end.</li>
         </ul>
       </div>
+    </div>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  Slide 3b — SDLC Workflow Diagram            ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <div class="slide" id="s3b" style="display:flex;align-items:center;justify-content:center;background:#f8fafc;">
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#2563eb;margin-bottom:12px;">SDLC Workflow Diagram</div>
+      <div style="font-size:1rem;font-weight:600;color:#0f172a;">Loading diagram&hellip;</div>
     </div>
   </div>
 
@@ -1675,10 +1893,20 @@
 
 </div><!-- /#deck -->
 
+<!-- Workflow diagram overlay — rendered outside the scaled deck to avoid transform/iframe conflict -->
+<div id="workflow-overlay" style="display:none;position:fixed;inset:0;z-index:200;background:#fff;">
+  <iframe
+    id="workflow-iframe"
+    style="width:100%;height:100%;border:none;display:block;"
+    title="AI SDLC Workflow"
+    allowfullscreen
+  ></iframe>
+</div>
+
 <!-- Navigation -->
 <div id="nav">
   <button class="nav-btn" id="btn-prev" onclick="go(cur-1)" title="Previous (&#8592;)">&#8592;</button>
-  <span class="counter">1 / 21</span>
+  <span class="counter">1 / 26</span>
   <button class="nav-btn" id="btn-next" onclick="go(cur+1)" title="Next (&#8594;)">&#8594;</button>
 </div>
 
@@ -1687,6 +1915,10 @@
   const slides = document.querySelectorAll('.slide');
   const total = slides.length;
 
+  const overlay = document.getElementById('workflow-overlay');
+  const workflowIframe = document.getElementById('workflow-iframe');
+  const workflowSrc = 'https://cdn.stratpoint.io/AI_SDLC_Workflow-v1.html';
+
   function go(n) {
     slides[cur].classList.remove('active');
     cur = Math.max(0, Math.min(n, total - 1));
@@ -1694,8 +1926,15 @@
     document.querySelector('.counter').textContent = (cur + 1) + ' / ' + total;
     document.getElementById('btn-prev').disabled = cur === 0;
     document.getElementById('btn-next').disabled = cur === total - 1;
-    // Scroll to top of new slide
     slides[cur].scrollTop = 0;
+    if (slides[cur].id === 's3b') {
+      overlay.style.display = 'block';
+      if (!workflowIframe.src || workflowIframe.src === window.location.href) {
+        workflowIframe.src = workflowSrc;
+      }
+    } else {
+      overlay.style.display = 'none';
+    }
   }
 
   document.addEventListener('keydown', function(e) {

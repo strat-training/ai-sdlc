@@ -1,10 +1,10 @@
-# Trainer Guide — Module 4 Exercises
+# Trainer Guide — Module 5 Exercises (AI-Assisted Development)
 
 Supplements the trainee module. Points trainers to specific TaskFlow files for hands-on exercises.
 
 ---
 
-## Exercise 3.2 — Debug a Broken Function
+## Exercise 5.2 — Debug a Broken Function
 
 **What to give trainees:** The buggy code snippets from `buggy-functions.md` — one at a time.
 **Do NOT give them the solutions section until they have attempted the exercise.**
@@ -25,7 +25,7 @@ The same bugs are planted in the live codebase so trainees can also find them th
 
 ---
 
-## Exercise 3.3 — Refactor for Testability
+## Exercise 5.3 — Refactor for Testability
 
 **Target file:** `backend/src/routes/tasks.js`
 
@@ -47,7 +47,7 @@ This makes unit testing impossible without a running database. A proper refactor
 
 ---
 
-## Exercise 3.6 — Debug a Real Issue
+## Exercise 5.6 — Debug a Real Issue
 
 **Issue tracker:** `docs/known-issues.md`
 
@@ -63,7 +63,7 @@ Point trainees to this file instead of a real Jira/YouTrack. It contains 6 real 
 
 ---
 
-## Exercise 3.7 — Refactor a Real Component
+## Exercise 5.7 — Refactor a Real Component
 
 **Primary target:** `frontend/src/pages/TaskFormPage.jsx`
 

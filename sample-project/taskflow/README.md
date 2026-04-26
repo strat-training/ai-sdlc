@@ -12,13 +12,29 @@ from BRD through deployment.
 
 ```
 taskflow/
+├── AGENTS.md                # Cross-tool project rules (Claude Code, Antigravity, Cursor)
+├── .claude/
+│   └── CLAUDE.md            # Claude-Code-specific rules (overrides AGENTS.md when needed)
 ├── docs/
-│   ├── artifacts/          # Framework artifacts (BRD, PRD, Dev Tasks, Architecture Doc)
-│   ├── adrs/               # Architecture Decision Records
-│   └── training-props/     # Trainer materials (buggy code, context transcript, prompts)
-├── backend/                # Node.js + Express REST API
-├── frontend/               # React + Vite SPA
-└── .claude/                # Claude Code rules (CLAUDE.md)
+│   ├── artifacts/           # Framework artifacts (BRD, PRD, Dev Tasks, Architecture Doc)
+│   ├── adrs/                # Architecture Decision Records
+│   └── training-props/      # Trainer materials (buggy code, context transcript, prompts)
+├── knowledge/
+│   ├── prompts/             # Reusable prompts by role
+│   │   ├── solutions-designer/
+│   │   ├── product/
+│   │   ├── project-manager/
+│   │   ├── solutions-architect/
+│   │   ├── tech-lead/
+│   │   └── dev/
+│   ├── agents/              # Agent definitions (markdown + frontmatter)
+│   ├── skills/              # Skills (SKILL.md, dynamic load)
+│   ├── rules/               # Rule sets and rationale
+│   ├── patterns/            # Multi-step prompt chains
+│   └── retros/              # Retrospective notes and action items
+├── core-ai-team/            # Facilitator playbooks (internal, not cohort-facing)
+├── backend/                 # Node.js + Express REST API
+└── frontend/                # React + Vite SPA
 ```
 
 ---
@@ -106,17 +122,19 @@ All protected routes require: `Authorization: Bearer <token>`
 
 ## Training Usage
 
-This project is used across all 7 training modules:
+This project is used across all 7 training modules under the locked numbering
+scheme (M2 = SDLC framework, M3 = Prompt Engineering, M4 = Context Engineering,
+M5 = AI-Assisted Development):
 
 | Module | How TaskFlow is used |
 |--------|---------------------|
-| Module 1 | Load repo as context. Run `claude mcp add` for project tools. |
-| Module 2 | Write prompts for PRD, task breakdown, and code generation exercises. |
-| Module 3 | Implement real Dev Tasks from `docs/artifacts/DevTasks.md`. Debug `docs/training-props/buggy-functions.md`. |
-| Module 4 | Trace BRD → PRD → Dev Tasks → code traceability chain. |
-| Module 5 | Analyze `docs/training-props/poisoned-context-transcript.md`. |
-| Module 6 | Add and test `.claude/CLAUDE.md` rules. See `docs/training-props/sample-prompts-and-rules.md`. |
-| Module 7 | Contribute refined prompts and rules to `docs/training-props/sample-prompts-and-rules.md`. |
+| Module 1 (Tools Setup) | Load repo as project context. Run `claude mcp add` and configure other tools against TaskFlow. |
+| Module 2 (End-to-End SDLC) | Trace BRD → PRD → Architecture → Dev Tasks → code chain. Convert the messy stakeholder email in `docs/training-props/` into clean BRD + PRD. Reference quality bar: `docs/artifacts/`. |
+| Module 3 (Prompt Engineering) | Write prompts using TaskFlow's PRD, Dev Tasks, and seed prompts in `knowledge/prompts/`. Convert refined prompts into agent files in `knowledge/agents/{role}/`. |
+| Module 4 (Context Engineering) | Analyze `docs/training-props/poisoned-context-transcript.md`. Practice session management and compacting on TaskFlow's long-context artifacts. |
+| Module 5 (AI-Assisted Dev) | Implement real Dev Tasks from `docs/artifacts/DevTasks.md`. Debug `docs/training-props/buggy-functions.md`. Fix issues from `docs/known-issues.md`. Refactor `routes/tasks.js`. See `docs/training-props/trainer-guide-module5.md`. |
+| Module 6 (Tool Customization) | Use TaskFlow's `AGENTS.md` and `.claude/CLAUDE.md` as the rules baseline. Build your own agents and skills under `knowledge/agents/{role}/` and `knowledge/skills/`. |
+| Module 7 (Knowledge Sharing) | Contribute refined prompts, rules, agents, and skills back to `knowledge/`. Run retros and document them in `knowledge/retros/`. |
 
 ---
 
@@ -148,9 +166,10 @@ See `docs/artifacts/ArchitectureDocument.md` for full details.
 
 | File | Used in | Purpose |
 |------|---------|---------|
-| `docs/training-props/buggy-functions.md` | Module 3, Exercise 3.2 | 4 intentional bugs for debugging practice |
-| `docs/training-props/poisoned-context-transcript.md` | Module 5, Exercise 5.2 | Annotated poisoned AI session for analysis |
-| `docs/training-props/sample-prompts-and-rules.md` | Module 6 | Reference prompts and CLAUDE.md rules |
+| `docs/training-props/buggy-functions.md` | Module 5, Exercise 5.2 | 4 intentional bugs for debugging practice |
+| `docs/training-props/poisoned-context-transcript.md` | Module 4, Exercise 4.2 | Annotated poisoned AI session for analysis |
+| `docs/training-props/sample-prompts-and-rules.md` | Module 3 + Module 6 | Reference prompts and AGENTS.md/CLAUDE.md rules |
+| `docs/training-props/trainer-guide-module5.md` | Module 5 | Trainer notes for dev exercises 5.2, 5.3, 5.6, 5.7 |
 
 ---
 
