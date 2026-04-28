@@ -5,16 +5,35 @@ const cors = require('cors');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 
+const { migrate } = require('./db/database');
 const authRoutes = require('./routes/auth');
 const taskRoutes = require('./routes/tasks');
 const userRoutes = require('./routes/users');
 const errorHandler = require('./middleware/errorHandler');
 
+// Run DB migrations + seed on startup
+try {
+  migrate();
+} catch (err) {
+  console.error('DB migration failed:', err);
+  process.exit(1);
+}
+
 const app = express();
+
+// CORS — must be the very first middleware
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173,http://localhost:5174')
+  .split(',')
+  .map(o => o.trim());
+const corsOptions = {
+  origin: allowedOrigins,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 // Security middleware
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
 app.use(morgan('dev'));
 app.use(express.json());
 
