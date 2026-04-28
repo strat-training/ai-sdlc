@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AI Foundational Training · Stratpoint Technologies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15161a; --ink-2:#2b2d33; --muted:#6b6d75;
+  --line:#d9d6cf; --line-2:#e7e4dd;
+  --paper:#f5f3ee; --paper-2:#efede6; --paper-3:#e9e6dd;
+  --chalk:#ffffff;
+  --accent:oklch(62% 0.14 150);
+  --accent-soft:oklch(95% 0.04 150);
+  --fail:oklch(58% 0.17 28);   --fail-soft:oklch(95% 0.04 28);
+  --amber:oklch(74% 0.14 75);  --amber-soft:oklch(95% 0.04 75);
+  --blue:oklch(58% 0.12 250);  --blue-soft:oklch(95% 0.03 250);
+  --violet:oklch(55% 0.14 300);--violet-soft:oklch(95% 0.03 300);
+}
+html,body{margin:0;padding:0;background:#0a0a0a;}
+deck-stage{font-family:'Inter',system-ui,sans-serif;color:var(--ink);}
+section{background:var(--paper);color:var(--ink);overflow:hidden;}
+.frame{position:absolute;inset:0;padding:100px 120px 80px 120px;display:flex;flex-direction:column;box-sizing:border-box;}
+.meta-row{position:absolute;top:44px;left:120px;right:120px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--muted);letter-spacing:0.04em;}
+.meta-row .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:10px;vertical-align:middle;}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+h1.t{font-family:'Fraunces',serif;font-weight:500;font-size:96px;line-height:1.02;letter-spacing:-0.02em;margin:0;color:var(--ink);}
+h2.t{font-family:'Fraunces',serif;font-weight:500;font-size:72px;line-height:1.05;letter-spacing:-0.015em;margin:0;color:var(--ink);}
+h3.t{font-family:'Fraunces',serif;font-weight:500;font-size:52px;line-height:1.08;letter-spacing:-0.012em;margin:0;color:var(--ink);}
+.hero{font-family:'Fraunces',serif;font-weight:500;font-size:156px;line-height:0.92;letter-spacing:-0.035em;color:var(--ink);}
+.lede{font-size:30px;line-height:1.4;color:var(--ink-2);max-width:1500px;}
+.body{font-size:26px;line-height:1.5;color:var(--ink-2);}
+.small{font-size:22px;line-height:1.5;color:var(--muted);}
+.mono{font-family:'JetBrains Mono',monospace;}
+ul.clean{list-style:none;padding:0;margin:0;}
+ul.clean li{position:relative;padding-left:36px;margin-bottom:18px;font-size:24px;line-height:1.45;color:var(--ink-2);}
+ul.clean li::before{content:"";position:absolute;left:0;top:15px;width:20px;height:2px;background:var(--ink);}
+ul.clean.tight li{margin-bottom:12px;font-size:22px;}
+ul.clean.tight li::before{top:13px;}
+ul.clean strong{color:var(--ink);font-weight:600;}
+ul.clean.dim li{color:var(--muted);}
+ul.clean.dim li::before{background:var(--line);}
+ol.clean{list-style:none;padding:0;margin:0;counter-reset:olc;}
+ol.clean li{position:relative;padding-left:56px;margin-bottom:14px;font-size:22px;line-height:1.45;color:var(--ink-2);counter-increment:olc;}
+ol.clean li::before{content:counter(olc,decimal-leading-zero);position:absolute;left:0;top:0;font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--accent);letter-spacing:0.08em;}
+.tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:16px;letter-spacing:0.08em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--line);border-radius:100px;color:var(--ink-2);background:var(--paper-2);white-space:nowrap;}
+.tag.ok{background:var(--accent-soft);border-color:oklch(80% 0.06 150);color:oklch(38% 0.1 150);}
+.tag.fail{background:var(--fail-soft);border-color:oklch(82% 0.06 28);color:oklch(38% 0.12 28);}
+.tag.amber{background:var(--amber-soft);border-color:oklch(82% 0.06 75);color:oklch(38% 0.12 75);}
+.tag.blue{background:var(--blue-soft);border-color:oklch(82% 0.05 250);color:oklch(38% 0.1 250);}
+.tag.violet{background:var(--violet-soft);border-color:oklch(82% 0.05 300);color:oklch(38% 0.1 300);}
+.tag.ink{background:var(--ink);border-color:var(--ink);color:var(--chalk);}
+.b{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.08em;padding:3px 9px;border-radius:100px;border:1px solid var(--line);background:var(--paper-2);color:var(--ink-2);margin-right:4px;}
+.b.sd{background:oklch(95% 0.03 340);border-color:oklch(82% 0.05 340);color:oklch(38% 0.1 340);}
+.b.pm{background:var(--violet-soft);border-color:oklch(82% 0.05 300);color:oklch(38% 0.1 300);}
+.b.projm{background:oklch(95% 0.03 270);border-color:oklch(82% 0.05 270);color:oklch(38% 0.1 270);}
+.b.sa{background:var(--blue-soft);border-color:oklch(82% 0.05 250);color:oklch(38% 0.1 250);}
+.b.tl{background:var(--amber-soft);border-color:oklch(82% 0.06 75);color:oklch(38% 0.12 75);}
+.b.dev{background:var(--accent-soft);border-color:oklch(80% 0.06 150);color:oklch(38% 0.1 150);}
+.b.qa{background:var(--fail-soft);border-color:oklch(82% 0.06 28);color:oklch(38% 0.12 28);}
+.b.devops{background:var(--paper-3);border-color:var(--line);color:var(--ink-2);}
+.b.all{background:var(--ink);border-color:var(--ink);color:var(--chalk);}
+.role-row{display:flex;flex-wrap:wrap;gap:8px;}
+table.clean{width:100%;border-collapse:collapse;}
+table.clean th{text-align:left;font-weight:500;font-size:16px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);padding:14px 20px 14px 0;border-bottom:2px solid var(--ink);}
+table.clean td{padding:18px 20px 18px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2);font-size:22px;line-height:1.45;}
+table.clean td.label{font-weight:600;color:var(--ink);white-space:nowrap;}
+table.clean td.small{font-size:19px;color:var(--ink-2);}
+table.clean td.dash{text-align:center;color:var(--line);}
+table.clean td.cell-center{text-align:center;}
+code.inline{font-family:'JetBrains Mono',monospace;font-size:0.88em;background:var(--paper-3);color:var(--ink);padding:2px 8px;border-radius:4px;}
+.highlight{margin-top:18px;padding:16px 20px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:19px;line-height:1.45;color:oklch(32% 0.1 150);font-weight:500;}
+.warn{margin-top:18px;padding:16px 20px;background:var(--amber-soft);border-left:3px solid var(--amber);border-radius:0 6px 6px 0;font-size:19px;line-height:1.45;color:oklch(32% 0.12 75);font-weight:500;}
+.principle-item{display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:baseline;padding:28px 0;border-bottom:1px solid var(--line);}
+.principle-item:last-child{border-bottom:none;}
+.principle-num{font-family:'Fraunces',serif;font-weight:400;font-size:56px;color:var(--muted);letter-spacing:-0.03em;line-height:1;}
+.principle-title{font-family:'Fraunces',serif;font-weight:500;font-size:34px;color:var(--ink);margin-bottom:6px;letter-spacing:-0.01em;}
+.principle-desc{font-size:22px;color:var(--ink-2);line-height:1.45;}
+.cycle{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:stretch;gap:0;}
+.cycle .node{background:var(--chalk);border:1px solid var(--line);border-radius:10px;padding:26px 24px;display:flex;flex-direction:column;gap:8px;}
+.cycle .node .n{font-family:'Fraunces',serif;font-weight:400;font-size:48px;color:var(--muted);line-height:0.9;}
+.cycle .node .h{font-size:26px;font-weight:600;color:var(--ink);margin-top:6px;}
+.cycle .node .p{font-size:18px;line-height:1.45;color:var(--ink-2);}
+.cycle .arr{align-self:center;font-family:'JetBrains Mono',monospace;font-size:22px;color:var(--muted);padding:0 10px;}
+.opener{background:var(--ink);color:var(--chalk);}
+.opener h1.t,.opener h2.t,.opener h3.t,.opener .hero{color:var(--chalk);}
+.opener .kicker{color:oklch(75% 0.03 150);}
+.opener .lede,.opener .body{color:oklch(85% 0.02 150);}
+.opener .small{color:oklch(72% 0.02 150);}
+.opener ul.clean li{color:oklch(88% 0.02 150);}
+.opener ul.clean li::before{background:oklch(80% 0.1 150);}
+.opener .rule{height:1px;background:var(--chalk);opacity:0.2;margin:40px 0;border:0;}
+.opener .highlight{background:oklch(20% 0.06 150);border-color:oklch(55% 0.12 150);color:oklch(85% 0.08 150);}
+.module-slide{background:var(--paper-2);}
+.mod-label{font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:16px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
+hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
+.foot{position:absolute;bottom:40px;left:120px;right:120px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
+.opener .foot{color:oklch(70% 0.02 150);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+.two-col-60-40{display:grid;grid-template-columns:60fr 40fr;gap:60px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;}
+.pipeline{display:flex;align-items:center;flex-wrap:wrap;gap:10px;}
+.pipeline-node{background:var(--chalk);border:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500;padding:10px 18px;border-radius:100px;color:var(--ink);letter-spacing:0.05em;}
+.pipeline-node.accent{background:var(--accent-soft);border-color:oklch(80% 0.06 150);color:oklch(38% 0.1 150);}
+.pipeline-arrow{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:22px;}
+.card{background:var(--chalk);border:1px solid var(--line);border-radius:12px;padding:28px 30px;display:flex;flex-direction:column;gap:12px;}
+.card .h{font-family:'Fraunces',serif;font-weight:500;font-size:28px;color:var(--ink);line-height:1.15;}
+.card .p{font-size:19px;line-height:1.45;color:var(--ink-2);}
+.card .mono-k{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;}
+.title-slide{background:var(--paper);}
+.title-slide .grid-deco{position:absolute;inset:0;pointer-events:none;opacity:0.5;background-image:linear-gradient(to right,var(--line-2) 1px,transparent 1px);background-size:120px 100%;}
+.gate-row{display:grid;grid-template-columns:200px 1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.gate-week{background:var(--ink);color:var(--chalk);padding:20px 18px;display:flex;flex-direction:column;justify-content:center;}
+.gate-week .gw-num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;opacity:0.5;margin-bottom:4px;}
+.gate-week .gw-name{font-size:14px;font-weight:600;}
+.gate-col{padding:18px 20px;background:var(--chalk);border-right:1px solid var(--line);}
+.gate-col:last-child{border-right:none;}
+.gate-col .gc-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.gate-col .gc-body{font-size:17px;line-height:1.5;color:var(--ink-2);}
+</style>
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 01 · TITLE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="01 Title" class="title-slide">
+  <div class="title-slide grid-deco"></div>
+  <div class="frame" style="justify-content:space-between;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div class="kicker" style="font-size:24px;"><span style="color:var(--accent);font-size:24px;">●</span>&nbsp;&nbsp;STRATPOINT TECHNOLOGIES · AI-AUGMENTED SDLC</div>
+      <div class="mono" style="font-size:24px;color:var(--muted);">3 WEEKS · 7 MODULES · ALL ROLES</div>
+    </div>
+    <div>
+      <div class="kicker" style="margin-bottom:24px;font-size:24px;">AI Foundational Training</div>
+      <div class="hero">AI-Assisted SDLC<br>Foundational&nbsp;Training.</div>
+      <div class="body" style="margin-top:40px;max-width:1400px;color:var(--muted);">
+        Three weeks, every role, one shared framework. Real artifacts at every gate. A knowledge base that compounds across every cohort that follows.
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <div class="role-row">
+        <span class="tag" style="background:oklch(95% 0.03 340);border-color:oklch(82% 0.05 340);color:oklch(38% 0.1 340);">Solutions Designer</span>
+        <span class="tag violet">Product Mgr / Designer</span>
+        <span class="tag">Project Manager</span>
+        <span class="tag blue">Solutions Architect</span>
+        <span class="tag amber">Tech Lead</span>
+        <span class="tag ok">Developer</span>
+        <span class="tag fail" style="opacity:0.55;">QA</span>
+        <span class="tag" style="opacity:0.55;">DevOps</span>
+      </div>
+      <div class="mono" style="font-size:24px;color:var(--muted);">PREPARED BY RONALD DELA CRUZ · 01 / 20</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 02 · THE PROBLEM -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="02 Why This Training">
+  <div class="meta-row"><div><span class="dot"></span>WHY THIS TRAINING</div><div>What we're building toward</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">Why This Training</div>
+    <h2 class="t" style="margin-bottom:20px;">Stratpoint needs organizational AI capability.<br>Not individual AI users.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:36px;max-width:1400px;">Individual practitioners using AI well is not the same as an organization that delivers with AI. This training builds the second thing — a shared framework, a shared quality bar, and a knowledge base that compounds across every project and team.</div>
+    <div class="two-col">
+      <ul class="clean tight">
+        <li><strong>Every role in the pipeline, not just developers.</strong> Solutions Designers, PMs, SAs, Tech Leads, and Developers all producing AI-assisted artifacts with quality gates they own — not watching from the sidelines.</li>
+        <li><strong>Methodology over tools.</strong> Prompting discipline, context engineering, and the artifact governance framework transfer across any AI tool. What you learn here applies regardless of which tool you're handed on the next project.</li>
+        <li><strong>Traceability from business requirement to deployed code.</strong> Every feature must be walkable from a BRD requirement through PRD, Architecture, Dev Tasks, code, and tests. A broken chain is a problem — not a style choice.</li>
+      </ul>
+      <ul class="clean tight">
+        <li><strong>Skills that outlast the person who found them.</strong> Prompts, agents, skills, and rules committed to a shared knowledge base. The next team inherits the playbook — not a blank slate.</li>
+        <li><strong>A knowledge base that compounds.</strong> Every cohort adds to what the last one built. The organization improves at AI-augmented delivery with every team that runs through this program.</li>
+        <li><strong>First-wave evangelists who set the standard.</strong> This cohort doesn't just learn the framework — they define how Stratpoint uses AI on client engagements going forward. What you build and commit this week is the bar every future team starts from.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>02 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 03 · THE FRAMEWORK -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="03 The Framework">
+  <div class="meta-row"><div><span class="dot"></span>THE ANSWER</div><div>AI-Augmented SDLC Framework</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">The Framework</div>
+    <h2 class="t" style="margin-bottom:20px;">One shared structure. AI generates. Humans decide. Everything traces.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:44px;max-width:1400px;">Not a new tool. A new way of working with the tools you already have — structured, traceable, and built to compound across every project that uses it.</div>
+    <div class="pipeline" style="margin-bottom:52px;">
+      <span class="pipeline-node accent">BRD</span><span class="pipeline-arrow">→</span>
+      <span class="pipeline-node accent">PRD</span><span class="pipeline-arrow">→</span>
+      <span class="pipeline-node accent">Architecture</span><span class="pipeline-arrow">→</span>
+      <span class="pipeline-node accent">Dev Tasks</span><span class="pipeline-arrow">→</span>
+      <span class="pipeline-node accent">Code</span><span class="pipeline-arrow">→</span>
+      <span class="pipeline-node accent">Tests</span><span class="pipeline-arrow">→</span>
+      <span class="pipeline-node accent">Deploy</span>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="section-label">What holds it together</div>
+        <ul class="clean tight">
+          <li><strong>Named human owners</strong> at every artifact — not "the team." The artifact's owner signs it off.</li>
+          <li><strong>Quality gates</strong> at every phase transition — not deferred to the end. A gate fails → work goes back, not forward.</li>
+          <li><strong>Full traceability</strong> — any line of code can be walked back to its BRD requirement. If it can't, the chain is broken and must be fixed.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">What this training produces</div>
+        <ul class="clean tight">
+          <li>A complete artifact chain — BRD to deployed code — produced under the framework on a real sample project</li>
+          <li>Every participant working in their role's domain with AI in a structured, repeatable way</li>
+          <li>A shared knowledge base — agents, skills, prompts, rules — that outlasts this cohort and compounds with every one that follows</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>03 / 20</span></div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 04 · SDLC WORKFLOW DIAGRAM -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="04 SDLC Workflow Diagram">
+  <div class="meta-row"><div><span class="dot"></span>FRAMEWORK</div><div>AI SDLC Workflow — open full-screen during live delivery</div></div>
+  <div class="frame" style="padding-top:80px;padding-bottom:60px;">
+    <div class="kicker" style="margin-bottom:14px;">AI SDLC Workflow Diagram</div>
+    <h3 class="t" style="margin-bottom:8px;">The full pipeline — phases, roles, gates, and handoffs.</h3>
+    <div class="small" style="margin-bottom:20px;">
+      Source: <span class="mono" style="font-size:18px;color:var(--ink);">cdn.stratpoint.io/AI_SDLC_Workflow-v1.html</span>
+      &nbsp;·&nbsp; Click the diagram to open full-screen during live delivery.
+    </div>
+    <div style="flex:1;border:1px solid var(--line);border-radius:12px;overflow:hidden;position:relative;">
+      <iframe
+        src="https://cdn.stratpoint.io/AI_SDLC_Workflow-v1.html"
+        style="width:100%;height:100%;border:none;display:block;"
+        title="AI SDLC Workflow Diagram"
+      ></iframe>
+      <a href="https://cdn.stratpoint.io/AI_SDLC_Workflow-v1.html"
+         target="_blank"
+         style="position:absolute;top:12px;right:12px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 14px;border:1px solid var(--line);border-radius:100px;background:var(--chalk);color:var(--muted);text-decoration:none;opacity:0.8;">
+        Open full-screen ↗
+      </a>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>04 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 04 · FOUR PRINCIPLES -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="05 Four Principles" class="module-slide">
+  <div class="meta-row"><div><span class="dot"></span>PRINCIPLES</div><div>Non-negotiable · All phases · All roles</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">Four Non-Negotiable Principles</div>
+    <h2 class="t" style="margin-bottom:12px;">These govern every decision in the framework.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:28px;">No exceptions. Not suggestions.</div>
+    <div class="principle-item">
+      <div class="principle-num">01</div>
+      <div><div class="principle-title">AI Augments, Humans Decide</div><div class="principle-desc">Every AI output passes through human review before it moves downstream. AI never owns the decisions that carry formal accountability — the named artifact owner does.</div></div>
+    </div>
+    <div class="principle-item">
+      <div class="principle-num">02</div>
+      <div><div class="principle-title">Structure Before Speed</div><div class="principle-desc">Invest in artifacts before engineering begins. Teams that skip upfront structure feel fast in Week 1 and stall in Week 3. The BRD and PRD aren't ceremony — they are the substrate AI uses to produce useful architecture, tasks, and code.</div></div>
+    </div>
+    <div class="principle-item">
+      <div class="principle-num">03</div>
+      <div><div class="principle-title">Continuous Validation</div><div class="principle-desc">Quality is checked at every phase transition, not accumulated and reviewed at the end. Every phase has an entry condition and an exit gate. Gate failed = back to the current phase, not forward to the next.</div></div>
+    </div>
+    <div class="principle-item">
+      <div class="principle-num">04</div>
+      <div><div class="principle-title">Traceability as First-Class</div><div class="principle-desc">BRD → PRD → Architecture → Dev Tasks → code → tests. Every step must reference the one before it. A broken chain is not a style issue — it's a gap that must be fixed before the gate passes.</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>05 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 05 · THE WORKING CYCLE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="06 The Working Cycle">
+  <div class="meta-row"><div><span class="dot"></span>THE CYCLE</div><div>Every task · Every role · Every module</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">The Universal Working Cycle</div>
+    <h2 class="t" style="margin-bottom:16px;">Evaluate → Plan → Apply → Validate.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:48px;max-width:1400px;">This same four-step cycle runs through every module and every task. When something goes wrong in AI-assisted work, the diagnosis is always the same: which step was skipped?</div>
+    <div class="cycle">
+      <div class="node">
+        <div class="n">01</div>
+        <div class="h">Evaluate</div>
+        <div class="p">Understand the task and its constraints before touching the AI. Read the Dev Task. Read the PRD acceptance criteria. Read the ADR. Know what you're building.</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node">
+        <div class="n">02</div>
+        <div class="h">Plan</div>
+        <div class="p">Prompt for a plan first — not output. Review it against the spec before implementation starts. Correct misalignments at plan time, not after 45 minutes of generation.</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node">
+        <div class="n">03</div>
+        <div class="h">Apply</div>
+        <div class="p">Execute. Stay grounded in the plan. Redirect the AI if it drifts. You own every line — if you can't explain what the AI produced, don't commit it.</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node">
+        <div class="n">04</div>
+        <div class="h">Validate</div>
+        <div class="p">Verify against the quality bar. Run the checklist, the tests, the gate. "Feels done" is not done. Done is when the artifact passes the bar and the gate signs off.</div>
+      </div>
+    </div>
+    <div class="highlight" style="margin-top:40px;">The cycle is introduced in Module 2 and referenced by name in every module that follows. M2: artifact production. M3: prompt refinement. M4: session management. M5: implementation. M6: building assets. M7: knowledge contribution.</div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>06 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 06 · HOW THE TRAINING WORKS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="07 How It Works">
+  <div class="meta-row"><div><span class="dot"></span>FORMAT</div><div>3 weeks · Real artifacts · Real gates</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:16px;">How This Training Works</div>
+    <h2 class="t" style="margin-bottom:12px;">Each week's output feeds the next week's input.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:32px;max-width:1400px;">This isn't training then go back to work. You learn a module on Monday and apply it that week on a real sample project. The gate on Friday is a real handoff — what gets approved becomes the input for the following Monday.</div>
+    <div class="gate-row">
+      <div class="gate-week"><div class="gw-num">WEEK 1</div><div class="gw-name">Requirements</div></div>
+      <div class="gate-col"><div class="gc-label">What you produce Tue–Thu</div><div class="gc-body">Business Requirements Document (BRD) · Product Requirements Document (PRD) · UI/UX wireframes for key flows</div></div>
+      <div class="gate-col"><div class="gc-label">Friday gate: Requirements Sign-Off</div><div class="gc-body">Approved BRD + PRD become the input for Week 2 architecture work. A weak gate here produces a weak architecture.</div></div>
+    </div>
+    <div class="gate-row">
+      <div class="gate-week"><div class="gw-num">WEEK 2</div><div class="gw-name">Architecture</div></div>
+      <div class="gate-col"><div class="gc-label">What you produce Tue–Thu</div><div class="gc-body">Architecture Document · Architecture Decision Records (ADRs) · Dev Tasks — 1 to 4 hours each, atomic, fully traceable</div></div>
+      <div class="gate-col"><div class="gc-label">Friday gate: Architecture Review + Dev Handoff</div><div class="gc-body">Approved Architecture + Dev Tasks are what developers pick up Monday morning. Every ambiguous task is a block waiting to happen.</div></div>
+    </div>
+    <div class="gate-row">
+      <div class="gate-week"><div class="gw-num">WEEK 3</div><div class="gw-name">Development</div></div>
+      <div class="gate-col"><div class="gc-label">What you produce Tue–Thu</div><div class="gc-body">Merged code implementing Dev Tasks · Unit tests from acceptance criteria · Custom AI agents, rules, and skills per role</div></div>
+      <div class="gate-col"><div class="gc-label">Friday gate: Sprint 1 Readiness + Retro</div><div class="gc-body">Full traceability chain reviewed. Knowledge base contributions committed. Retro document produced. The cohort is ready for Sprint 1.</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>07 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 07 · ROLES -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="08 Roles">
+  <div class="meta-row"><div><span class="dot"></span>ACCOUNTABILITY</div><div>Who owns what · All roles · All phases</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">Who Owns What</div>
+    <h2 class="t" style="margin-bottom:16px;">Not just developers. Every role in the pipeline.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:32px;max-width:1400px;">Every artifact has exactly one named owner — the person who signs it off. This is the accountability structure that makes the framework work.</div>
+    <table class="clean" style="font-size:20px;">
+      <thead>
+        <tr>
+          <th style="width:220px;">Artifact</th>
+          <th class="cell-center"><span class="b sd">Solutions Designer</span></th>
+          <th class="cell-center"><span class="b pm">Product Mgr</span></th>
+          <th class="cell-center"><span class="b projm">Proj Manager</span></th>
+          <th class="cell-center"><span class="b sa">Solutions Architect</span></th>
+          <th class="cell-center"><span class="b tl">Tech Lead</span></th>
+          <th class="cell-center"><span class="b dev">Developer</span></th>
+          <th class="cell-center" style="opacity:0.6;"><span class="b qa">QA</span></th>
+          <th class="cell-center" style="opacity:0.6;"><span class="b devops">DevOps</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Business Requirements Document</td><td class="cell-center small" style="color:var(--ink);font-weight:600;">Owner</td><td class="dash">—</td><td class="cell-center small">Review</td><td class="cell-center small">Review</td><td class="dash">—</td><td class="dash">—</td><td class="cell-center small" style="font-size:16px;color:var(--muted);">Testability lens</td><td class="cell-center small" style="font-size:16px;color:var(--muted);">Deploy lens</td></tr>
+        <tr><td class="label">PRD + UI/UX</td><td class="dash">—</td><td class="cell-center small" style="color:var(--ink);font-weight:600;">Owner</td><td class="cell-center small">Review</td><td class="cell-center small">Review</td><td class="cell-center small">Review</td><td class="dash">—</td><td class="cell-center small" style="font-size:16px;color:var(--muted);">Testability lens</td><td class="dash">—</td></tr>
+        <tr><td class="label">Architecture + ADRs</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="cell-center small" style="color:var(--ink);font-weight:600;">Owner</td><td class="cell-center small">Review</td><td class="cell-center small">Review</td><td class="cell-center small" style="font-size:16px;color:var(--muted);">Testability lens</td><td class="cell-center small" style="font-size:16px;color:var(--muted);">Deploy lens</td></tr>
+        <tr><td class="label">Dev Tasks</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="cell-center small" style="color:var(--ink);font-weight:600;">Owner</td><td class="cell-center small">Review</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td class="label">Code + Unit Tests</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="cell-center small">Oversight</td><td class="cell-center small" style="color:var(--ink);font-weight:600;">Owner</td><td class="cell-center small" style="font-size:16px;color:var(--muted);">Review</td><td class="dash">—</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight" style="margin-top:20px;">QA and DevOps attend as participants — they review artifacts with their lens (testability / deployability) but do not own active deliverables in this training. Their role-specific deep training — test plans, CI/CD pipelines — follows in a separate program. Both roles get full value from the foundation this training builds.</div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>08 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 08 · WEEK 1 MONDAY -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="09 Week 1 Monday" class="module-slide">
+  <div class="meta-row"><div><span class="dot"></span>WEEK 1 MONDAY · IN-PERSON · ALL ROLES</div><div>Modules 2 + 3 · Foundation day</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">Week 1 Monday — The Foundation</div>
+    <h2 class="t" style="margin-bottom:20px;">Learn the framework. Learn the craft. Start building.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:40px;max-width:1400px;">Two modules back to back. Module 2 gives everyone the map — the 6 phases, who owns what, what the gates look like. Module 3 gives everyone the craft — how to prompt reliably, how to refine iteratively, how a prompt becomes a reusable agent.</div>
+    <div class="two-col">
+      <div>
+        <div class="mod-label" style="margin-bottom:12px;">Module 02 · End-to-End AI SDLC Workflow</div>
+        <div class="card">
+          <div class="p" style="font-size:20px;line-height:1.6;">"The framework that holds the whole program together." Every role learns the six phases, the artifact chain, and what a real Friday gate looks like — before they sit down to produce anything. The BRD and PRD quality bars are introduced here; participants know exactly what "done" means on Friday before they start on Tuesday.</div>
+          <div class="mono-k">Reference: Module_2_Trainee.docx</div>
+        </div>
+      </div>
+      <div>
+        <div class="mod-label" style="margin-bottom:12px;">Module 03 · Prompt Engineering Fundamentals</div>
+        <div class="card">
+          <div class="p" style="font-size:20px;line-height:1.6;">"A great prompt is a spec, not a question." Role + Context + Task + Format + Constraints. Iterative refinement as the cycle applied to prompting: evaluate output → plan improvement → apply → validate. Three failed refinements signal something structurally wrong — restart with a cleaner prompt. The session closes with every participant committing seed prompts to <code class="inline">knowledge/prompts/{role}/</code> and sketching their first agent file.</div>
+          <div class="mono-k">Reference: Module_3_Trainee.docx</div>
+        </div>
+      </div>
+    </div>
+    <div class="warn" style="margin-top:24px;">After Monday: Tue–Thu each role produces their Week 1 artifact on the cohort's sample project. Friday: Requirements Sign-Off gate. The approved BRD + PRD are what the Solutions Architect loads Monday morning to start architecture work.</div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>09 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 09 · WEEK 1 FRIDAY GATE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="10 Week 1 Friday">
+  <div class="meta-row"><div><span class="dot"></span>WEEK 1 FRIDAY</div><div>Requirements Sign-Off · The first real handoff</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">Week 1 Friday — Requirements Sign-Off</div>
+    <h2 class="t" style="margin-bottom:20px;">This is a real handoff, not a presentation.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:36px;max-width:1400px;">What gets approved today is what the Solutions Architect loads on Monday morning. A weak BRD produces a weak Architecture. A vague user story produces a vague Dev Task. The gate is real because the downstream consequence is real.</div>
+    <div class="two-col">
+      <div>
+        <div class="section-label">BRD passes the gate when:</div>
+        <ul class="clean tight">
+          <li>Every requirement has a unique numeric ID (BR-01, BR-02…)</li>
+          <li>Requirements written in business language — no technical solutioning</li>
+          <li>Every stakeholder has at least one requirement addressed</li>
+          <li>Constraints are specific and quantified</li>
+          <li>Success criteria are measurable</li>
+          <li>Out-of-scope is explicitly listed — not implied</li>
+        </ul>
+        <div class="section-label" style="margin-top:20px;">PRD passes the gate when:</div>
+        <ul class="clean tight">
+          <li>Every user story references its BRD requirement</li>
+          <li>Every user story has at least 2 testable acceptance criteria</li>
+          <li>Wireframes exist for the 3 most critical flows</li>
+          <li>BRD ↔ PRD traceability chain is clean — no orphan requirements</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">The three-layer verification model</div>
+        <ul class="clean tight">
+          <li><strong>Self-check (Mon–Tue)</strong> — artifact owner runs the quality bar checklist before declaring ready for review</li>
+          <li><strong>Peer review (Wed–Thu)</strong> — the most-affected downstream role reviews against the same checklist. SD ↔ Product. SA reviews BRD. TL reviews PRD.</li>
+          <li><strong>Gate review (Friday)</strong> — cohort + facilitators, sign-off form filled, verdict recorded and committed</li>
+        </ul>
+        <div class="highlight" style="margin-top:20px;">Reference quality bar: TaskFlow's <code class="inline">docs/artifacts/BRD.md</code> and <code class="inline">PRD.md</code>. Sign-off form: <code class="inline">knowledge/templates/gate-signoff-template.md</code>. Full quality bar checklists: Module 2 Trainee Guide, Part 5.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>10 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 10 · WEEK 2 MONDAY -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="11 Week 2 Monday" class="module-slide">
+  <div class="meta-row"><div><span class="dot"></span>WEEK 2 MONDAY · IN-PERSON · ALL ROLES</div><div>Module 4 · Before the heaviest sessions of the training</div></div>
+  <div class="frame" style="justify-content:center;">
+    <div class="kicker" style="margin-bottom:20px;">Week 2 Monday — Context Engineering</div>
+    <h2 class="t" style="margin-bottom:20px;max-width:1400px;">Prompting gets you started. Context engineering keeps you going.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:44px;max-width:1400px;">A great prompt produces great output in message 1. Context engineering produces great output in message 50. Week 2 is where sessions get long — full BRD + PRD loaded for architecture work, 20+ user stories in one Dev Tasks session. Without context discipline, quality degrades silently and the Friday gate fails.</div>
+    <div class="mod-label" style="margin-bottom:16px;">Module 04 · Context Engineering &amp; Management</div>
+    <div class="two-col" style="max-width:1400px;">
+      <div>
+        <ul class="clean tight">
+          <li><strong>Relevant beats abundant.</strong> Loading everything you have fills the context window with noise. Load only what the specific task needs — in dependency order, with the upstream artifact first.</li>
+          <li><strong>Three session strategies.</strong> Continue when quality is high and the task is related. Compact when a section is done and you're starting the next. Start fresh when quality has degraded — this is the only real fix for a degraded session.</li>
+          <li><strong>Context poisoning is a specific failure.</strong> When contradictions accumulate in the session history, corrections don't fix them. The AI tries to satisfy both conflicting instructions. The only recovery is a fresh session with clean context.</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="clean tight">
+          <li><strong>The main exercise:</strong> participants diagnose a real poisoned-context transcript — the same failure mode that happens in actual architecture sessions. Most participants have a "that happened to me last week" moment.</li>
+          <li><strong>What this unlocks for Week 2:</strong> the Architecture Document, ADR, and Dev Tasks quality bars — the checklists used at Friday's gate.</li>
+          <li><strong>Subagents as context isolation:</strong> invoke a scoped agent for a sub-task, keep the main session's context clean. Applies across Claude Code, Antigravity, and Gemini.</li>
+        </ul>
+        <div class="highlight" style="margin-top:20px;">Source for exercise: <code class="inline">TaskFlow/docs/training-props/poisoned-context-transcript.md</code>. Full checklists and quality bars: Module 4 Trainee Guide, Part 6.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>11 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 11 · WEEK 2 FRIDAY GATE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="12 Week 2 Friday">
+  <div class="meta-row"><div><span class="dot"></span>WEEK 2 FRIDAY</div><div>Architecture Review + Dev Handoff</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">Week 2 Friday — Architecture Review + Dev Tasks Handoff</div>
+    <h2 class="t" style="margin-bottom:20px;">Developers pick up Dev Tasks on Monday.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:32px;max-width:1400px;">Every ambiguous Dev Task is a block waiting to happen in Week 3. Every undocumented architecture decision is a surprise waiting to surface mid-implementation. The gate forces clarity now, when it's cheap to fix.</div>
+    <div class="two-col">
+      <div>
+        <div class="section-label">Architecture Document passes when:</div>
+        <ul class="clean tight" style="font-size:20px;">
+          <li>Every PRD user story is traceable to at least one architectural component</li>
+          <li>Every technology choice is justified or has an ADR</li>
+          <li>Non-functional requirements from the PRD are addressed — not assumed</li>
+          <li>The deployment topology is specific enough for DevOps to start IaC</li>
+          <li>No BRD constraint is violated</li>
+        </ul>
+        <div class="section-label" style="margin-top:20px;">ADRs pass when:</div>
+        <ul class="clean tight" style="font-size:20px;">
+          <li>At least 2 genuine alternatives documented — not strawman options</li>
+          <li>Rationale references specific BRD or PRD constraints</li>
+          <li>Consequences are honest — positive and negative</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">Dev Tasks pass when:</div>
+        <ul class="clean tight" style="font-size:20px;">
+          <li>Every task is 1–4 hours — larger tasks are broken down further</li>
+          <li>Every task has a unique ID and references its PRD user story</li>
+          <li>Every PRD user story is covered by at least one task</li>
+          <li>Dependencies are explicit — developers can self-sequence without asking SA or TL</li>
+          <li>No task requires a decision not yet made in Architecture or ADRs</li>
+        </ul>
+        <div class="highlight" style="margin-top:20px;">Traceability check before Friday: every Dev Task references a PRD user story, which references a BRD requirement. Any broken link → fix it Thursday, not at the gate. Reference: TaskFlow's <code class="inline">docs/artifacts/</code>. Full bars: Module 4 Trainee Guide, Part 6.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>12 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 12 · WEEK 3 MONDAY -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="13 Week 3 Monday" class="module-slide">
+  <div class="meta-row"><div><span class="dot"></span>WEEK 3 MONDAY · IN-PERSON · ALL ROLES</div><div>Modules 5 + 6 · The longest Monday</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">Week 3 Monday — Development + Customization</div>
+    <h2 class="t" style="margin-bottom:20px;">Where everything lands in code. Where the AI learns your standards.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:36px;max-width:1400px;">Two modules in one day. Module 5 (morning): how to implement reliably from Dev Tasks with AI. Module 6 (afternoon): how to stop re-explaining your standards every session.</div>
+    <div class="two-col">
+      <div>
+        <div class="mod-label" style="margin-bottom:12px;">Module 05 · AI-Assisted Development</div>
+        <div class="card">
+          <div class="p" style="font-size:20px;line-height:1.6;"><strong>Plan before implement.</strong> Read the Dev Task. Prompt for a plan — files to touch, edge cases, tests needed. Review it. Then proceed. One task per session. <br><br><strong>Tests from acceptance criteria, not from code.</strong> If you generate tests by showing the AI the implementation, you're testing the bug not the spec. Tests must come from the Dev Task's AC list. <br><br><strong>Safe refactoring: characterization tests first, always.</strong> The implementation loop, the debugging workflow, the self-review before every PR push — all covered.</div>
+          <div class="mono-k">Reference: Module_5_Trainee.docx</div>
+        </div>
+      </div>
+      <div>
+        <div class="mod-label" style="margin-bottom:12px;">Module 06 · Tool Customization, Agents &amp; Governance</div>
+        <div class="card">
+          <div class="p" style="font-size:20px;line-height:1.6;"><strong>Rules (AGENTS.md):</strong> always-on project guidance loaded every session — cross-tool standard (Claude Code, Cursor, Antigravity v1.20.3+). Each role adds their domain standards. <br><br><strong>Agents:</strong> a portable markdown file with frontmatter + system prompt. Your most common recurring task, invokable by name in any tool. <br><br><strong>Skills (SKILL.md):</strong> domain expertise loaded only when the task matches. No context bloat. Open standard since December 2025. <br><br>By Monday evening: 1 rule + 1 agent + 1 skill built, wired, and tested against a real task.</div>
+          <div class="mono-k">Reference: Module_6_Trainee.docx</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>13 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 13 · WEEK 3 FRIDAY -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="14 Week 3 Friday" class="module-slide">
+  <div class="meta-row"><div><span class="dot"></span>WEEK 3 FRIDAY · IN-PERSON · ALL ROLES</div><div>Module 7 · Sprint 1 Readiness · The finish line</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">Week 3 Friday — Sprint 1 Readiness + Knowledge Sharing</div>
+    <h2 class="t" style="margin-bottom:20px;">Close the loop. Leave it better than you found it.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:36px;max-width:1400px;">Friday has two tracks: the Sprint 1 Readiness gate in the first half, then Module 7 in the second. The gate closes the artifact chain. Module 7 closes the knowledge loop.</div>
+    <div class="two-col">
+      <div>
+        <div class="mod-label" style="margin-bottom:12px;">Module 07 · Knowledge Sharing &amp; Continuous Improvement</div>
+        <div class="card">
+          <div class="p" style="font-size:20px;line-height:1.6;"><strong>Individual learning compounds only when it's documented.</strong> Every prompt that stays in one person's head is lost when they roll off. Every prompt committed to <code class="inline">knowledge/</code> is available to every person who touches this project from now on. <br><br>Each participant presents 3 built assets as a design review — not a status update. Peer review. Commit. Then the AI retro: four questions that diagnose what produced good results, what the next cohort needs to know, and what the training itself should change.</div>
+          <div class="mono-k">Reference: Module_7_Trainee.docx</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Sprint 1 Readiness gate passes when:</div>
+        <ul class="clean tight" style="font-size:20px;">
+          <li>All planned Dev Tasks merged or explicitly deferred with reasons</li>
+          <li>Every merged PR references a Dev Task ID in its commit message</li>
+          <li>Every Dev Task has a test file with AC-based tests</li>
+          <li>Full traceability chain intact: BRD → PRD → Architecture → Dev Tasks → code → tests</li>
+          <li>All three AI assets committed per participant to <code class="inline">knowledge/</code></li>
+        </ul>
+        <div class="section-label" style="margin-top:16px;">The AI retro produces:</div>
+        <ul class="clean tight" style="font-size:20px;">
+          <li>What worked — specific, actionable, committed</li>
+          <li>What didn't work — honest, no blame</li>
+          <li>Action items with owners and deadlines — not observations</li>
+          <li>A retro document in <code class="inline">knowledge/retros/</code> that the next facilitator reads first</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>14 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 14 · THE SAMPLE PROJECT -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="15 Sample Projects">
+  <div class="meta-row"><div><span class="dot"></span>SAMPLE PROJECTS</div><div>One per cohort · Any stack · From scratch</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">Sample Projects</div>
+    <h2 class="t" style="margin-bottom:20px;">TaskFlow teaches. The sample project delivers.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:36px;max-width:1400px;">TaskFlow is the teaching ground — a pre-built Node.js + React app with approved artifacts, training props, and seed agents. The sample project is the doing ground — a fresh business problem that the cohort turns into a full artifact chain from scratch over 3 weeks.</div>
+    <div class="two-col">
+      <div>
+        <div class="section-label">10 projects · 3 volumes · 10 cohorts before repetition</div>
+        <table class="clean" style="font-size:18px;">
+          <tbody>
+            <tr><td class="label" style="font-size:17px;">LeaveTrack · ExpenseFlow</td><td style="font-size:16px;color:var(--muted);">Internal ops · Leave &amp; expense workflows · approval chains</td></tr>
+            <tr><td class="label" style="font-size:17px;">KnowHub · OnboardIQ</td><td style="font-size:16px;color:var(--muted);">Internal ops · FTS search, versioning · dependency engine</td></tr>
+            <tr><td class="label" style="font-size:17px;">SiteCheck · HourLog</td><td style="font-size:16px;color:var(--muted);">Mobile-first · Offline-first inspection · time tracking</td></tr>
+            <tr><td class="label" style="font-size:17px;">ClientPortal · IncidentRadar</td><td style="font-size:16px;color:var(--muted);">Web fullstack · Per-client SSR · SLA engine, investigation</td></tr>
+            <tr><td class="label" style="font-size:17px;">ResourcePulse · FeedbackLoop</td><td style="font-size:16px;color:var(--muted);">Real-time + Supabase · Resource planning · Peer recognition</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="section-label">The stack is the SA's call — always</div>
+        <div class="body" style="font-size:22px;line-height:1.6;color:var(--ink-2);margin-bottom:20px;">All 10 projects work with any stack. Node.js + React, Django + React, Next.js, Flutter, React Native, Supabase, Laravel — whatever the team knows well.</div>
+        <div class="body" style="font-size:22px;line-height:1.6;color:var(--ink-2);margin-bottom:20px;">Brief volumes include framework recommendation boxes as ADR input — not mandates. The SA evaluates two genuine alternatives and documents the decision.</div>
+        <div class="highlight">Each cohort gets a brief only — no existing artifacts. They produce the full chain from scratch. Reference: <code class="inline">Sample_Projects_Overview.docx</code></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>15 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 15 · THE KNOWLEDGE BASE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="16 The Knowledge Base">
+  <div class="meta-row"><div><span class="dot"></span>THE COMPOUND RETURN</div><div>What outlasts each cohort</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">The Knowledge Base</div>
+    <h2 class="t" style="margin-bottom:20px;">Every cohort makes the next one start ahead.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:40px;max-width:1400px;">The training doesn't just produce code. It produces an organizational AI playbook that compounds across projects and cohorts. Individual learning that isn't documented is just individual learning.</div>
+    <div class="two-col">
+      <div>
+        <div class="section-label">Minimum per participant</div>
+        <ul class="clean tight">
+          <li>3 reusable prompts committed → <code class="inline">knowledge/prompts/{role}/</code></li>
+          <li>1 rule extension committed → <code class="inline">AGENTS.md</code></li>
+          <li>1 custom agent → <code class="inline">knowledge/agents/{role}/</code></li>
+          <li>1 custom skill → <code class="inline">knowledge/skills/{name}/SKILL.md</code></li>
+          <li>1 retro contribution → <code class="inline">knowledge/retros/</code></li>
+        </ul>
+        <div class="section-label" style="margin-top:24px;">What compounds</div>
+        <table class="clean" style="font-size:19px;">
+          <tbody>
+            <tr><td class="label" style="font-size:18px;">Cohort 1</td><td style="font-size:17px;">Seed assets + first role-tuned agents, skills, prompts, retro</td></tr>
+            <tr><td class="label" style="font-size:18px;">Cohort 2</td><td style="font-size:17px;">Inherits C1's library. Refines + extends.</td></tr>
+            <tr><td class="label" style="font-size:18px;">Cohort 3+</td><td style="font-size:17px;">Mature library. Most SDLC tasks covered without starting fresh.</td></tr>
+            <tr><td class="label" style="font-size:18px; color:var(--ink);">Real projects</td><td style="font-size:17px;font-weight:600;color:var(--ink);">Full AI playbook inherited. Every project starts ahead.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="section-label">The knowledge/ structure in TaskFlow</div>
+        <ul class="clean tight" style="font-size:19px;">
+          <li><code class="inline">knowledge/prompts/{role}/</code> — parameterized, tested, reusable</li>
+          <li><code class="inline">knowledge/agents/{role}/</code> — markdown files, portable across tools</li>
+          <li><code class="inline">knowledge/skills/{name}/SKILL.md</code> — on-demand expertise</li>
+          <li><code class="inline">knowledge/rules/</code> — rule sets with rationale</li>
+          <li><code class="inline">knowledge/patterns/</code> — multi-step workflow chains</li>
+          <li><code class="inline">knowledge/retros/</code> — one document per cohort; the next facilitator's first read</li>
+          <li><code class="inline">knowledge/templates/</code> — gate sign-off form, playbook template</li>
+        </ul>
+        <div class="highlight" style="margin-top:16px;">Contribution is not a bonus. It's the mechanism that turns 3 weeks of individual learning into organizational capability. Without it, the next cohort starts exactly where you started — not ahead of you.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>16 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 16 · TOOLS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="17 Tools">
+  <div class="meta-row"><div><span class="dot"></span>AI TOOLS</div><div>April 2026 · Verified</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:20px;">AI Tools</div>
+    <h2 class="t" style="margin-bottom:20px;">Methodology over tools.<br>The framework transfers. The tools will change.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:36px;max-width:1400px;">Claude Code and Antigravity are the primary tools for this training. Every technique — prompting, context engineering, agents, skills — is designed to transfer across tools. What you learn here applies regardless of which AI tool you're handed on the next project.</div>
+    <div class="three-col">
+      <div>
+        <div class="section-label">Primary · Daily use</div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="h">Claude Code</div>
+          <div class="p">Anthropic · Opus 4.7 default<br>200K standard · 1M on Max/Team<br>CLI, subagents, CLAUDE.md, MCP</div>
+        </div>
+        <div class="card">
+          <div class="h">Google Antigravity</div>
+          <div class="p">v1.20.3 · Gemini 3.1 Pro<br>2M context · IDE-native agents<br>AGENTS.md support since v1.20.3</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Long-context · Architecture sessions</div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="h">Gemini (Workspace)</div>
+          <div class="p">Gemini 2.5 Pro · 1M+ context<br>Full PRD + Architecture + ADRs in one session. Gems for saved agent personas.</div>
+        </div>
+        <div class="card">
+          <div class="h">Figma Make</div>
+          <div class="p">AI-assisted prototyping<br>Used by Product Mgr/Designer for Week 1 UI/UX wireframes.</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Client engagements · Awareness only</div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="h">Cursor</div>
+          <div class="p">GPT-4o / Claude Sonnet 4.6<br>128K–200K context · .cursor/rules/ + AGENTS.md</div>
+        </div>
+        <div class="card">
+          <div class="h">AWS Kiro</div>
+          <div class="p">Spec-driven agentic dev<br>Encountered on client engagements. Not a primary training tool.</div>
+        </div>
+        <div class="highlight" style="margin-top:12px;"><code class="inline">AGENTS.md</code> — cross-tool rules standard<br><code class="inline">SKILL.md</code> — open standard, Dec 2025</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>17 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 18 · ULTIMATE AI AGENTS DOCUMENTATION -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="18 Ultimate AI Agents">
+  <div class="meta-row"><div><span class="dot"></span>REFERENCE</div><div>Ultimate AI Agents — open full-screen during live delivery</div></div>
+  <div class="frame" style="padding-top:80px;padding-bottom:60px;">
+    <div class="kicker" style="margin-bottom:14px;">Ultimate AI Agents Documentation</div>
+    <h3 class="t" style="margin-bottom:8px;">The definitive Stratpoint reference for building agents.</h3>
+    <div class="small" style="margin-bottom:20px;">
+      Source: <span class="mono" style="font-size:18px;color:var(--ink);">ultimate-ai-agents.stratpoint.io</span>
+      &nbsp;·&nbsp; The companion reference for Module 6 — rules, agents, skills, governance, and cross-tool wiring patterns.
+    </div>
+    <div style="flex:1;border:1px solid var(--line);border-radius:12px;overflow:hidden;position:relative;">
+      <iframe
+        src="https://ultimate-ai-agents.stratpoint.io/"
+        style="width:100%;height:100%;border:none;display:block;"
+        title="Stratpoint Ultimate AI Agents Documentation"
+      ></iframe>
+      <a href="https://ultimate-ai-agents.stratpoint.io/"
+         target="_blank"
+         style="position:absolute;top:12px;right:12px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 14px;border:1px solid var(--line);border-radius:100px;background:var(--chalk);color:var(--muted);text-decoration:none;opacity:0.8;">
+        Open full-screen ↗
+      </a>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>18 / 20</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 17 · FIRST-WAVE EVANGELISTS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="19 First-Wave Evangelists" class="opener">
+  <div class="frame" style="justify-content:center;">
+    <div class="kicker" style="margin-bottom:24px;">First-Wave Evangelists</div>
+    <h2 class="t" style="margin-bottom:24px;max-width:1400px;">You are the ones who set the standard for everyone who comes after.</h2>
+    <div class="body" style="max-width:1300px;margin-bottom:28px;">The artifacts, agents, skills, prompts, and retro findings this cohort produces are what every future Stratpoint team that engages with AI starts with. The next cohort inherits your quality bar. The next project inherits your knowledge base. That's not a small thing.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:24px;margin-top:8px;flex:1;">
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:30px 32px;">
+        <div style="font-family:'Fraunces',serif;font-size:40px;color:oklch(55% 0.1 150);line-height:0.9;margin-bottom:12px;font-style:italic;">01</div>
+        <div style="font-size:22px;font-weight:600;color:var(--chalk);margin-bottom:10px;">Apply on real projects.</div>
+        <div style="font-size:18px;line-height:1.6;color:oklch(78% 0.02 150);">The training is a simulation. Real projects are the test. Framework first, every engagement. Evaluate → Plan → Apply → Validate from Day 1.</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:30px 32px;">
+        <div style="font-family:'Fraunces',serif;font-size:40px;color:oklch(55% 0.1 150);line-height:0.9;margin-bottom:12px;font-style:italic;">02</div>
+        <div style="font-size:22px;font-weight:600;color:var(--chalk);margin-bottom:10px;">Contribute back when you find improvements.</div>
+        <div style="font-size:18px;line-height:1.6;color:oklch(78% 0.02 150);">A prompt that saves 20 minutes is worth 10 minutes to document and commit. A gap in the code-reviewer agent is worth 15 minutes to fix. Commit as you go — don't hoard.</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:30px 32px;">
+        <div style="font-family:'Fraunces',serif;font-size:40px;color:oklch(55% 0.1 150);line-height:0.9;margin-bottom:12px;font-style:italic;">03</div>
+        <div style="font-size:22px;font-weight:600;color:var(--chalk);margin-bottom:10px;">Mentor the next cohort.</div>
+        <div style="font-size:18px;line-height:1.6;color:oklch(78% 0.02 150);">You know what was confusing, what clicked, what the modules should have said more clearly. That institutional knowledge is irreplaceable and can't come from anyone but you.</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:30px 32px;">
+        <div style="font-family:'Fraunces',serif;font-size:40px;color:oklch(55% 0.1 150);line-height:0.9;margin-bottom:12px;font-style:italic;">04</div>
+        <div style="font-size:22px;font-weight:600;color:var(--chalk);margin-bottom:10px;">Hold the quality bar.</div>
+        <div style="font-size:18px;line-height:1.6;color:oklch(78% 0.02 150);">"The AI wrote it" is not an acceptance criterion. A BRD without numbered requirements is not a BRD. You set that standard now. It lives or dies with this cohort.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span><span>19 / 20</span></span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 18 · CLOSE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="20 Close" class="title-slide">
+  <div class="title-slide grid-deco"></div>
+  <div class="frame" style="justify-content:space-between;">
+    <div>
+      <div class="kicker" style="margin-bottom:16px;font-size:24px;">AI Foundational Training · Stratpoint Technologies · April 2026</div>
+    </div>
+    <div>
+      <div class="hero">The framework<br>will outlast<br>the&nbsp;tools.</div>
+      <div class="body" style="margin-top:40px;max-width:1300px;color:var(--muted);">
+        Claude Code, Antigravity, Gemini — these are what we use today. The tools will change. The structure — artifact governance, human accountability, quality gates, the Evaluate → Plan → Apply → Validate cycle — will not. Learn the structure. The rest will transfer.
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <div class="pipeline">
+        <span class="pipeline-node">BRD</span><span class="pipeline-arrow">→</span>
+        <span class="pipeline-node">PRD</span><span class="pipeline-arrow">→</span>
+        <span class="pipeline-node">Architecture</span><span class="pipeline-arrow">→</span>
+        <span class="pipeline-node">Dev Tasks</span><span class="pipeline-arrow">→</span>
+        <span class="pipeline-node">Code</span><span class="pipeline-arrow">→</span>
+        <span class="pipeline-node">Tests</span><span class="pipeline-arrow">→</span>
+        <span class="pipeline-node accent">Deploy</span>
+      </div>
+      <div class="mono" style="font-size:24px;color:var(--muted);">STRATPOINT TECHNOLOGIES · 20 / 20</div>
+    </div>
+  </div>
+</section>
+
+</deck-stage>
+<script>
+/**
+ * <deck-stage> — reusable web component for HTML decks.
+ *
+ * Handles:
+ *  (a) speaker notes — reads <script type="application/json" id="speaker-notes">
+ *      and posts {slideIndexChanged: N} to the parent window on nav.
+ *  (b) keyboard navigation — ←/→, PgUp/PgDn, Space, Home/End, number keys.
+ *  (c) press R to reset to slide 0 (with a tasteful keyboard hint).
+ *  (d) bottom-center overlay showing slide count + hints, fades out on idle.
+ *  (e) auto-scaling — inner canvas is a fixed design size (default 1920×1080)
+ *      scaled with `transform: scale()` to fit the viewport, letterboxed.
+ *      Set the `noscale` attribute to render at authored size (1:1) — the
+ *      PPTX exporter sets this so its DOM capture sees unscaled geometry.
+ *  (f) print — `@media print` lays every slide out as its own page at the
+ *      design size, so the browser's Print → Save as PDF produces a clean
+ *      one-page-per-slide PDF with no extra setup.
+ *
+ * Slides are HIDDEN, not unmounted. Non-active slides stay in the DOM with
+ * `visibility: hidden` + `opacity: 0`, so their state (videos, iframes,
+ * form inputs, React trees) is preserved across navigation.
+ *
+ * Lifecycle event — the component dispatches a `slidechange` CustomEvent on
+ * itself whenever the active slide changes (including the initial mount).
+ * The event bubbles and composes out of shadow DOM, so you can listen on
+ * the <deck-stage> element or on document:
+ *
+ *   document.querySelector('deck-stage').addEventListener('slidechange', (e) => {
+ *     e.detail.index         // new 0-based index
+ *     e.detail.previousIndex // previous index, or -1 on init
+ *     e.detail.total         // total slide count
+ *     e.detail.slide         // the new active slide element
+ *     e.detail.previousSlide // the prior slide element, or null on init
+ *     e.detail.reason        // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
+ *   });
+ *
+ * Persistence: current slide index is saved to localStorage keyed by the
+ * document path, so refresh returns you to the same place.
+ *
+ * Usage:
+ *   <deck-stage width="1920" height="1080">
+ *     <section data-label="Title">...</section>
+ *     <section data-label="Agenda">...</section>
+ *   </deck-stage>
+ *
+ * Slides are the direct element children of <deck-stage>. Each slide is
+ * automatically tagged with:
+ *   - data-screen-label="NN Label"   (1-indexed, for comment flow)
+ *   - data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text"
+ */
+
+(() => {
+  const DESIGN_W_DEFAULT = 1920;
+  const DESIGN_H_DEFAULT = 1080;
+  const STORAGE_PREFIX = 'deck-stage:slide:';
+  const OVERLAY_HIDE_MS = 1800;
+  const VALIDATE_ATTR = 'no_overflowing_text,no_overlapping_text,slide_sized_text';
+
+  const pad2 = (n) => String(n).padStart(2, '0');
+
+  const stylesheet = `
+    :host {
+      position: fixed;
+      inset: 0;
+      display: block;
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .canvas {
+      position: relative;
+      transform-origin: center center;
+      flex-shrink: 0;
+      background: #fff;
+      will-change: transform;
+    }
+
+    /* Slides live in light DOM (via <slot>) so authored CSS still applies.
+       We absolutely position each slotted child to stack them. */
+    ::slotted(*) {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      box-sizing: border-box !important;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+    ::slotted([data-deck-active]) {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    /* Tap zones for mobile — back/forward thirds like Stories.
+       Transparent, no visible UI, don't block the overlay. */
+    .tapzones {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      z-index: 2147482000;
+      pointer-events: none;
+    }
+    .tapzone {
+      flex: 1;
+      pointer-events: auto;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* Only activate tap zones on coarse pointers (touch devices). */
+    @media (hover: hover) and (pointer: fine) {
+      .tapzones { display: none; }
+    }
+
+    .overlay {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translate(-50%, 6px) scale(0.92);
+      filter: blur(6px);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: #000;
+      color: #fff;
+      border-radius: 999px;
+      font-size: 12px;
+      font-feature-settings: "tnum" 1;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.8,.2,1), filter 260ms ease;
+      transform-origin: center bottom;
+      z-index: 2147483000;
+      user-select: none;
+    }
+    .overlay[data-visible] {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, 0) scale(1);
+      filter: blur(0);
+    }
+
+    .btn {
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+      cursor: default;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 999px;
+      color: rgba(255,255,255,0.72);
+      transition: background 140ms ease, color 140ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .btn:active { background: rgba(255,255,255,0.18); }
+    .btn:focus { outline: none; }
+    .btn:focus-visible { outline: none; }
+    .btn::-moz-focus-inner { border: 0; }
+    .btn svg { width: 14px; height: 14px; display: block; }
+    .btn.reset {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 0 10px 0 12px;
+      gap: 6px;
+      color: rgba(255,255,255,0.72);
+    }
+    .btn.reset .kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 10px;
+      line-height: 1;
+      color: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.12);
+      border-radius: 4px;
+    }
+
+    .count {
+      font-variant-numeric: tabular-nums;
+      color: #fff;
+      font-weight: 500;
+      padding: 0 8px;
+      min-width: 42px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .count .sep { color: rgba(255,255,255,0.45); margin: 0 3px; font-weight: 400; }
+    .count .total { color: rgba(255,255,255,0.55); }
+
+    .divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.18);
+      margin: 0 2px;
+    }
+
+    /* ── Print: one page per slide, no chrome ────────────────────────────
+       The screen layout stacks every slide at inset:0 inside a scaled
+       canvas; for print we want them in document flow at the authored
+       design size so the browser paginates one slide per sheet. The
+       @page size is set from the width/height attributes via the inline
+       <style id="deck-stage-print-page"> that connectedCallback injects
+       into <head> (the @page at-rule has no effect inside shadow DOM). */
+    @media print {
+      :host {
+        position: static;
+        inset: auto;
+        background: none;
+        overflow: visible;
+        color: inherit;
+      }
+      .stage { position: static; display: block; }
+      .canvas {
+        transform: none !important;
+        width: auto !important;
+        height: auto !important;
+        background: none;
+        will-change: auto;
+      }
+      ::slotted(*) {
+        position: relative !important;
+        inset: auto !important;
+        width: var(--deck-design-w) !important;
+        height: var(--deck-design-h) !important;
+        box-sizing: border-box !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto;
+        break-after: page;
+        page-break-after: always;
+        break-inside: avoid;
+        overflow: hidden;
+      }
+      ::slotted(*:last-child) {
+        break-after: auto;
+        page-break-after: auto;
+      }
+      .overlay, .tapzones { display: none !important; }
+    }
+  `;
+
+  class DeckStage extends HTMLElement {
+    static get observedAttributes() { return ['width', 'height', 'noscale']; }
+
+    constructor() {
+      super();
+      this._root = this.attachShadow({ mode: 'open' });
+      this._index = 0;
+      this._slides = [];
+      this._notes = [];
+      this._hideTimer = null;
+      this._mouseIdleTimer = null;
+      this._storageKey = STORAGE_PREFIX + (location.pathname || '/');
+
+      this._onKey = this._onKey.bind(this);
+      this._onResize = this._onResize.bind(this);
+      this._onSlotChange = this._onSlotChange.bind(this);
+      this._onMouseMove = this._onMouseMove.bind(this);
+      this._onTapBack = this._onTapBack.bind(this);
+      this._onTapForward = this._onTapForward.bind(this);
+    }
+
+    get designWidth() {
+      return parseInt(this.getAttribute('width'), 10) || DESIGN_W_DEFAULT;
+    }
+    get designHeight() {
+      return parseInt(this.getAttribute('height'), 10) || DESIGN_H_DEFAULT;
+    }
+
+    connectedCallback() {
+      this._render();
+      this._loadNotes();
+      this._syncPrintPageRule();
+      window.addEventListener('keydown', this._onKey);
+      window.addEventListener('resize', this._onResize);
+      window.addEventListener('mousemove', this._onMouseMove, { passive: true });
+      // Initial collection + layout happens via slotchange, which fires on mount.
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('keydown', this._onKey);
+      window.removeEventListener('resize', this._onResize);
+      window.removeEventListener('mousemove', this._onMouseMove);
+      if (this._hideTimer) clearTimeout(this._hideTimer);
+      if (this._mouseIdleTimer) clearTimeout(this._mouseIdleTimer);
+    }
+
+    attributeChangedCallback() {
+      if (this._canvas) {
+        this._canvas.style.width = this.designWidth + 'px';
+        this._canvas.style.height = this.designHeight + 'px';
+        this._canvas.style.setProperty('--deck-design-w', this.designWidth + 'px');
+        this._canvas.style.setProperty('--deck-design-h', this.designHeight + 'px');
+        this._fit();
+        this._syncPrintPageRule();
+      }
+    }
+
+    _render() {
+      const style = document.createElement('style');
+      style.textContent = stylesheet;
+
+      const stage = document.createElement('div');
+      stage.className = 'stage';
+
+      const canvas = document.createElement('div');
+      canvas.className = 'canvas';
+      canvas.style.width = this.designWidth + 'px';
+      canvas.style.height = this.designHeight + 'px';
+      canvas.style.setProperty('--deck-design-w', this.designWidth + 'px');
+      canvas.style.setProperty('--deck-design-h', this.designHeight + 'px');
+
+      const slot = document.createElement('slot');
+      slot.addEventListener('slotchange', this._onSlotChange);
+      canvas.appendChild(slot);
+      stage.appendChild(canvas);
+
+      // Tap zones (mobile): left third = back, right third = forward.
+      const tapzones = document.createElement('div');
+      tapzones.className = 'tapzones export-hidden';
+      tapzones.setAttribute('aria-hidden', 'true');
+      const tzBack = document.createElement('div');
+      tzBack.className = 'tapzone tapzone--back';
+      const tzMid = document.createElement('div');
+      tzMid.className = 'tapzone tapzone--mid';
+      tzMid.style.pointerEvents = 'none';
+      const tzFwd = document.createElement('div');
+      tzFwd.className = 'tapzone tapzone--fwd';
+      tzBack.addEventListener('click', this._onTapBack);
+      tzFwd.addEventListener('click', this._onTapForward);
+      tapzones.append(tzBack, tzMid, tzFwd);
+
+      // Overlay: compact, solid black, with clickable controls.
+      const overlay = document.createElement('div');
+      overlay.className = 'overlay export-hidden';
+      overlay.setAttribute('role', 'toolbar');
+      overlay.setAttribute('aria-label', 'Deck controls');
+      overlay.innerHTML = `
+        <button class="btn prev" type="button" aria-label="Previous slide" title="Previous (←)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+        </button>
+        <span class="count" aria-live="polite"><span class="current">1</span><span class="sep">/</span><span class="total">1</span></span>
+        <button class="btn next" type="button" aria-label="Next slide" title="Next (→)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+        </button>
+        <span class="divider"></span>
+        <button class="btn reset" type="button" aria-label="Reset to first slide" title="Reset (R)">Reset<span class="kbd">R</span></button>
+      `;
+
+      overlay.querySelector('.prev').addEventListener('click', () => this._go(this._index - 1, 'click'));
+      overlay.querySelector('.next').addEventListener('click', () => this._go(this._index + 1, 'click'));
+      overlay.querySelector('.reset').addEventListener('click', () => this._go(0, 'click'));
+
+      this._root.append(style, stage, tapzones, overlay);
+      this._canvas = canvas;
+      this._slot = slot;
+      this._overlay = overlay;
+      this._countEl = overlay.querySelector('.current');
+      this._totalEl = overlay.querySelector('.total');
+    }
+
+    /** @page must live in the document stylesheet — it's a no-op inside
+     *  shadow DOM. Inject/update a single <head> style tag so the print
+     *  sheet matches the design size and Save-as-PDF yields one slide per
+     *  page with no margins. */
+    _syncPrintPageRule() {
+      const id = 'deck-stage-print-page';
+      let tag = document.getElementById(id);
+      if (!tag) {
+        tag = document.createElement('style');
+        tag.id = id;
+        document.head.appendChild(tag);
+      }
+      tag.textContent =
+        '@page { size: ' + this.designWidth + 'px ' + this.designHeight + 'px; margin: 0; } ' +
+        '@media print { html, body { margin: 0 !important; padding: 0 !important; background: none !important; overflow: visible !important; height: auto !important; } ' +
+        '* { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }';
+    }
+
+    _onSlotChange() {
+      this._collectSlides();
+      this._restoreIndex();
+      this._applyIndex({ showOverlay: false, broadcast: true, reason: 'init' });
+      this._fit();
+    }
+
+    _collectSlides() {
+      const assigned = this._slot.assignedElements({ flatten: true });
+      this._slides = assigned.filter((el) => {
+        // Skip template/style/script nodes even if someone slots them.
+        const tag = el.tagName;
+        return tag !== 'TEMPLATE' && tag !== 'SCRIPT' && tag !== 'STYLE';
+      });
+
+      this._slides.forEach((slide, i) => {
+        const n = i + 1;
+        // Determine a label for comment flow: prefer explicit data-label,
+        // then an existing data-screen-label, then first heading, else "Slide".
+        let label = slide.getAttribute('data-label');
+        if (!label) {
+          const existing = slide.getAttribute('data-screen-label');
+          if (existing) {
+            // Strip any leading number the author may have included.
+            label = existing.replace(/^\s*\d+\s*/, '').trim() || existing;
+          }
+        }
+        if (!label) {
+          const h = slide.querySelector('h1, h2, h3, [data-title]');
+          if (h) label = (h.textContent || '').trim().slice(0, 40);
+        }
+        if (!label) label = 'Slide';
+        slide.setAttribute('data-screen-label', `${pad2(n)} ${label}`);
+
+        // Validation attribute for comment flow / auto-checks.
+        if (!slide.hasAttribute('data-om-validate')) {
+          slide.setAttribute('data-om-validate', VALIDATE_ATTR);
+        }
+
+        slide.setAttribute('data-deck-slide', String(i));
+      });
+
+      if (this._totalEl) this._totalEl.textContent = String(this._slides.length || 1);
+      if (this._index >= this._slides.length) this._index = Math.max(0, this._slides.length - 1);
+    }
+
+    _loadNotes() {
+      const tag = document.getElementById('speaker-notes');
+      if (!tag) { this._notes = []; return; }
+      try {
+        const parsed = JSON.parse(tag.textContent || '[]');
+        if (Array.isArray(parsed)) this._notes = parsed;
+      } catch (e) {
+        console.warn('[deck-stage] Failed to parse #speaker-notes JSON:', e);
+        this._notes = [];
+      }
+    }
+
+    _restoreIndex() {
+      try {
+        const raw = localStorage.getItem(this._storageKey);
+        if (raw != null) {
+          const n = parseInt(raw, 10);
+          if (Number.isFinite(n) && n >= 0 && n < this._slides.length) {
+            this._index = n;
+          }
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    _persistIndex() {
+      try { localStorage.setItem(this._storageKey, String(this._index)); }
+      catch (e) { /* ignore */ }
+    }
+
+    _applyIndex({ showOverlay = true, broadcast = true, reason = 'init' } = {}) {
+      if (!this._slides.length) return;
+      const prev = this._prevIndex == null ? -1 : this._prevIndex;
+      const curr = this._index;
+      this._slides.forEach((s, i) => {
+        if (i === curr) s.setAttribute('data-deck-active', '');
+        else s.removeAttribute('data-deck-active');
+      });
+      if (this._countEl) this._countEl.textContent = String(curr + 1);
+      this._persistIndex();
+
+      if (broadcast) {
+        // (1) Legacy: host-window postMessage for speaker-notes renderers.
+        try { window.postMessage({ slideIndexChanged: curr }, '*'); } catch (e) {}
+
+        // (2) In-page CustomEvent on the <deck-stage> element itself.
+        //     Bubbles and composes out of shadow DOM so slide code can listen:
+        //       document.querySelector('deck-stage').addEventListener('slidechange', e => {
+        //         e.detail.index, e.detail.previousIndex, e.detail.total, e.detail.slide, e.detail.reason
+        //       });
+        const detail = {
+          index: curr,
+          previousIndex: prev,
+          total: this._slides.length,
+          slide: this._slides[curr] || null,
+          previousSlide: prev >= 0 ? (this._slides[prev] || null) : null,
+          reason: reason, // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
+        };
+        this.dispatchEvent(new CustomEvent('slidechange', {
+          detail,
+          bubbles: true,
+          composed: true,
+        }));
+      }
+
+      this._prevIndex = curr;
+      if (showOverlay) this._flashOverlay();
+    }
+
+    _flashOverlay() {
+      if (!this._overlay) return;
+      this._overlay.setAttribute('data-visible', '');
+      if (this._hideTimer) clearTimeout(this._hideTimer);
+      this._hideTimer = setTimeout(() => {
+        this._overlay.removeAttribute('data-visible');
+      }, OVERLAY_HIDE_MS);
+    }
+
+    _fit() {
+      if (!this._canvas) return;
+      // PPTX export sets noscale so the DOM capture sees authored-size
+      // geometry — the scaled canvas is in shadow DOM, so the exporter's
+      // resetTransformSelector can't reach .canvas.style.transform directly.
+      if (this.hasAttribute('noscale')) {
+        this._canvas.style.transform = 'none';
+        return;
+      }
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const s = Math.min(vw / this.designWidth, vh / this.designHeight);
+      this._canvas.style.transform = `scale(${s})`;
+    }
+
+    _onResize() { this._fit(); }
+
+    _onMouseMove() {
+      // Keep overlay visible while mouse moves; hide after idle.
+      this._flashOverlay();
+    }
+
+    _onTapBack(e) {
+      e.preventDefault();
+      this._go(this._index - 1, 'tap');
+    }
+
+    _onTapForward(e) {
+      e.preventDefault();
+      this._go(this._index + 1, 'tap');
+    }
+
+    _onKey(e) {
+      // Ignore when the user is typing.
+      const t = e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const key = e.key;
+      let handled = true;
+
+      if (key === 'ArrowRight' || key === 'PageDown' || key === ' ' || key === 'Spacebar') {
+        this._go(this._index + 1, 'keyboard');
+      } else if (key === 'ArrowLeft' || key === 'PageUp') {
+        this._go(this._index - 1, 'keyboard');
+      } else if (key === 'Home') {
+        this._go(0, 'keyboard');
+      } else if (key === 'End') {
+        this._go(this._slides.length - 1, 'keyboard');
+      } else if (key === 'r' || key === 'R') {
+        this._go(0, 'keyboard');
+      } else if (/^[0-9]$/.test(key)) {
+        // 1..9 jump to that slide; 0 jumps to 10.
+        const n = key === '0' ? 9 : parseInt(key, 10) - 1;
+        if (n < this._slides.length) this._go(n, 'keyboard');
+      } else {
+        handled = false;
+      }
+
+      if (handled) {
+        e.preventDefault();
+        this._flashOverlay();
+      }
+    }
+
+    _go(i, reason = 'api') {
+      if (!this._slides.length) return;
+      const clamped = Math.max(0, Math.min(this._slides.length - 1, i));
+      if (clamped === this._index) {
+        this._flashOverlay();
+        return;
+      }
+      this._index = clamped;
+      this._applyIndex({ showOverlay: true, broadcast: true, reason });
+    }
+
+    // Public API ------------------------------------------------------------
+
+    /** Current slide index (0-based). */
+    get index() { return this._index; }
+    /** Total slide count. */
+    get length() { return this._slides.length; }
+    /** Programmatically navigate. */
+    goTo(i) { this._go(i, 'api'); }
+    next() { this._go(this._index + 1, 'api'); }
+    prev() { this._go(this._index - 1, 'api'); }
+    reset() { this._go(0, 'api'); }
+  }
+
+  if (!customElements.get('deck-stage')) {
+    customElements.define('deck-stage', DeckStage);
+  }
+})();
+
+</script>
+</body>
+</html>
