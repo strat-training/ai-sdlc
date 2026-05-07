@@ -1,5 +1,5 @@
 # Training Props: Buggy Functions
-## Module 3 — Debugging Exercise (Exercise 3.2)
+## Module 5 — Debugging Exercise (Exercise 5.2)
 
 **Instructions for trainer:** Present these functions one at a time. Ask trainees to use AI-assisted
 debugging to find and fix each bug. Each function has ONE intentional bug. Solutions are in the

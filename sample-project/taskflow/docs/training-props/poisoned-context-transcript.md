@@ -1,5 +1,5 @@
 # Training Props: Poisoned Context Transcript
-## Module 5 — Exercise 5.2
+## Module 4 — Exercise 4.2
 
 **Instructions for trainer:** Share this transcript with trainees. Ask them to:
 1. Identify WHERE context got poisoned

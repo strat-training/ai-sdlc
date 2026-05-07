@@ -1,6 +1,6 @@
 # TaskFlow — Known Issues
 
-Use this as your issue tracker for Module 4 Exercise 3.6 (Debug a Real Issue).
+Use this as your issue tracker for Module 5 Exercise 5.6 (Debug a Real Issue).
 Pick any issue below, reproduce it, diagnose it with AI, then fix it and write a test that would have caught it.
 
 ---

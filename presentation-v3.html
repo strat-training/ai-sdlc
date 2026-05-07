@@ -153,7 +153,7 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
         <span class="tag fail" style="opacity:0.55;">QA</span>
         <span class="tag" style="opacity:0.55;">DevOps</span>
       </div>
-      <div class="mono" style="font-size:24px;color:var(--muted);">PREPARED BY RONALD DELA CRUZ · 01 / 20</div>
+      <div class="mono" style="font-size:24px;color:var(--muted);">PREPARED BY RONALD DELA CRUZ · 01 / 22</div>
     </div>
   </div>
 </section>
@@ -180,13 +180,115 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </ul>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>02 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>02 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 03 · THE FRAMEWORK -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="03 The Framework">
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 03 · TRADITIONAL SDLC -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="03 Traditional SDLC">
+  <div class="meta-row"><div><span class="dot"></span>BEFORE AI</div><div>How delivery worked without it</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:16px;">Traditional SDLC</div>
+    <h2 class="t" style="margin-bottom:12px;">Manual handoffs. Context lost at every seam. Rework discovered late.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:28px;max-width:1400px;">Each phase produces documents the next phase re-interprets. Requirements drift. Bugs surface at testing. Fixes cascade backward.</div>
+    <div class="cycle" style="grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr;">
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">01</div>
+        <div class="h" style="font-size:20px;">Requirements</div>
+        <div class="p" style="font-size:15px;">Manual BRD writing. Scope agreed informally — misread by the next phase. Nothing traces forward.</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">02</div>
+        <div class="h" style="font-size:20px;">Architecture</div>
+        <div class="p" style="font-size:15px;">Solutions Document and ADR drafted by hand. No validation against requirements.</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">03</div>
+        <div class="h" style="font-size:20px;">Design</div>
+        <div class="p" style="font-size:15px;">Wireframes created from scratch each sprint. Design-tech alignment handled informally.</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">04</div>
+        <div class="h" style="font-size:20px;">Development</div>
+        <div class="p" style="font-size:15px;">Manual coding from handoff docs. Requirements context lost in translation. Scope creep absorbed silently.</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">05</div>
+        <div class="h" style="font-size:20px;">Testing</div>
+        <div class="p" style="font-size:15px;">Test plans and cases written manually. Coverage gaps discovered late — fixes cascade backward.</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">06</div>
+        <div class="h" style="font-size:20px;">DevOps</div>
+        <div class="p" style="font-size:15px;">Infrastructure and CI/CD configured by hand. Knowledge lives in tribal runbooks. Next project starts over.</div>
+      </div>
+    </div>
+    <div class="warn" style="margin-top:28px;">Every handoff is lossy. The next phase rebuilds context the last one already had. The org accumulates no reusable knowledge — each project starts from the same blank slate.</div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>03 / 22</span></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 04 · AI-AUGMENTED SDLC -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section data-label="04 AI-Augmented SDLC">
+  <div class="meta-row"><div><span class="dot"></span>WITH AI</div><div>What changes — and what stays human</div></div>
+  <div class="frame">
+    <div class="kicker" style="margin-bottom:16px;">AI-Augmented SDLC</div>
+    <h2 class="t" style="margin-bottom:12px;">Same phases. AI generates. Humans decide. Everything traces.</h2>
+    <div class="lede" style="color:var(--muted);margin-bottom:28px;max-width:1400px;">AI doesn't remove the phases — it removes the information loss between them. Each artifact is generated from the previous one and signed off by the human owner of that phase.</div>
+    <div class="cycle" style="grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr;">
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">01</div>
+        <div class="h" style="font-size:20px;">Requirements</div>
+        <div class="p" style="font-size:15px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);">AI</span><br>Generates PRD from approved BRD<span style="display:block;height:1px;background:var(--line);margin:8px 0;"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:oklch(38% 0.1 150);">HUMAN</span><br>SA · PM validates scope</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">02</div>
+        <div class="h" style="font-size:20px;">Architecture</div>
+        <div class="p" style="font-size:15px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);">AI · Gemini Pro / Claude Code</span><br>Drafts Architecture Doc and ADR<span style="display:block;height:1px;background:var(--line);margin:8px 0;"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:oklch(38% 0.1 150);">HUMAN</span><br>SA owns all technical decisions</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">03</div>
+        <div class="h" style="font-size:20px;">Design</div>
+        <div class="p" style="font-size:15px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);">AI · Figma Make / Claude Code</span><br>Builds interactive prototype<span style="display:block;height:1px;background:var(--line);margin:8px 0;"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:oklch(38% 0.1 150);">HUMAN</span><br>UI/UX reviews implementation fit</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">04</div>
+        <div class="h" style="font-size:20px;">Development</div>
+        <div class="p" style="font-size:15px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);">AI · Claude Code</span><br>Processes Dev Task List into working code<span style="display:block;height:1px;background:var(--line);margin:8px 0;"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:oklch(38% 0.1 150);">HUMAN</span><br>Tech Lead reviews alignment</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">05</div>
+        <div class="h" style="font-size:20px;">Testing</div>
+        <div class="p" style="font-size:15px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);">AI · Claude Code</span><br>Generates test strategy and test cases<span style="display:block;height:1px;background:var(--line);margin:8px 0;"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:oklch(38% 0.1 150);">HUMAN</span><br>QA validates coverage and signs off</div>
+      </div>
+      <div class="arr">→</div>
+      <div class="node" style="padding:18px 14px;">
+        <div class="n" style="font-size:34px;">06</div>
+        <div class="h" style="font-size:20px;">DevOps</div>
+        <div class="p" style="font-size:15px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);">AI · Claude Code</span><br>Configures CI/CD and production setup<span style="display:block;height:1px;background:var(--line);margin:8px 0;"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:oklch(38% 0.1 150);">HUMAN</span><br>DevOps owns the release gate</div>
+      </div>
+    </div>
+    <div class="highlight" style="margin-top:28px;">Every artifact is generated from the artifact before it. BRD → PRD → Architecture → Dev Tasks → Code → Tests → Deploy. Any feature traces forward and backward across the entire chain.</div>
+  </div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>04 / 22</span></div>
+</section>
+
+<section data-label="05 The Framework">
   <div class="meta-row"><div><span class="dot"></span>THE ANSWER</div><div>AI-Augmented SDLC Framework</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">The Framework</div>
@@ -220,14 +322,14 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>03 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>05 / 22</span></div>
 </section>
 
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 04 · SDLC WORKFLOW DIAGRAM -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="04 SDLC Workflow Diagram">
+<section data-label="06 SDLC Workflow Diagram">
   <div class="meta-row"><div><span class="dot"></span>FRAMEWORK</div><div>AI SDLC Workflow — open full-screen during live delivery</div></div>
   <div class="frame" style="padding-top:80px;padding-bottom:60px;">
     <div class="kicker" style="margin-bottom:14px;">AI SDLC Workflow Diagram</div>
@@ -249,13 +351,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </a>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>04 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>06 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 04 · FOUR PRINCIPLES -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="05 Four Principles" class="module-slide">
+<section data-label="07 Four Principles" class="module-slide">
   <div class="meta-row"><div><span class="dot"></span>PRINCIPLES</div><div>Non-negotiable · All phases · All roles</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">Four Non-Negotiable Principles</div>
@@ -278,13 +380,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       <div><div class="principle-title">Traceability as First-Class</div><div class="principle-desc">BRD → PRD → Architecture → Dev Tasks → code → tests. Every step must reference the one before it. A broken chain is not a style issue — it's a gap that must be fixed before the gate passes.</div></div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>05 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>07 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 05 · THE WORKING CYCLE -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="06 The Working Cycle">
+<section data-label="08 The Working Cycle">
   <div class="meta-row"><div><span class="dot"></span>THE CYCLE</div><div>Every task · Every role · Every module</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">The Universal Working Cycle</div>
@@ -317,13 +419,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
     </div>
     <div class="highlight" style="margin-top:40px;">The cycle is introduced in Module 2 and referenced by name in every module that follows. M2: artifact production. M3: prompt refinement. M4: session management. M5: implementation. M6: building assets. M7: knowledge contribution.</div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>06 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>08 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 06 · HOW THE TRAINING WORKS -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="07 How It Works">
+<section data-label="09 How It Works">
   <div class="meta-row"><div><span class="dot"></span>FORMAT</div><div>3 weeks · Real artifacts · Real gates</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:16px;">How This Training Works</div>
@@ -345,13 +447,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       <div class="gate-col"><div class="gc-label">Friday gate: Sprint 1 Readiness + Retro</div><div class="gc-body">Full traceability chain reviewed. Knowledge base contributions committed. Retro document produced. The cohort is ready for Sprint 1.</div></div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>07 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>09 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 07 · ROLES -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="08 Roles">
+<section data-label="10 Roles">
   <div class="meta-row"><div><span class="dot"></span>ACCOUNTABILITY</div><div>Who owns what · All roles · All phases</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">Who Owns What</div>
@@ -381,13 +483,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
     </table>
     <div class="highlight" style="margin-top:20px;">QA and DevOps attend as participants — they review artifacts with their lens (testability / deployability) but do not own active deliverables in this training. Their role-specific deep training — test plans, CI/CD pipelines — follows in a separate program. Both roles get full value from the foundation this training builds.</div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>08 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>10 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 08 · WEEK 1 MONDAY -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="09 Week 1 Monday" class="module-slide">
+<section data-label="11 Week 1 Monday" class="module-slide">
   <div class="meta-row"><div><span class="dot"></span>WEEK 1 MONDAY · IN-PERSON · ALL ROLES</div><div>Modules 2 + 3 · Foundation day</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">Week 1 Monday — The Foundation</div>
@@ -411,13 +513,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
     </div>
     <div class="warn" style="margin-top:24px;">After Monday: Tue–Thu each role produces their Week 1 artifact on the cohort's sample project. Friday: Requirements Sign-Off gate. The approved BRD + PRD are what the Solutions Architect loads Monday morning to start architecture work.</div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>09 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>11 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 09 · WEEK 1 FRIDAY GATE -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="10 Week 1 Friday">
+<section data-label="12 Week 1 Friday">
   <div class="meta-row"><div><span class="dot"></span>WEEK 1 FRIDAY</div><div>Requirements Sign-Off · The first real handoff</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">Week 1 Friday — Requirements Sign-Off</div>
@@ -453,13 +555,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>10 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>12 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 10 · WEEK 2 MONDAY -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="11 Week 2 Monday" class="module-slide">
+<section data-label="13 Week 2 Monday" class="module-slide">
   <div class="meta-row"><div><span class="dot"></span>WEEK 2 MONDAY · IN-PERSON · ALL ROLES</div><div>Module 4 · Before the heaviest sessions of the training</div></div>
   <div class="frame" style="justify-content:center;">
     <div class="kicker" style="margin-bottom:20px;">Week 2 Monday — Context Engineering</div>
@@ -484,13 +586,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>11 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>13 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 11 · WEEK 2 FRIDAY GATE -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="12 Week 2 Friday">
+<section data-label="14 Week 2 Friday">
   <div class="meta-row"><div><span class="dot"></span>WEEK 2 FRIDAY</div><div>Architecture Review + Dev Handoff</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">Week 2 Friday — Architecture Review + Dev Tasks Handoff</div>
@@ -526,13 +628,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>12 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>14 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 12 · WEEK 3 MONDAY -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="13 Week 3 Monday" class="module-slide">
+<section data-label="15 Week 3 Monday" class="module-slide">
   <div class="meta-row"><div><span class="dot"></span>WEEK 3 MONDAY · IN-PERSON · ALL ROLES</div><div>Modules 5 + 6 · The longest Monday</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">Week 3 Monday — Development + Customization</div>
@@ -555,13 +657,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>13 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>15 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 13 · WEEK 3 FRIDAY -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="14 Week 3 Friday" class="module-slide">
+<section data-label="16 Week 3 Friday" class="module-slide">
   <div class="meta-row"><div><span class="dot"></span>WEEK 3 FRIDAY · IN-PERSON · ALL ROLES</div><div>Module 7 · Sprint 1 Readiness · The finish line</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">Week 3 Friday — Sprint 1 Readiness + Knowledge Sharing</div>
@@ -594,13 +696,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>14 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>16 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 14 · THE SAMPLE PROJECT -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="15 Sample Projects">
+<section data-label="17 Sample Projects">
   <div class="meta-row"><div><span class="dot"></span>SAMPLE PROJECTS</div><div>One per cohort · Any stack · From scratch</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">Sample Projects</div>
@@ -627,13 +729,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>15 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>17 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 15 · THE KNOWLEDGE BASE -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="16 The Knowledge Base">
+<section data-label="18 The Knowledge Base">
   <div class="meta-row"><div><span class="dot"></span>THE COMPOUND RETURN</div><div>What outlasts each cohort</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">The Knowledge Base</div>
@@ -674,13 +776,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>16 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>18 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 16 · TOOLS -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="17 Tools">
+<section data-label="19 Tools">
   <div class="meta-row"><div><span class="dot"></span>AI TOOLS</div><div>April 2026 · Verified</div></div>
   <div class="frame">
     <div class="kicker" style="margin-bottom:20px;">AI Tools</div>
@@ -723,13 +825,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>17 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>19 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 18 · ULTIMATE AI AGENTS DOCUMENTATION -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="18 Ultimate AI Agents">
+<section data-label="20 Ultimate AI Agents">
   <div class="meta-row"><div><span class="dot"></span>REFERENCE</div><div>Ultimate AI Agents — open full-screen during live delivery</div></div>
   <div class="frame" style="padding-top:80px;padding-bottom:60px;">
     <div class="kicker" style="margin-bottom:14px;">Ultimate AI Agents Documentation</div>
@@ -751,13 +853,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </a>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>18 / 20</span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span>20 / 22</span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 17 · FIRST-WAVE EVANGELISTS -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="19 First-Wave Evangelists" class="opener">
+<section data-label="21 First-Wave Evangelists" class="opener">
   <div class="frame" style="justify-content:center;">
     <div class="kicker" style="margin-bottom:24px;">First-Wave Evangelists</div>
     <h2 class="t" style="margin-bottom:24px;max-width:1400px;">You are the ones who set the standard for everyone who comes after.</h2>
@@ -785,13 +887,13 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span><span>19 / 20</span></span></div>
+  <div class="foot"><span>AI Foundational Training · Stratpoint</span><span><span>21 / 22</span></span></div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- 18 · CLOSE -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section data-label="20 Close" class="title-slide">
+<section data-label="22 Close" class="title-slide">
   <div class="title-slide grid-deco"></div>
   <div class="frame" style="justify-content:space-between;">
     <div>
@@ -813,7 +915,7 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:40px 0;}
         <span class="pipeline-node">Tests</span><span class="pipeline-arrow">→</span>
         <span class="pipeline-node accent">Deploy</span>
       </div>
-      <div class="mono" style="font-size:24px;color:var(--muted);">STRATPOINT TECHNOLOGIES · 20 / 20</div>
+      <div class="mono" style="font-size:24px;color:var(--muted);">STRATPOINT TECHNOLOGIES · 22 / 22</div>
     </div>
   </div>
 </section>
