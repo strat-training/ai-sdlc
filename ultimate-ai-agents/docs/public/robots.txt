@@ -1,3 +1,0 @@
-# Ultimate AI Agents — block all crawlers and scrapers
-User-agent: *
-Disallow: /
